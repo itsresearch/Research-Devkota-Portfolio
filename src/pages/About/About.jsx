@@ -1,11 +1,9 @@
-import { motion } from 'framer-motion'
 import educationData from '../../data/education'
 
 // Material icons
 import Card from './Card'
 import LaptopIcon from '@mui/icons-material/Laptop'
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects'
-import CameraEnhanceIcon from '@mui/icons-material/CameraEnhance'
 import SchoolIcon from '@mui/icons-material/School'
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
@@ -36,12 +34,13 @@ function About() {
           take on meaningful challenges in any role I step into.</h2>
         </p>
         <a
-          href="/research_original_resume.pdf"
-          download="research_original_resume.pdf"
-          className="mt-4 bg-amber-300 text-black px-6 py-2 rounded-md hover:bg-amber-400 transition-colors shadow-xl/50 custom-resume-btn"
-        >
-          View Resume
-        </a>
+  href="/Research-Devkota-Portfolio/research_original_resume.pdf"
+  download="research_original_resume.pdf"
+  className="mt-4 bg-amber-300 text-black px-6 py-2 rounded-md hover:bg-amber-400 transition-colors shadow-xl/50 custom-resume-btn"
+>
+  View Resume
+</a>
+
       </div>
 
       {/* Card Section */}
