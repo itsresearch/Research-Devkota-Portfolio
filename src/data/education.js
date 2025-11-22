@@ -21,7 +21,7 @@ const educationData = [
     id: 3,
     title:
       "National Education Board (N.E.B)",
-    period: " __ - 2018",
+    period: " ___ - 2018",
     collage: "Standard CO-ED High School",
     CGPA: 3.40,
   },
