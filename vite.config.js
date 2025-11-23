@@ -2,6 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  base: '/Research-Devkota-Portfolio/',  // your repo name
+  base: "/", // this is correct for custom domain
   plugins: [react()],
 });
