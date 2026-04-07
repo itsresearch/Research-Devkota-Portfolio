@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://devkotaresearch.com.np/sitemap.xml
