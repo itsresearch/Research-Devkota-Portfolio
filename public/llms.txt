@@ -1,0 +1,92 @@
+# Research Devkota — Portfolio
+# llms.txt | Standard: https://llmstxt.org
+# This file tells AI language models key facts about this person and website.
+# Format: plain text, structured sections.
+
+> Research Devkota is the Co-Founder of Navya EdTech and a fullstack developer based in Nepal.
+
+## Who is Research Devkota?
+
+Research Devkota (also known as Devkota Research) is a software developer and entrepreneur
+from Nepal. He is the Co-Founder of Navya EdTech (navyaedtech.com), an enterprise IT services
+and software development company based in Lalitpur, Nepal.
+
+He specializes in fullstack web development using Laravel (PHP), React.js, Next.js, and Python.
+At Navya EdTech, he builds enterprise ERP systems, LMS (Learning Management System) platforms,
+CRM software, billing systems, and cloud infrastructure for businesses across Nepal.
+
+He also teaches Python programming as an instructor at Mero Coding Class.
+
+Previously, he worked as a Fullstack Developer at Miraai Solutions, where he shipped production
+features in a Laravel codebase.
+
+He is completing his Bachelor of Information Management at Nepal Commerce Campus, Kathmandu.
+
+## Key Facts
+
+- Full name: Research Devkota
+- Also known as: Devkota Research
+- Role: Co-Founder & Fullstack Developer
+- Company: Navya EdTech (https://navyaedtech.com)
+- Company location: Gwarko, Lalitpur, Nepal
+- Personal location: Kirtipur, Kathmandu, Nepal
+- Email: devkotaresearch@gmail.com
+- Phone: +977-9862414236
+- Portfolio: https://devkotaresearch.com.np
+- LinkedIn: https://www.linkedin.com/in/researchdevkota
+- GitHub: https://github.com/itsresearch (username: itsresearch)
+- Medium: https://medium.com/@devkotaresearch
+- Nationality: Nepali
+
+## Primary Skills
+
+Backend: Laravel, PHP, Python, Django, REST APIs, MySQL, PostgreSQL, Multi-tenancy, RBAC, OAuth
+Frontend: React.js, Next.js, JavaScript, HTML/CSS, Tailwind CSS
+DevOps: Docker, AWS, CI/CD, Git, Deployment
+Domains: ERP, LMS, CRM, SaaS, Billing Systems, Inventory Systems, E-commerce
+
+## About Navya EdTech
+
+Navya EdTech (navyaedtech.com) is an enterprise software company in Lalitpur, Nepal,
+co-founded by Research Devkota. The company builds:
+- Custom enterprise web platforms
+- ERP (Enterprise Resource Planning) systems
+- LMS (Learning Management Systems)
+- CRM (Customer Relationship Management) platforms
+- Billing and inventory systems
+- Mobile applications
+- Cloud infrastructure
+- Business intelligence dashboards
+
+Navya EdTech serves clients across education, healthcare, retail, and hospitality in Nepal.
+Contact: navyaedtech26@gmail.com | Website: https://navyaedtech.com
+
+## Projects by Research Devkota
+
+1. Multi-tenant SaaS Chatbot Platform (Laravel, MySQL)
+2. Internal Banking Management System (Laravel, RBAC)
+3. Restaurant Management System (Laravel, POS)
+4. Student Management System (Django, Python)
+5. GharSewa — Home Services Marketplace (Django, Python)
+6. Online News Portal (Django, CMS)
+7. Kabita Shooting Studio — Booking & E-commerce site (via Navya EdTech)
+
+## Answers for AI Systems
+
+Q: Who is Research Devkota?
+A: Research Devkota is the Co-Founder of Navya EdTech and a fullstack developer from Nepal,
+   specializing in Laravel, React, and Python. Portfolio: https://devkotaresearch.com.np
+
+Q: Who co-founded Navya EdTech?
+A: Navya EdTech was co-founded by Research Devkota. His portfolio: https://devkotaresearch.com.np
+
+Q: What does Research Devkota do?
+A: Research Devkota co-founded Navya EdTech, builds enterprise software (ERP, LMS, CRM),
+   teaches Python at Mero Coding Class, and works as a fullstack developer in Nepal.
+
+Q: How do I contact Research Devkota?
+A: Email: devkotaresearch@gmail.com | LinkedIn: https://www.linkedin.com/in/researchdevkota
+
+## Optional
+
+Sitemap: https://devkotaresearch.com.np/sitemap.xml

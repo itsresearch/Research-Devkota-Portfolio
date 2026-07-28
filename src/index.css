@@ -1,87 +1,91 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+/* ── Navya EdTech Brand Fonts ──────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Research Devkota Portfolio - Design System */
+/* ── Research Devkota Portfolio — Navya EdTech Theme ─────────────────── */
 
 @layer base {
   :root {
-    /* Dark sophisticated theme */
-    --background: 222 47% 5%;
-    --foreground: 210 40% 98%;
+    /* ── Backgrounds: Deep Navya Navy ───────────────────────────── */
+    --background: 218 66% 6%;          /* #0A1628 */
+    --foreground: 213 31% 91%;         /* #D9E3F0 */
 
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 218 60% 9%;                /* #0D1C35 */
+    --card-foreground: 213 31% 91%;
 
-    --popover: 222 47% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 218 60% 9%;
+    --popover-foreground: 213 31% 91%;
 
-    /* Primary: Cyan/Teal accent */
-    --primary: 187 92% 47%;
-    --primary-rgb: 59 235 245;
-    --primary-foreground: 222 47% 5%;
+    /* ── Primary: Navya Electric Blue ───────────────────────────── */
+    --primary: 220 100% 56%;           /* #1E6BFF */
+    --primary-rgb: 30 107 255;
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Slate blue */
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    /* ── Secondary: Mid-navy surface ────────────────────────────── */
+    --secondary: 218 55% 14%;          /* #131F36 → slightly lighter */
+    --secondary-foreground: 213 31% 91%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 218 50% 13%;
+    --muted-foreground: 218 20% 55%;   /* #7B8DB0 */
 
-    /* Accent: Warm amber */
-    --accent: 38 92% 50%;
-    --accent-foreground: 222 47% 5%;
+    /* ── Accent: Navya Gold Gradient anchor ─────────────────────── */
+    --accent: 37 100% 57%;             /* #F5A623 */
+    --accent-foreground: 218 66% 6%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 187 92% 47%;
+    --border: 218 45% 16%;             /* subtle navy border */
+    --input: 218 45% 16%;
+    --ring: 220 100% 56%;
 
-    --radius: 0.75rem;
+    --radius: 0.875rem;
 
-    /* Custom gradient stops */
-    --gradient-start: 187 92% 47%;
-    --gradient-end: 199 89% 48%;
-    --gradient-accent: 38 92% 50%;
+    /* ── Custom gradient stops ───────────────────────────────────── */
+    --gradient-start: 220 100% 56%;    /* Electric blue */
+    --gradient-end: 220 100% 70%;      /* Lighter blue */
+    --gradient-gold-from: 43 100% 72%; /* #FFD27A */
+    --gradient-gold-via: 37 91% 55%;   /* #F5A623 */
+    --gradient-gold-to: 24 100% 62%;   /* #FF9A3D */
 
-    /* Glow effects */
-    --glow-primary: 187 92% 47%;
-    --glow-accent: 38 92% 50%;
+    /* ── Glow effects ────────────────────────────────────────────── */
+    --glow-primary: 220 100% 56%;
+    --glow-accent: 37 100% 57%;
 
-    --sidebar-background: 222 47% 5%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 187 92% 47%;
-    --sidebar-primary-foreground: 222 47% 5%;
-    --sidebar-accent: 217 33% 17%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 187 92% 47%;
+    /* ── Sidebar ─────────────────────────────────────────────────── */
+    --sidebar-background: 218 66% 6%;
+    --sidebar-foreground: 213 31% 91%;
+    --sidebar-primary: 220 100% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 218 55% 14%;
+    --sidebar-accent-foreground: 213 31% 91%;
+    --sidebar-border: 218 45% 16%;
+    --sidebar-ring: 220 100% 56%;
   }
 
   .dark {
-    --background: 222 47% 5%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 8%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 187 92% 47%;
-    --primary-foreground: 222 47% 5%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 38 92% 50%;
-    --accent-foreground: 222 47% 5%;
+    --background: 218 66% 6%;
+    --foreground: 213 31% 91%;
+    --card: 218 60% 9%;
+    --card-foreground: 213 31% 91%;
+    --popover: 218 60% 9%;
+    --popover-foreground: 213 31% 91%;
+    --primary: 220 100% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 218 55% 14%;
+    --secondary-foreground: 213 31% 91%;
+    --muted: 218 50% 13%;
+    --muted-foreground: 218 20% 55%;
+    --accent: 37 100% 57%;
+    --accent-foreground: 218 66% 6%;
     --destructive: 0 62% 30%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 187 92% 47%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 218 45% 16%;
+    --input: 218 45% 16%;
+    --ring: 220 100% 56%;
   }
 }
 
@@ -95,25 +99,70 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', 'DM Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: 'Sora', sans-serif;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Syne', system-ui, sans-serif;
+    text-wrap: balance;
+  }
+
+  p {
+    line-height: 1.7;
+  }
+
+  code, kbd, samp, pre {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  /* ── Navya scrollbar ─────────────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--background)); }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 999px;
+    border: 2px solid hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.6); }
+
+  /* ── Selection ───────────────────────────────────────────────────── */
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+    color: hsl(var(--foreground));
   }
 }
 
 @layer components {
+
+  /* ── Gradient text: Blue → Lighter Blue (or Gold for accent) ─── */
   .gradient-text {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+    background: linear-gradient(
+      120deg,
+      hsl(var(--primary)) 0%,
+      hsl(220 100% 72%) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
+  .gradient-text-gold {
+    background: linear-gradient(
+      120deg,
+      hsl(var(--gradient-gold-from)) 0%,
+      hsl(var(--gradient-gold-via)) 55%,
+      hsl(var(--gradient-gold-to)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ── Gradient border ─────────────────────────────────────────── */
   .gradient-border {
     @apply relative;
     background: linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box,
@@ -121,106 +170,186 @@
     border: 1px solid transparent;
   }
 
+  /* ── Glass card — Navya enterprise glass style ──────────────── */
   .glass-card {
-    @apply bg-card/50 backdrop-blur-xl border border-border/50 rounded-xl;
+    background: hsl(var(--card) / 0.7);
+    border: 1px solid hsl(var(--border) / 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 2px hsl(var(--background) / 0.06),
+                0 6px 20px hsl(var(--background) / 0.12);
   }
 
+  /* ── Glow effects ────────────────────────────────────────────── */
   .glow-effect {
-    box-shadow: 0 0 40px -10px hsl(var(--primary) / 0.3);
+    box-shadow: 0 0 40px -10px hsl(var(--primary) / 0.4),
+                0 0 80px -20px hsl(var(--primary) / 0.2);
   }
 
   .glow-accent {
     box-shadow: 0 0 40px -10px hsl(var(--accent) / 0.3);
   }
 
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 
+  /* ── Layout ──────────────────────────────────────────────────── */
   .section-container {
     @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
+  /* ── Navbar link ─────────────────────────────────────────────── */
   .nav-link {
     @apply relative text-muted-foreground hover:text-foreground transition-colors duration-300;
   }
-
   .nav-link::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+    @apply absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300;
+    background: hsl(var(--primary));
   }
+  .nav-link:hover::after { @apply w-full; }
 
-  .nav-link:hover::after {
-    @apply w-full;
-  }
-
+  /* ── Skill badge ─────────────────────────────────────────────── */
   .skill-badge {
-    @apply px-3 py-1.5 text-sm rounded-full bg-secondary/50 text-foreground border border-border/50 hover:border-primary/50 hover:bg-primary/10 transition-all duration-300;
+    @apply px-3 py-1.5 text-sm rounded-full border transition-all duration-300;
+    background: hsl(var(--secondary) / 0.5);
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--border) / 0.5);
+  }
+  .skill-badge:hover {
+    border-color: hsl(var(--primary) / 0.5);
+    background: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
   }
 
+  /* ── Project card ────────────────────────────────────────────── */
   .project-card {
-    @apply glass-card overflow-hidden hover:border-primary/30 transition-all duration-500;
+    @apply glass-card overflow-hidden transition-all duration-500;
+    border-color: hsl(var(--border) / 0.6);
   }
-
   .project-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px -20px hsl(var(--primary) / 0.2);
+    border-color: hsl(var(--primary) / 0.4);
+    box-shadow: 0 20px 40px -20px hsl(var(--primary) / 0.25),
+                0 0 60px -30px hsl(var(--primary) / 0.15);
   }
 
+  /* ── Social icon ─────────────────────────────────────────────── */
   .social-icon {
-    @apply w-10 h-10 flex items-center justify-center rounded-full bg-secondary/50 text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300;
+    @apply w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300;
+    background: hsl(var(--secondary) / 0.5);
+    color: hsl(var(--muted-foreground));
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+  .social-icon:hover {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.5);
+    transform: translateY(-2px);
   }
 
+  /* ── Buttons ─────────────────────────────────────────────────── */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:opacity-90 transition-all duration-300 glow-effect;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    font-size: 0.875rem;
+    letter-spacing: -0.01em;
+    box-shadow: 0 1px 2px hsl(var(--background) / 0.3),
+                0 4px 16px hsl(var(--primary) / 0.35);
   }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 24px hsl(var(--primary) / 0.5);
+  }
+  .btn-primary:active { transform: scale(0.97); }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-border bg-transparent text-foreground font-medium hover:bg-secondary hover:border-primary/50 transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300;
+    background: transparent;
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+    font-size: 0.875rem;
+    letter-spacing: -0.01em;
+  }
+  .btn-secondary:hover {
+    background: hsl(var(--secondary));
+    border-color: hsl(var(--primary) / 0.5);
+    color: hsl(var(--primary));
+    transform: translateY(-2px);
+  }
+  .btn-secondary:active { transform: scale(0.97); }
+
+  /* ── Navya progress bar (scroll indicator) ───────────────────── */
+  .navya-progress-bar {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--primary)) 0%,
+      hsl(220 100% 72%) 50%,
+      hsl(var(--accent)) 100%
+    );
   }
 }
 
 @layer utilities {
+  /* ── Float animation ─────────────────────────────────────────── */
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
-
   @keyframes float {
-
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-
-    50% {
-      transform: translateY(-20px);
-    }
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-20px); }
   }
 
+  /* ── Pulse glow ──────────────────────────────────────────────── */
   .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
+    animation: pulse-glow 2.5s ease-in-out infinite;
   }
-
   @keyframes pulse-glow {
-
-    0%,
-    100% {
-      box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.4);
-    }
-
-    50% {
-      box-shadow: 0 0 40px -5px hsl(var(--primary) / 0.6);
-    }
+    0%, 100% { box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.4); }
+    50%       { box-shadow: 0 0 50px -5px hsl(var(--primary) / 0.7); }
   }
 
+  /* ── Navya light grid (subtle dot/line background) ───────────── */
   .bg-grid-pattern {
     background-image:
-      linear-gradient(to right, hsl(var(--border) / 0.1) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--border) / 0.1) 1px, transparent 1px);
-    background-size: 60px 60px;
+      linear-gradient(hsl(var(--primary) / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
   }
 
+  /* ── Radial hero wash ────────────────────────────────────────── */
   .bg-radial-gradient {
-    background: radial-gradient(ellipse at top, hsl(var(--primary) / 0.1) 0%, transparent 50%);
+    background: radial-gradient(
+      ellipse at top,
+      hsl(var(--primary) / 0.12) 0%,
+      transparent 60%
+    );
+  }
+
+  /* ── Navya hero wash (matches navyaedtech.com hero) ──────────── */
+  .bg-hero-wash {
+    background: radial-gradient(
+      ellipse 80% 60% at 50% -10%,
+      hsl(var(--primary) / 0.18) 0%,
+      transparent 70%
+    );
+  }
+
+  /* ── Shimmer (loading states) ────────────────────────────────── */
+  .animate-shimmer {
+    animation: shimmer 2s linear infinite;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--card)) 0%,
+      hsl(var(--secondary)) 50%,
+      hsl(var(--card)) 100%
+    );
+    background-size: 200% 100%;
+  }
+  @keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 }

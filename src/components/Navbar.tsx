@@ -32,10 +32,18 @@ export const Navbar = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-background/80 backdrop-blur-xl border-b border-border/50' : 'bg-transparent'
         }`}
     >
-      <nav className="section-container py-4">
+      {/* Navya-style top gradient bar */}
+      <div className="h-[3px] w-full bg-gradient-to-r from-primary via-blue-400 to-accent" />
+
+      <nav className="section-container py-3">
         <div className="flex items-center justify-between">
-          <a href="#" className="font-display text-xl font-bold">
-            <span className="gradient-text">{`{ RD }`}</span>
+          <a href="#" className="flex items-center gap-2 group">
+            <span className="font-display text-lg font-bold gradient-text tracking-tight">
+              Research Devkota
+            </span>
+            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary/10 text-primary border border-primary/20">
+              Navya EdTech
+            </span>
           </a>
 
           {/* Desktop Navigation */}

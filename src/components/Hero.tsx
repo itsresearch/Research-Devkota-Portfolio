@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail, Download } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, Download, ExternalLink } from 'lucide-react';
 import { TypeWriter } from './TypeWriter';
 import heroBg from '@/assets/hero-bg.png';
 
@@ -20,16 +20,18 @@ export const Hero = () => {
       <div className="absolute inset-0 bg-grid-pattern opacity-30" />
       <div className="absolute inset-0 bg-radial-gradient" />
 
-      {/* Floating Orbs */}
+      {/* Floating Orbs — Navya blue & gold */}
       <motion.div
         animate={{ y: [0, -30, 0], x: [0, 15, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-primary/10 blur-3xl"
+        className="absolute top-1/4 right-1/4 w-72 h-72 rounded-full blur-3xl"
+        style={{ background: 'radial-gradient(circle, hsl(220 100% 56% / 0.15), transparent 70%)' }}
       />
       <motion.div
         animate={{ y: [0, 20, 0], x: [0, -20, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-1/4 left-1/4 w-96 h-96 rounded-full bg-accent/10 blur-3xl"
+        className="absolute bottom-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl"
+        style={{ background: 'radial-gradient(circle, hsl(37 100% 57% / 0.10), transparent 70%)' }}
       />
 
 
@@ -43,8 +45,11 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <p className="text-primary font-medium mb-4 text-lg">Hi, I am</p>
-            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-sm font-semibold mb-5 tracking-tight">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              Co-Founder @ Navya EdTech
+            </p>
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight leading-[1.08]">
               Research <span className="gradient-text">Devkota</span>
             </h1>
           </motion.div>
@@ -58,10 +63,10 @@ export const Hero = () => {
           >
             <TypeWriter
               words={[
+                'Co-Founder, Navya EdTech',
                 'Fullstack Developer',
                 'Laravel Specialist',
-                'Web Developer',
-                'Coding Instructor',
+                'Python Instructor',
                 'Backend Developer',
                 'Problem Solver'
               ]}
@@ -73,11 +78,11 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-muted-foreground mb-8 max-w-xl leading-relaxed"
+            className="speakable-bio text-muted-foreground mb-8 max-w-xl leading-relaxed"
           >
             Based in Kathmandu, Nepal 🇳🇵.
             <br /><br />
-            I build fullstack web applications with Laravel and modern frontend tools. I'm passionate about creating reliable, scalable products and helping others learn programming. Adaptable, consistent under pressure, and always ready to learn fast and deliver practical solutions that create impact.
+            I co-founded <a href="https://navyaedtech.com" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Navya EdTech</a>, where we build custom software, ERP and LMS platforms, and cloud systems for businesses. I'm a fullstack developer at heart, still writing Laravel and React every day, and I teach Python at Mero Coding Class on the side.
           </motion.p>
 
           {/* Social Links */}
@@ -116,6 +121,15 @@ export const Hero = () => {
               Resume
               <Download size={18} />
             </a>
+            <a
+              href="https://navyaedtech.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 border border-accent/40 text-accent hover:bg-accent/10 hover:border-accent hover:shadow-[0_0_20px_hsl(37_100%_57%_/0.2)] hover:-translate-y-0.5"
+            >
+              Visit Navya EdTech
+              <ExternalLink size={16} />
+            </a>
           </motion.div>
         </div>
 
@@ -150,12 +164,18 @@ export const Hero = () => {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-6 -right-6 bg-card border border-primary/30 p-4 rounded-xl shadow-xl backdrop-blur-md"
+              className="absolute -bottom-6 -right-6 bg-card/90 border border-primary/30 p-3 pr-4 rounded-2xl shadow-2xl backdrop-blur-xl"
+              style={{ boxShadow: '0 8px 32px hsl(220 100% 56% / 0.2)' }}
             >
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-sm font-medium text-foreground">Open to Work</span>
-              </div>
+              <a href="https://navyaedtech.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 group">
+                <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center">
+                  <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
+                </div>
+                <div>
+                  <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">Co-Founder</p>
+                  <p className="text-xs font-bold text-foreground group-hover:text-primary transition-colors">Navya EdTech</p>
+                </div>
+              </a>
             </motion.div>
           </div>
         </motion.div>

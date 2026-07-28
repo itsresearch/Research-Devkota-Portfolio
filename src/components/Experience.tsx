@@ -5,13 +5,70 @@ import { ChevronDown } from 'lucide-react';
 
 const experiences = [
   {
+    title: 'Co-Founder',
+    company: 'Navya EdTech',
+    image: '/logos/navyaedtech.webp',
+    period: '2026 - Present',
+    location: 'Lalitpur, Nepal',
+    description:
+      'Co-founded a software company that builds custom digital systems for businesses. We deliver enterprise web platforms, ERP, CRM and LMS systems, mobile apps, and cloud infrastructure for clients across education, healthcare, retail, and hospitality.',
+    achievements: [
+      'Co-founded Navya EdTech and set its technical direction across custom software, web, mobile, and cloud work',
+      'Delivered client platforms end to end, including the Kabita Shooting Studio booking and e-commerce site',
+      'Built enterprise solutions: ERP, CRM, billing, inventory, and learning management systems',
+      'Established engineering standards for security, testing, deployment, and post-launch support',
+    ],
+    technologies: [
+      'Laravel',
+      'React',
+      'Next.js',
+      'Node.js',
+      'PHP',
+      'Python',
+      'MySQL',
+      'PostgreSQL',
+      'REST APIs',
+      'AWS',
+      'Docker',
+      'CI/CD',
+      'System Architecture',
+    ],
+  },
+
+  {
+    title: 'Python Instructor',
+    company: 'Mero Coding Class',
+    image: '/logos/merocodingclass_logo.png',
+    period: '2025 - Present',
+    location: 'Nepal · Remote (Part-time)',
+    description:
+      'Teaching Python to beginners as a remote instructor, helping students build strong foundational programming skills through practical exercises and real-world examples.',
+    achievements: [
+      'Created structured curriculum and lesson plans for Python fundamentals',
+      'Guided students through practical coding exercises and real-world examples',
+      'Provided mentorship and support to help students build programming confidence',
+      'Made learning Python simple, engaging, and effective for beginners',
+    ],
+    technologies: [
+      'Python',
+      'tkinter',
+      'OOP Concepts',
+      'Data Structures',
+      'Problem Solving',
+      'Teaching & Mentoring',
+      'Curriculum Design',
+      'Communication',
+    ],
+  },
+
+  {
     title: 'Fullstack Developer',
     company: 'Miraai Solutions',
     image: '/logos/miraai.png',
-    period: '9 months (Ongoing)',
+    period: '2025 - 2026',
     location: 'Nepal · On site',
     description:
-      'Contributing to real product features and backend development in a fullstack Laravel environment. Working on API development, database design, and frontend integration to deliver production-ready features.',
+      'Contributed to real product features and backend development in a fullstack Laravel environment. Worked on API development, database design, and frontend integration to deliver production-ready features.',
     achievements: [
       'Developed and deployed backend APIs for core product features using Laravel and React',
       'Contributed to database design and optimization',
@@ -60,32 +117,6 @@ const experiences = [
       'Git/GitHub',
     ],
   },
-    {
-    title: 'Python Instructor',
-    company: 'Mero Coding Class',
-    image: '/logos/merocodingclass_logo.png',
-    period: '2025-Present',
-    location: 'Nepal · Remote(Part-time)',
-    description:
-      'Teaching Python to beginners as a remote instructor, helping students build strong foundational programming skills through practical exercises and real-world examples.',
-    achievements: [
-      'Created structured curriculum and lesson plans for Python fundamentals',
-      'Guided students through practical coding exercises and real-world examples',
-      'Provided mentorship and support to help students build programming confidence',
-      'Made learning Python simple, engaging, and effective for beginners',
-    ],
-    technologies: [
-      'Python',
-      'tkinter',
-      'OOP Concepts',
-      'Data Structures',
-      'Problem Solving',
-      'Teaching & Mentoring',
-      'Curriculum Design',
-      'Problem Solving',
-      'Communication',
-    ],
-  },
 ];
 
 export const Experience = () => {
@@ -110,7 +141,10 @@ export const Experience = () => {
           transition={{ duration: 0.6 }}
           className="mb-16 text-center"
         >
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
+          <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-semibold uppercase tracking-widest mb-4">
+            Work History
+          </p>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 tracking-tight">
             Professional <span className="gradient-text">Journey</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -119,7 +153,7 @@ export const Experience = () => {
         </motion.div>
 
         <div className="max-w-4xl mx-auto relative">
-          <div className="absolute left-[34px] md:left-[46px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary via-primary/40 to-transparent rounded-full shadow-[0_0_12px_rgba(var(--primary-rgb),0.25)]" />
+          <div className="absolute left-[34px] md:left-[46px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary via-primary/40 to-transparent rounded-full" style={{ boxShadow: '0 0 12px rgba(30, 107, 255, 0.25)' }} />
 
           <div className="space-y-12">
             {experiences.map((exp, index) => {
@@ -133,7 +167,7 @@ export const Experience = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="relative pl-20 md:pl-28"
                 >
-                  <div className="absolute left-[27px] md:left-[39px] top-0 w-4 h-4 rounded-full bg-background border-[3px] border-primary z-10 shadow-[0_0_12px_rgba(var(--primary-rgb),0.5)] animate-pulse-glow" />
+                  <div className="absolute left-[27px] md:left-[39px] top-0 w-4 h-4 rounded-full bg-background border-[3px] border-primary z-10 animate-pulse-glow" style={{ boxShadow: '0 0 12px rgba(30, 107, 255, 0.5)' }} />
 
                   {/* Horizontal Connector Line */}
                   <div className="absolute left-[43px] md:left-[55px] top-6 w-8 md:w-12 h-[2px] bg-gradient-to-r from-primary to-transparent rounded-full opacity-60" />

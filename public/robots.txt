@@ -1,4 +1,108 @@
+# Research Devkota Portfolio — robots.txt
+# https://devkotaresearch.com.np
+
+# ── Allow all crawlers ─────────────────────────────────────────────
 User-agent: *
 Allow: /
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /.git/
+Disallow: /dist/
 
+# ── Google ────────────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# ── Bing (powers Brave Search + DuckDuckGo fallback) ─────────────
+User-agent: Bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+# ── Brave Search ──────────────────────────────────────────────────
+User-agent: Brave-Search
+Allow: /
+
+# ── DuckDuckGo ────────────────────────────────────────────────────
+User-agent: DuckDuckBot
+Allow: /
+
+# ── ChatGPT / OpenAI ──────────────────────────────────────────────
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# ── Perplexity ────────────────────────────────────────────────────
+User-agent: PerplexityBot
+Allow: /
+
+# ── Anthropic / Claude ────────────────────────────────────────────
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# ── Common Crawl (trains most open-source LLMs) ───────────────────
+User-agent: CCBot
+Allow: /
+
+# ── Cohere ────────────────────────────────────────────────────────
+User-agent: cohere-ai
+Allow: /
+
+# ── You.com ───────────────────────────────────────────────────────
+User-agent: YouBot
+Allow: /
+
+# ── Meta AI / Llama training ──────────────────────────────────────
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# ── Apple ─────────────────────────────────────────────────────────
+User-agent: Applebot
+Allow: /
+
+# ── Internet Archive ──────────────────────────────────────────────
+User-agent: ia_archiver
+Allow: /
+
+# ── Social Media Crawlers (for rich link previews) ────────────────
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+# ── Key files ─────────────────────────────────────────────────────
 Sitemap: https://devkotaresearch.com.np/sitemap.xml
+
+# AI-specific context file (llmstxt.org standard)
+# LLMs-Context: https://devkotaresearch.com.np/llms.txt

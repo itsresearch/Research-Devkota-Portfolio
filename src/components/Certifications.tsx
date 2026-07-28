@@ -136,8 +136,11 @@ export const Certifications = ({ limit }: { limit?: number }) => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-            Certificates & <span className="gradient-text">Courses</span>
+          <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-semibold uppercase tracking-widest mb-4">
+            Credentials
+          </p>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 tracking-tight">
+            Certificates &amp; <span className="gradient-text">Courses</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             A curated collection of my certificate files, workshops, and course completions

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, Send, MapPin, Linkedin, Github, Phone } from 'lucide-react';
+import { Mail, Send, MapPin, Linkedin, Github, Phone, Building2 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import emailjs from '@emailjs/browser';
 
@@ -53,7 +53,10 @@ export const Contact = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
+          <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-semibold uppercase tracking-widest mb-4">
+            Get in Touch
+          </p>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 tracking-tight">
             Let's <span className="gradient-text">Connect</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -94,6 +97,21 @@ export const Contact = () => {
                 <div>
                   <p className="text-sm text-muted-foreground">Phone</p>
                   <p className="font-medium group-hover:text-primary transition-colors">+977 9862414236</p>
+                </div>
+              </a>
+
+              <a
+                href="https://navyaedtech.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 glass-card p-4 hover:border-primary/30 transition-all duration-300 group"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <Building2 className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Company</p>
+                  <p className="font-medium group-hover:text-primary transition-colors">Navya EdTech</p>
                 </div>
               </a>
 
@@ -142,7 +160,7 @@ export const Contact = () => {
                     id="from_name"
                     name="from_name"
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-secondary/50 border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                     placeholder="Your name"
                   />
                 </div>
@@ -156,7 +174,7 @@ export const Contact = () => {
                     id="from_email"
                     name="from_email"
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-secondary/50 border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -170,7 +188,7 @@ export const Contact = () => {
                     id="subject"
                     name="subject"
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-secondary/50 border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                     placeholder="Subject of your message"
                   />
                 </div>
@@ -184,7 +202,7 @@ export const Contact = () => {
                     name="message"
                     required
                     rows={5}
-                    className="w-full px-4 py-3 rounded-lg bg-secondary/50 border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-200 resize-none"
                     placeholder="Tell me about your project or opportunity..."
                   />
                 </div>

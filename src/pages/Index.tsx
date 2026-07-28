@@ -16,14 +16,19 @@ const Index = () => {
   const [showAllCertifications, setShowAllCertifications] = useState(false);
 
   useEffect(() => {
-    document.title = 'Research Devkota | Full Stack Developer Portfolio';
+    document.title = 'Research Devkota | Co-Founder, Navya EdTech';
 
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content',
-        'Portfolio of Research Devkota - Full Stack Developer, Laravel Expert based in Kathmandu, Nepal. Expertise in Laravel, React, Python and modern web technologies.'
+        'Research Devkota - Co-founder of Navya EdTech and fullstack developer based in Kathmandu, Nepal. Building custom enterprise software, ERP and LMS platforms, and cloud systems with Laravel, React, and Python.'
       );
     }
+
+    // The browser gives up scrolling to the hash target on load — React hasn't
+    // rendered the section yet. Do it once the page is mounted.
+    const target = document.getElementById(window.location.hash.slice(1));
+    if (target) target.scrollIntoView({ behavior: 'instant' });
   }, []);
 
   return (

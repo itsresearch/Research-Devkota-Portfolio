@@ -1,9 +1,14 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { TrendingUp, Brain, Code2, Trophy, Zap, Users } from 'lucide-react';
+import { TrendingUp, Brain, Code2, Trophy, Rocket, Users, ExternalLink, Globe } from 'lucide-react';
 
 const highlights = [
+  {
+    icon: Rocket,
+    title: 'Co-Founder, Navya EdTech',
+    description: 'Co-founded a software company delivering custom systems, ERP and LMS platforms, and cloud infrastructure to businesses.',
+  },
   {
     icon: Code2,
     title: 'Fullstack Development',
@@ -25,11 +30,6 @@ const highlights = [
     description: 'Breaking down complex problems into scalable, efficient solutions with practical thinking.',
   },
   {
-    icon: Zap,
-    title: 'Continuous Learner',
-    description: 'Always eager to learn new technologies, patterns, and methodologies to improve my craft.',
-  },
-  {
     icon: Users,
     title: 'Team Player & Educator',
     description: 'Collaborative developer who enjoys mentoring and teaching others, currently instructing Python at Mero Coding Class.',
@@ -49,11 +49,14 @@ export const About = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
+          <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-semibold uppercase tracking-widest mb-4">
+            About
+          </p>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 tracking-tight">
             About <span className="gradient-text">Me</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Building fullstack web applications & empowering developers
+            Co-founder, fullstack developer, and instructor
           </p>
         </motion.div>
 
@@ -68,11 +71,44 @@ export const About = () => {
             <h3 className="font-display text-xl font-semibold mb-4 gradient-text">Background</h3>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                I'm <span className="text-foreground font-medium">Research Devkota</span>, a fullstack developer currently completing my Bachelor's in Information Management at Nepal Commerce Campus. My passion lies in <span className="text-primary font-medium">building robust, scalable web applications</span> with Laravel and modern frontend technologies. I specialize in backend API development, database design, and creating responsive user interfaces that users love.
+                I'm <span className="text-foreground font-medium">Research Devkota</span>, co-founder of <a href="https://navyaedtech.com" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Navya EdTech</a>, a Lalitpur-based software company. We build <span className="text-primary font-medium">custom digital systems for businesses</span>: enterprise web platforms, ERP, CRM and LMS software, mobile apps, and cloud infrastructure for clients across education, healthcare, retail, and hospitality.
               </p>
               <p>
-                Beyond development, I'm committed to <span className="text-primary font-medium">giving back to the tech community</span> as a Coding instructor at Mero Coding Class, helping beginners build a strong foundation in programming. I'm currently doing a 2-month fullstack internship at Miraai Solutions, where I contribute to real product features and backend development. What drives me is <span className="text-foreground font-medium">delivering practical solutions that create impact</span>, continuous learning, and collaborating with teams to ship products that matter. I'm adaptable, consistent under pressure, and always eager to learn fast and tackle new challenges.
+                I came to this as an engineer and I still build. My core is <span className="text-primary font-medium">Laravel and React</span>: backend API development, database design, and responsive interfaces. Before Navya, I worked as a fullstack developer at Miraai Solutions, shipping production features in a Laravel codebase. I'm also completing my Bachelor's in Information Management at Nepal Commerce Campus.
               </p>
+              <p>
+                Alongside the company, I teach Python at <span className="text-foreground font-medium">Mero Coding Class</span>, helping beginners build a real foundation in programming. What drives me is <span className="text-foreground font-medium">delivering practical solutions that create impact</span>, and building a team that ships work worth standing behind.
+              </p>
+            </div>
+
+            {/* Navya EdTech Company Card */}
+            <div className="mt-6 relative rounded-2xl overflow-hidden border border-primary/30 bg-primary/5 p-5"
+              style={{ boxShadow: '0 0 40px -15px hsl(220 100% 56% / 0.3)' }}
+            >
+              {/* Subtle glow blob */}
+              <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-primary/10 blur-2xl pointer-events-none" />
+              <div className="relative flex items-center justify-between gap-4 flex-wrap">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/15 border border-primary/20 flex items-center justify-center shrink-0">
+                    <Globe className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-muted-foreground uppercase tracking-widest font-semibold">My Company</p>
+                    <p className="font-display font-bold text-foreground text-base leading-tight">Navya EdTech</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Enterprise IT &amp; Software Development · Nepal</p>
+                  </div>
+                </div>
+                <a
+                  href="https://navyaedtech.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-primary text-white hover:bg-primary/90 hover:-translate-y-0.5 transition-all duration-200 shrink-0"
+                  style={{ boxShadow: '0 4px 16px hsl(220 100% 56% / 0.35)' }}
+                >
+                  Visit Site
+                  <ExternalLink size={14} />
+                </a>
+              </div>
             </div>
           </motion.div>
 
@@ -94,6 +130,23 @@ export const About = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+
+        {/* Entity summary — readable by AI crawlers, screen readers, and non-JS bots */}
+        <div className="sr-only" aria-label="About Research Devkota — entity summary for accessibility">
+          <p>
+            Research Devkota is the Co-Founder of Navya EdTech (navyaedtech.com),
+            an enterprise software development company in Lalitpur, Nepal.
+            He is a fullstack developer specializing in Laravel, React.js, and Python.
+            Research Devkota builds ERP systems, LMS platforms, CRM software, and cloud infrastructure for businesses.
+            His portfolio is at devkotaresearch.com.np.
+            His email is devkotaresearch@gmail.com.
+            He is on LinkedIn at linkedin.com/in/researchdevkota and GitHub at github.com/itsresearch.
+            He also teaches Python at Mero Coding Class and previously worked at Miraai Solutions as a Fullstack Developer.
+            Navya EdTech was co-founded by Research Devkota.
+            Navya EdTech contact: navyaedtech26@gmail.com.
+            Research Devkota is based in Kirtipur, Kathmandu, Nepal.
+          </p>
         </div>
       </div>
     </section>
