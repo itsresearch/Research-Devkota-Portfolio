@@ -5,7 +5,7 @@ import heroBg from '@/assets/hero-bg.png';
 
 export const Hero = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-28 pb-20">
       {/* Background Image */}
       <div
         className="absolute inset-0 opacity-30"
