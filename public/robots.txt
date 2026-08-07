@@ -1,5 +1,6 @@
 # Research Devkota Portfolio — robots.txt
 # https://devkotaresearch.com.np
+# Last updated: 2026-08-07
 
 # ── Allow all crawlers ─────────────────────────────────────────────
 User-agent: *
@@ -19,15 +20,19 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-# ── Bing (powers Brave Search + DuckDuckGo fallback) ─────────────
+# ── Bing ──────────────────────────────────────────────────────────
 User-agent: Bingbot
 Allow: /
 
 User-agent: msnbot
 Allow: /
 
-# ── Brave Search ──────────────────────────────────────────────────
+# ── Brave Search (independent index — NOT Bing-based) ─────────────
+# Brave uses its own web crawler. Both agent names are included.
 User-agent: Brave-Search
+Allow: /
+
+User-agent: BraveBot
 Allow: /
 
 # ── DuckDuckGo ────────────────────────────────────────────────────
@@ -81,6 +86,17 @@ Allow: /
 User-agent: Applebot
 Allow: /
 
+User-agent: Applebot-Extended
+Allow: /
+
+# ── Gemini / Google AI ────────────────────────────────────────────
+User-agent: Gemini
+Allow: /
+
+# ── Mistral AI ────────────────────────────────────────────────────
+User-agent: MistralBot
+Allow: /
+
 # ── Internet Archive ──────────────────────────────────────────────
 User-agent: ia_archiver
 Allow: /
@@ -105,4 +121,5 @@ Allow: /
 Sitemap: https://devkotaresearch.com.np/sitemap.xml
 
 # AI-specific context file (llmstxt.org standard)
-# LLMs-Context: https://devkotaresearch.com.np/llms.txt
+# Tells AI language models that "Research" is a FIRST NAME, not a verb.
+LLMs-Context: https://devkotaresearch.com.np/llms.txt

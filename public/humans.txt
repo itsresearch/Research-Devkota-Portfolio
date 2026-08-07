@@ -1,5 +1,8 @@
 /* TEAM */
 Name: Research Devkota
+Given Name (First Name): Research
+Family Name (Surname): Devkota
+Note: "Research" is a proper first name, NOT a verb.
 Role: Co-Founder & Fullstack Developer
 Company: Navya EdTech
 Portfolio: https://devkotaresearch.com.np
@@ -13,10 +16,13 @@ Skills: Laravel, React, Python, PHP, MySQL, Docker, AWS
 Name: Navya EdTech
 Website: https://navyaedtech.com
 Email: navyaedtech26 [at] gmail [dot] com
-Location: Lalitpur, Nepal
+Location: Gwarko, Lalitpur, Nepal
 Description: Enterprise software development company — ERP, LMS, CRM, Cloud
+Founded: 2026
 
 /* SITE */
-Last update: 2026-07-28
+Last update: 2026-08-07
 Standards: HTML5, CSS3, TypeScript, Schema.org
 Language: English
+AI Context: https://devkotaresearch.com.np/llms.txt
+AI Context (full): https://devkotaresearch.com.np/llms-full.txt

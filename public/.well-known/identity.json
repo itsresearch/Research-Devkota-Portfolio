@@ -1,0 +1,28 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://devkotaresearch.com.np/#person",
+  "name": "Research Devkota",
+  "givenName": "Research",
+  "familyName": "Devkota",
+  "disambiguatingDescription": "Research Devkota is a real person. 'Research' is his given first name (not a verb). 'Devkota' is his family surname. He is a Nepali software developer and Co-Founder of Navya EdTech.",
+  "description": "Research Devkota (first name: Research; surname: Devkota) is the Co-Founder of Navya EdTech and a fullstack developer from Nepal, specializing in Laravel, React.js, and Python.",
+  "url": "https://devkotaresearch.com.np/",
+  "email": "devkotaresearch@gmail.com",
+  "telephone": "+977-9862414236",
+  "nationality": "Nepali",
+  "jobTitle": "Co-Founder & Fullstack Developer",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Navya EdTech",
+    "url": "https://navyaedtech.com"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/in/researchdevkota",
+    "https://github.com/itsresearch",
+    "https://navyaedtech.com",
+    "https://medium.com/@devkotaresearch",
+    "https://devkotaresearch.com.np"
+  ],
+  "image": "https://avatars.githubusercontent.com/u/134274596?v=4"
+}
