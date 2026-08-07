@@ -1,38 +1,37 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { TrendingUp, Brain, Code2, Trophy, Rocket, Users, ExternalLink, Globe } from 'lucide-react';
+import { Rocket, Brain, Users, ExternalLink, Globe, Layout, Layers, Lightbulb, Server, Database, Smartphone, Cloud, Cog, BarChart3 } from 'lucide-react';
 
 const highlights = [
   {
     icon: Rocket,
-    title: 'Co-Founder, Navya EdTech',
-    description: 'Co-founded a software company delivering custom systems, ERP and LMS platforms, and cloud infrastructure to businesses.',
+    title: 'Company Builder',
+    description: 'Led Navya EdTech from idea to delivering enterprise client projects across Nepal.',
   },
   {
-    icon: Code2,
-    title: 'Fullstack Development',
-    description: 'Building complete web applications with Laravel backend and modern frontend technologies.',
+    icon: Layers,
+    title: 'Technical Architect',
+    description: 'Designs complete software systems: ERP, LMS, CRM, cloud infra.',
   },
   {
     icon: Brain,
-    title: 'Laravel Expertise',
-    description: 'Specialized in Laravel framework for backend APIs, database design, SaaS systems and robust server-side development.',
+    title: 'Laravel Expert',
+    description: 'Deep Laravel expertise for SaaS, multi-tenant, and enterprise backends.',
   },
   {
-    icon: TrendingUp,
-    title: 'Frontend Development',
-    description: 'Creating responsive, user-friendly interfaces with modern tools and best practices.',
-  },
-  {
-    icon: Trophy,
-    title: 'Problem Solver',
-    description: 'Breaking down complex problems into scalable, efficient solutions with practical thinking.',
+    icon: Layout,
+    title: 'Product Shipper',
+    description: 'Ships complete, production-grade products end-to-end.',
   },
   {
     icon: Users,
-    title: 'Team Player & Educator',
-    description: 'Collaborative developer who enjoys mentoring and teaching others, currently instructing Python at Mero Coding Class.',
+    title: 'Educator',
+    description: 'Teaching Python at Mero Coding Class; believes in growing Nepal\'s tech talent.',
+  },
+  {
+    icon: Lightbulb,
+    title: 'Visionary',
+    description: 'Focused on building software that drives real business growth in Nepal.',
   },
 ];
 
@@ -60,13 +59,13 @@ export const About = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
           {/* Bio */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="glass-card p-8"
+            className="glass-card p-8 h-full"
           >
             <h3 className="font-display text-xl font-semibold mb-4 gradient-text">Background</h3>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
@@ -80,40 +79,10 @@ export const About = () => {
                 Alongside the company, I teach Python at <span className="text-foreground font-medium">Mero Coding Class</span>, helping beginners build a real foundation in programming. What drives me is <span className="text-foreground font-medium">delivering practical solutions that create impact</span>, and building a team that ships work worth standing behind.
               </p>
             </div>
-
-            {/* Navya EdTech Company Card */}
-            <div className="mt-6 relative rounded-2xl overflow-hidden border border-primary/30 bg-primary/5 p-5"
-              style={{ boxShadow: '0 0 40px -15px hsl(220 100% 56% / 0.3)' }}
-            >
-              {/* Subtle glow blob */}
-              <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-primary/10 blur-2xl pointer-events-none" />
-              <div className="relative flex items-center justify-between gap-4 flex-wrap">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-primary/15 border border-primary/20 flex items-center justify-center shrink-0">
-                    <Globe className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-[11px] text-muted-foreground uppercase tracking-widest font-semibold">My Company</p>
-                    <p className="font-display font-bold text-foreground text-base leading-tight">Navya EdTech</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">Enterprise IT &amp; Software Development · Nepal</p>
-                  </div>
-                </div>
-                <a
-                  href="https://navyaedtech.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-primary text-white hover:bg-primary/90 hover:-translate-y-0.5 transition-all duration-200 shrink-0"
-                  style={{ boxShadow: '0 4px 16px hsl(220 100% 56% / 0.35)' }}
-                >
-                  Visit Site
-                  <ExternalLink size={14} />
-                </a>
-              </div>
-            </div>
           </motion.div>
 
           {/* Highlights Grid */}
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4 h-full">
             {highlights.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -130,6 +99,72 @@ export const About = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+
+        {/* Bottom Cards: The Company & What We Build */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Card 1: The Company */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="relative rounded-2xl overflow-hidden border border-primary/30 bg-primary/5 p-6 glass-card"
+            style={{ boxShadow: '0 0 40px -15px hsl(220 100% 56% / 0.2)' }}
+          >
+            <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-primary/10 blur-2xl pointer-events-none" />
+            <h3 className="font-display text-lg font-semibold mb-6 gradient-text">The Company</h3>
+            <div className="relative flex items-center justify-between gap-4 flex-wrap">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/20 flex items-center justify-center shrink-0">
+                  <img src="/logos/navyaedtech.webp" alt="Navya EdTech" className="w-8 h-8 object-contain" />
+                </div>
+                <div>
+                  <p className="font-display font-bold text-foreground text-lg leading-tight">Navya EdTech</p>
+                  <p className="text-sm text-muted-foreground mt-1">Enterprise IT &amp; Software Development</p>
+                </div>
+              </div>
+              <a
+                href="https://navyaedtech.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-primary text-white hover:bg-primary/90 hover:-translate-y-0.5 transition-all duration-200 shrink-0"
+                style={{ boxShadow: '0 4px 16px hsl(220 100% 56% / 0.35)' }}
+              >
+                Visit Site
+                <ExternalLink size={16} />
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Card 2: What We Build */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.9 }}
+            className="glass-card p-6"
+          >
+            <h3 className="font-display text-lg font-semibold mb-6 gradient-text-gold">What We Build</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <Server className="w-4 h-4 text-blue-400" /> ERP Systems
+              </div>
+              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <Layout className="w-4 h-4 text-green-400" /> LMS Platforms
+              </div>
+              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <Users className="w-4 h-4 text-purple-400" /> CRM Software
+              </div>
+              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <Cloud className="w-4 h-4 text-sky-400" /> Cloud Infra
+              </div>
+              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <Smartphone className="w-4 h-4 text-pink-400" /> Mobile Apps
+              </div>
+              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <BarChart3 className="w-4 h-4 text-orange-400" /> BI Dashboards
+              </div>
+            </div>
+          </motion.div>
         </div>
 
         {/* Entity summary — readable by AI crawlers, screen readers, and non-JS bots */}

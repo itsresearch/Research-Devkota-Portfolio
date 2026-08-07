@@ -21,11 +21,18 @@ const navLinks = [
 
 export const Footer = () => {
   return (
-    <footer className="relative border-t border-border/50 bg-card/30" itemScope itemType="https://schema.org/WPFooter">
+    <footer className="relative border-t border-border/50 bg-card/30 overflow-hidden" itemScope itemType="https://schema.org/WPFooter">
       {/* Navya top accent bar */}
       <div className="h-[3px] w-full bg-gradient-to-r from-primary via-blue-400 to-accent" />
 
-      <div className="section-container py-14">
+      {/* Watermark Background */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] overflow-hidden select-none">
+        <span className="font-display font-black text-[15vw] leading-none whitespace-nowrap gradient-text">
+          RESEARCH DEVKOTA
+        </span>
+      </div>
+
+      <div className="section-container relative z-10 py-14">
         <div className="flex flex-col items-center">
 
           {/* Brand */}
@@ -92,8 +99,9 @@ export const Footer = () => {
               >
                 Navya EdTech
               </a>
-              {' '}· Fullstack Developer · Lalitpur, Nepal 🇳🇵
+              {' '}· Fullstack Developer
             </p>
+            <p className="mt-4 pt-4 text-foreground/80 font-medium">Built with ❤️ in Nepal 🇳🇵</p>
           </div>
 
           {/* Screen-reader + crawler entity summary */}

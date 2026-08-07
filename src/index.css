@@ -10,7 +10,7 @@
 @layer base {
   :root {
     /* ── Backgrounds: Deep Navya Navy ───────────────────────────── */
-    --background: 218 66% 6%;          /* #0A1628 */
+    --background: 218 70% 4%;          /* Deeper Navy */
     --foreground: 213 31% 91%;         /* #D9E3F0 */
 
     --card: 218 60% 9%;                /* #0D1C35 */
@@ -67,7 +67,7 @@
   }
 
   .dark {
-    --background: 218 66% 6%;
+    --background: 218 70% 4%;
     --foreground: 213 31% 91%;
     --card: 218 60% 9%;
     --card-foreground: 213 31% 91%;
@@ -290,6 +290,32 @@
       hsl(var(--accent)) 100%
     );
   }
+
+  /* ── Premium Founder Components ──────────────────────────────── */
+  .ring-glow {
+    @apply relative flex items-center justify-center;
+  }
+  .ring-glow::before, .ring-glow::after {
+    content: '';
+    @apply absolute inset-0 rounded-full border-2 border-primary opacity-50 blur-sm;
+    animation: ring-pulse 3s infinite ease-in-out;
+  }
+  .founder-metric-card {
+    @apply absolute bg-card/80 backdrop-blur border border-primary/30 rounded-xl p-3 flex flex-col items-center justify-center shadow-lg;
+  }
+  .vision-strip {
+    @apply w-full bg-card/40 backdrop-blur border-y border-border/40 relative overflow-hidden;
+  }
+  .section-tag {
+    @apply inline-flex items-center gap-2 px-3 py-1 text-xs font-medium uppercase tracking-wider rounded-full border border-primary/20 bg-primary/10 text-primary;
+  }
+  .founder-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full border border-border/50 bg-secondary/80 text-secondary-foreground shadow-sm;
+  }
+  .noise-overlay {
+    @apply pointer-events-none absolute inset-0 opacity-[0.15];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
 }
 
 @layer utilities {
@@ -300,6 +326,17 @@
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50%       { transform: translateY(-20px); }
+  }
+
+  @keyframes ring-pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 0.3; }
+    100% { transform: scale(1); opacity: 0.8; }
+  }
+
+  @keyframes counter-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px) translateX(5px); }
   }
 
   /* ── Pulse glow ──────────────────────────────────────────────── */

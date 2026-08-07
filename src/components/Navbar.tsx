@@ -15,12 +15,31 @@ const navLinks = [
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      
+      const totalHeight = document.body.scrollHeight - window.innerHeight;
+      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
+      setScrollProgress(progress);
+
+      let current = '';
+      for (const link of navLinks) {
+        const section = document.querySelector(link.href);
+        if (section) {
+          const sectionTop = section.getBoundingClientRect().top;
+          if (sectionTop <= 150) {
+            current = link.href;
+          }
+        }
+      }
+      setActiveSection(current);
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -32,24 +51,35 @@ export const Navbar = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-background/80 backdrop-blur-xl border-b border-border/50' : 'bg-transparent'
         }`}
     >
-      {/* Navya-style top gradient bar */}
-      <div className="h-[3px] w-full bg-gradient-to-r from-primary via-blue-400 to-accent" />
+      {/* Scroll Progress Indicator Bar */}
+      <div 
+        className="h-[3px] navya-progress-bar absolute top-0 left-0 z-50" 
+        style={{ width: `${scrollProgress}%` }}
+      />
+      
+      {/* Fallback bar if progress is 0 */}
+      <div className="h-[3px] w-full bg-gradient-to-r from-primary/10 via-blue-400/10 to-accent/10" />
 
       <nav className="section-container py-3">
         <div className="flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2 group">
+          <a href="#" className="flex items-center gap-3 group">
             <span className="font-display text-lg font-bold gradient-text tracking-tight">
               Research Devkota
             </span>
-            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary/10 text-primary border border-primary/20">
-              Navya EdTech
-            </span>
+            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+              <img src="/logos/navyaedtech.webp" alt="Navya" className="h-4 w-4 object-contain" />
+              <span className="text-[10px] font-semibold text-primary uppercase tracking-wider">Navya EdTech</span>
+            </div>
           </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="nav-link text-sm font-medium">
+              <a 
+                key={link.href} 
+                href={link.href} 
+                className={`nav-link text-sm font-medium ${activeSection === link.href ? 'text-primary after:w-full' : ''}`}
+              >
                 {link.label}
               </a>
             ))}
@@ -82,12 +112,12 @@ export const Navbar = () => {
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-muted-foreground hover:text-foreground transition-colors py-2"
+                    className={`transition-colors py-2 ${activeSection === link.href ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
                   >
                     {link.label}
                   </a>
                 ))}
-                <a href="#contact" className="btn-primary text-sm w-fit">
+                <a href="#contact" className="btn-primary text-sm w-fit mt-2">
                   Get in Touch
                 </a>
               </div>
