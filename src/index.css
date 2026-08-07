@@ -9,83 +9,66 @@
 
 @layer base {
   :root {
-    /* ── Backgrounds: Deep Navya Navy ───────────────────────────── */
-    --background: 218 70% 4%;          /* Deeper Navy */
-    --foreground: 213 31% 91%;         /* #D9E3F0 */
-
-    --card: 218 60% 9%;                /* #0D1C35 */
-    --card-foreground: 213 31% 91%;
-
-    --popover: 218 60% 9%;
-    --popover-foreground: 213 31% 91%;
-
-    /* ── Primary: Navya Electric Blue ───────────────────────────── */
-    --primary: 220 100% 56%;           /* #1E6BFF */
-    --primary-rgb: 30 107 255;
+    --background: 220 43% 99%;        /* #FAFBFF */
+    --foreground: 222 47% 11%;        /* #0F172A */
+    --card: 0 0% 100%;                /* #FFFFFF */
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 221 83% 53%;           /* #2563EB */
+    --primary-rgb: 37 99 235;
     --primary-foreground: 0 0% 100%;
-
-    /* ── Secondary: Mid-navy surface ────────────────────────────── */
-    --secondary: 218 55% 14%;          /* #131F36 → slightly lighter */
-    --secondary-foreground: 213 31% 91%;
-
-    --muted: 218 50% 13%;
-    --muted-foreground: 218 20% 55%;   /* #7B8DB0 */
-
-    /* ── Accent: Navya Gold Gradient anchor ─────────────────────── */
-    --accent: 37 100% 57%;             /* #F5A623 */
-    --accent-foreground: 218 66% 6%;
-
+    --secondary: 214 32% 91%;         /* #E2E8F0 -> slightly lighter */
+    --secondary-foreground: 222 47% 11%;
+    --muted: 215 25% 95%;             /* #F1F5F9 */
+    --muted-foreground: 215 16% 47%; /* #64748B */
+    --accent: 38 92% 50%;            /* #F59E0B */
+    --accent-foreground: 222 47% 11%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 218 45% 16%;             /* subtle navy border */
-    --input: 218 45% 16%;
-    --ring: 220 100% 56%;
-
+    --border: 215 25% 88%;           /* #E2E8F0 */
+    --input: 215 25% 88%;
+    --ring: 221 83% 53%;
     --radius: 0.875rem;
-
-    /* ── Custom gradient stops ───────────────────────────────────── */
-    --gradient-start: 220 100% 56%;    /* Electric blue */
-    --gradient-end: 220 100% 70%;      /* Lighter blue */
-    --gradient-gold-from: 43 100% 72%; /* #FFD27A */
-    --gradient-gold-via: 37 91% 55%;   /* #F5A623 */
-    --gradient-gold-to: 24 100% 62%;   /* #FF9A3D */
-
-    /* ── Glow effects ────────────────────────────────────────────── */
-    --glow-primary: 220 100% 56%;
-    --glow-accent: 37 100% 57%;
+    --gradient-start: 221 83% 53%;
+    --gradient-end: 221 83% 70%;
+    --gradient-gold-from: 43 100% 72%;
+    --gradient-gold-via: 38 92% 50%;
+    --gradient-gold-to: 24 100% 62%;
+    --glow-primary: 221 83% 53%;
+    --glow-accent: 38 92% 50%;
 
     /* ── Sidebar ─────────────────────────────────────────────────── */
-    --sidebar-background: 218 66% 6%;
-    --sidebar-foreground: 213 31% 91%;
-    --sidebar-primary: 220 100% 56%;
+    --sidebar-background: 220 43% 99%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 221 83% 53%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 218 55% 14%;
-    --sidebar-accent-foreground: 213 31% 91%;
-    --sidebar-border: 218 45% 16%;
-    --sidebar-ring: 220 100% 56%;
+    --sidebar-accent: 214 32% 91%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 215 25% 88%;
+    --sidebar-ring: 221 83% 53%;
   }
 
   .dark {
-    --background: 218 70% 4%;
-    --foreground: 213 31% 91%;
-    --card: 218 60% 9%;
-    --card-foreground: 213 31% 91%;
-    --popover: 218 60% 9%;
-    --popover-foreground: 213 31% 91%;
-    --primary: 220 100% 56%;
+    --background: 220 43% 99%;        /* #FAFBFF */
+    --foreground: 222 47% 11%;        /* #0F172A */
+    --card: 0 0% 100%;                /* #FFFFFF */
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 221 83% 53%;           /* #2563EB */
     --primary-foreground: 0 0% 100%;
-    --secondary: 218 55% 14%;
-    --secondary-foreground: 213 31% 91%;
-    --muted: 218 50% 13%;
-    --muted-foreground: 218 20% 55%;
-    --accent: 37 100% 57%;
-    --accent-foreground: 218 66% 6%;
-    --destructive: 0 62% 30%;
+    --secondary: 214 32% 91%;         /* #E2E8F0 -> slightly lighter */
+    --secondary-foreground: 222 47% 11%;
+    --muted: 215 25% 95%;             /* #F1F5F9 */
+    --muted-foreground: 215 16% 47%; /* #64748B */
+    --accent: 38 92% 50%;            /* #F59E0B */
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 218 45% 16%;
-    --input: 218 45% 16%;
-    --ring: 220 100% 56%;
+    --border: 215 25% 88%;           /* #E2E8F0 */
+    --input: 215 25% 88%;
+    --ring: 221 83% 53%;
   }
 }
 
@@ -121,11 +104,11 @@
 
   /* ── Navya scrollbar ─────────────────────────────────────────────── */
   ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-track { background: hsl(var(--background)); }
+  ::-webkit-scrollbar-track { background: hsl(var(--secondary)); }
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--border));
     border-radius: 999px;
-    border: 2px solid hsl(var(--background));
+    border: 2px solid hsl(var(--secondary));
   }
   ::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.6); }
 
@@ -172,13 +155,11 @@
 
   /* ── Glass card — Navya enterprise glass style ──────────────── */
   .glass-card {
-    background: hsl(var(--card) / 0.7);
-    border: 1px solid hsl(var(--border) / 0.8);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    backdrop-filter: none;
     border-radius: var(--radius);
-    box-shadow: 0 1px 2px hsl(var(--background) / 0.06),
-                0 6px 20px hsl(var(--background) / 0.12);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(37,99,235,0.06);
   }
 
   /* ── Glow effects ────────────────────────────────────────────── */
@@ -229,23 +210,23 @@
   }
   .project-card:hover {
     transform: translateY(-4px);
-    border-color: hsl(var(--primary) / 0.4);
-    box-shadow: 0 20px 40px -20px hsl(var(--primary) / 0.25),
-                0 0 60px -30px hsl(var(--primary) / 0.15);
+    border-color: hsl(var(--primary) / 0.3);
+    box-shadow: 0 12px 32px -8px rgba(37,99,235,0.18),
+                0 4px 8px rgba(0,0,0,0.06);
   }
 
   /* ── Social icon ─────────────────────────────────────────────── */
   .social-icon {
     @apply w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300;
-    background: hsl(var(--secondary) / 0.5);
+    background: hsl(var(--secondary));
     color: hsl(var(--muted-foreground));
-    border: 1px solid hsl(var(--border) / 0.5);
+    border: 1px solid hsl(var(--border));
   }
   .social-icon:hover {
     background: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
+    color: white;
     border-color: hsl(var(--primary));
-    box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.5);
+    box-shadow: 0 4px 12px rgba(37,99,235,0.35);
     transform: translateY(-2px);
   }
 
@@ -256,12 +237,11 @@
     color: hsl(var(--primary-foreground));
     font-size: 0.875rem;
     letter-spacing: -0.01em;
-    box-shadow: 0 1px 2px hsl(var(--background) / 0.3),
-                0 4px 16px hsl(var(--primary) / 0.35);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 4px 12px rgba(37,99,235,0.3);
   }
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 24px hsl(var(--primary) / 0.5);
+    box-shadow: 0 4px 20px rgba(37,99,235,0.45);
   }
   .btn-primary:active { transform: scale(0.97); }
 
@@ -297,11 +277,16 @@
   }
   .ring-glow::before, .ring-glow::after {
     content: '';
-    @apply absolute inset-0 rounded-full border-2 border-primary opacity-50 blur-sm;
+    @apply absolute inset-0 rounded-full border-2 border-primary opacity-30 blur-[1px];
     animation: ring-pulse 3s infinite ease-in-out;
   }
   .founder-metric-card {
-    @apply absolute bg-card/80 backdrop-blur border border-primary/30 rounded-xl p-3 flex flex-col items-center justify-center shadow-lg;
+    background: white;
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 4px 16px rgba(37,99,235,0.12), 0 1px 4px rgba(0,0,0,0.06);
+    border-radius: 12px;
+    padding: 10px 14px;
+    @apply absolute flex flex-col items-center justify-center;
   }
   .vision-strip {
     @apply w-full bg-card/40 backdrop-blur border-y border-border/40 relative overflow-hidden;
@@ -344,23 +329,23 @@
     animation: pulse-glow 2.5s ease-in-out infinite;
   }
   @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.4); }
-    50%       { box-shadow: 0 0 50px -5px hsl(var(--primary) / 0.7); }
+    0%, 100% { box-shadow: 0 0 0 3px hsl(var(--primary) / 0.15); }
+    50%       { box-shadow: 0 0 0 6px hsl(var(--primary) / 0.25); }
   }
 
   /* ── Navya light grid (subtle dot/line background) ───────────── */
   .bg-grid-pattern {
     background-image:
-      linear-gradient(hsl(var(--primary) / 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--primary) / 0.06) 1px, transparent 1px);
-    background-size: 64px 64px;
+      linear-gradient(hsl(var(--primary) / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
   }
 
   /* ── Radial hero wash ────────────────────────────────────────── */
   .bg-radial-gradient {
     background: radial-gradient(
-      ellipse at top,
-      hsl(var(--primary) / 0.12) 0%,
+      ellipse at top right,
+      hsl(var(--primary) / 0.08) 0%,
       transparent 60%
     );
   }

@@ -10,7 +10,7 @@ export const VisionBanner = () => {
       transition={{ duration: 0.8 }}
       className="vision-strip"
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5" />
+      <div className="absolute inset-0 border-y border-slate-200" style={{ background: 'linear-gradient(135deg, hsl(221 83% 53% / 0.04) 0%, hsl(38 92% 50% / 0.04) 100%)' }} />
       <div className="section-container relative py-6 flex flex-col md:flex-row items-center justify-between gap-6">
         
         {/* Left: Navya EdTech Logo & Tagline */}

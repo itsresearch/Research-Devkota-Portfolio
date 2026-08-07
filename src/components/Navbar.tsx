@@ -48,7 +48,7 @@ export const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-background/80 backdrop-blur-xl border-b border-border/50' : 'bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-sm' : 'bg-white/60 backdrop-blur-md'
         }`}
     >
       {/* Scroll Progress Indicator Bar */}
@@ -58,7 +58,7 @@ export const Navbar = () => {
       />
       
       {/* Fallback bar if progress is 0 */}
-      <div className="h-[3px] w-full bg-gradient-to-r from-primary/10 via-blue-400/10 to-accent/10" />
+      <div className="h-[1px] w-full bg-gradient-to-r from-primary/10 via-blue-400/10 to-accent/10" />
 
       <nav className="section-container py-3">
         <div className="flex items-center justify-between">

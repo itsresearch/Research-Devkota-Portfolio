@@ -26,13 +26,13 @@ export const Hero = () => {
         animate={{ y: [0, -30, 0], x: [0, 15, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-1/4 right-1/4 w-72 h-72 rounded-full blur-3xl"
-        style={{ background: 'radial-gradient(circle, hsl(220 100% 56% / 0.15), transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, hsl(220 100% 56% / 0.06), transparent 70%)' }}
       />
       <motion.div
         animate={{ y: [0, 20, 0], x: [0, -20, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         className="absolute bottom-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl"
-        style={{ background: 'radial-gradient(circle, hsl(37 100% 57% / 0.10), transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, hsl(37 100% 57% / 0.06), transparent 70%)' }}
       />
 
       <div className="section-container relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 w-full">
@@ -46,7 +46,7 @@ export const Hero = () => {
             className="flex flex-col items-center lg:items-start gap-4 mb-6"
           >
             {/* Small animated status pill */}
-            <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-sm font-semibold tracking-tight">
+            <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/8 text-primary border border-primary/20 text-sm font-semibold tracking-tight">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
               Available for Partnerships
             </p>
@@ -173,7 +173,7 @@ export const Hero = () => {
             <div className="absolute w-[290px] h-[290px] rounded-full border-[1.5px] border-accent blur-[1px] opacity-80 animate-[ring-pulse_4s_infinite_linear_alternate-reverse]" />
             
             {/* Inner Image Container */}
-            <div className="relative w-[240px] h-[240px] rounded-full overflow-hidden border-2 border-primary/30 z-10 shadow-2xl bg-card/50">
+            <div className="relative w-[240px] h-[240px] rounded-full overflow-hidden border-2 border-slate-200 z-10 shadow-2xl bg-card/50">
               <img
                 src="https://avatars.githubusercontent.com/u/134274596?v=4"
                 alt="Research Devkota"

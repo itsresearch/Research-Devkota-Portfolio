@@ -21,13 +21,13 @@ const navLinks = [
 
 export const Footer = () => {
   return (
-    <footer className="relative border-t border-border/50 bg-card/30 overflow-hidden" itemScope itemType="https://schema.org/WPFooter">
+    <footer className="relative bg-slate-50 border-t border-slate-200 overflow-hidden" itemScope itemType="https://schema.org/WPFooter">
       {/* Navya top accent bar */}
       <div className="h-[3px] w-full bg-gradient-to-r from-primary via-blue-400 to-accent" />
 
       {/* Watermark Background */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] overflow-hidden select-none">
-        <span className="font-display font-black text-[15vw] leading-none whitespace-nowrap gradient-text">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden select-none">
+        <span className="font-display font-black text-[15vw] leading-none whitespace-nowrap text-slate-100">
           RESEARCH DEVKOTA
         </span>
       </div>
