@@ -16,6 +16,7 @@ const navLinks = [
   { href: '#experience', label: 'Experience' },
   { href: '#education', label: 'Education' },
   { href: '#certifications', label: 'Certifications' },
+  { href: '#blog', label: 'Blog' },
   { href: '#contact', label: 'Contact' },
 ];
 
@@ -102,6 +103,11 @@ export const Footer = () => {
               {' '}· Fullstack Developer
             </p>
             <p className="mt-4 pt-4 text-foreground/80 font-medium">Built with ❤️ in Nepal 🇳🇵</p>
+            <p className="mt-3">
+              <a href="/admin" className="text-xs text-muted-foreground/40 hover:text-muted-foreground/70 transition-colors">
+                Admin
+              </a>
+            </p>
           </div>
 
           {/* Screen-reader + crawler entity summary */}

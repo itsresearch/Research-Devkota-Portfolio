@@ -8,9 +8,9 @@ export const VisionBanner = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      className="vision-strip"
+      className="w-full bg-white border-y border-slate-200"
+      style={{ background: 'linear-gradient(135deg, rgba(37,99,235,0.03) 0%, rgba(245,158,11,0.03) 100%)' }}
     >
-      <div className="absolute inset-0 border-y border-slate-200" style={{ background: 'linear-gradient(135deg, hsl(221 83% 53% / 0.04) 0%, hsl(38 92% 50% / 0.04) 100%)' }} />
       <div className="section-container relative py-6 flex flex-col md:flex-row items-center justify-between gap-6">
         
         {/* Left: Navya EdTech Logo & Tagline */}
