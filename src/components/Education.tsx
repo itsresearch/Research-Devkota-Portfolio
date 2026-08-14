@@ -1,130 +1,137 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { GraduationCap, Calendar, MapPin } from 'lucide-react';
+import { useStagger, useReveal } from '@/hooks/useGSAP';
 
-const educationData = [
+const EDUCATION = [
   {
     degree: 'Bachelor of Information Management',
     institution: 'Nepal Commerce Campus',
     location: 'Kathmandu, Nepal',
-    period: '2021 - 2026',
-    logo: 'NCC',
-    description: 'Successfully completed a Bachelor\'s degree in Information Management with a strong focus on practical web development and software engineering also with business management and entrepreneurship.',
+    period: '2021 – 2026',
+    logo: 'BIM',
+    accent: 'hsl(var(--primary))',
+    description: "Bachelor's in Information Management with strong focus on practical web development, software engineering, business management and entrepreneurship.",
     learnings: [
-      'Web development with modern frameworks and technologies',
+      'Web development with modern frameworks',
       'Database design and management',
-      'Software engineering principles and best practices',
-      'Problem-solving and algorithmic thinking'
-    ]
+      'Software engineering principles',
+      'Problem-solving and algorithmic thinking',
+    ],
   },
   {
-    degree: '10 + 2',
+    degree: '10 + 2 (Higher Secondary)',
     institution: 'Kathmandu Bernhardt Secondary School',
     location: 'Kathmandu, Nepal',
-    period: '2018 - 2020',
-    logo: 'KBSS',
-    description: 'Successfully completed higher secondary education with a focus on science subjects.',
+    period: '2018 – 2020',
+    logo: '+2',
+    accent: 'hsl(var(--accent))',
+    description: 'Completed higher secondary education with a focus on science subjects and foundational computer science.',
     learnings: [
       'Strong foundation in mathematics and sciences',
       'Computer science fundamentals',
       'Problem-solving skills',
-      'Academic excellence and discipline'
-    ]
+      'Academic excellence and discipline',
+    ],
   },
   {
-    degree: 'National Education Board',
+    degree: 'SEE (National Education Board)',
     institution: 'Standard CO-ED High School',
     location: 'Nepal',
     period: 'Until 2018',
-    logo: 'NEB',
-    description: 'Completed secondary education with strong foundational knowledge.',
+    logo: 'SEE',
+    accent: 'hsl(var(--accent-warm))',
+    description: 'Completed secondary education with strong foundational knowledge across core academic subjects.',
     learnings: [
       'Core academic subjects',
       'Fundamental mathematics and science',
       'Language skills',
-      'General knowledge and literacy'
-    ]
-  }
+      'General knowledge and literacy',
+    ],
+  },
 ];
 
 export const Education = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const headerRef = useRef<HTMLDivElement>(null);
+  const gridRef   = useRef<HTMLDivElement>(null);
+
+  useReveal(headerRef as React.RefObject<HTMLElement>);
+  useStagger(gridRef as React.RefObject<HTMLElement>, ':scope > *', { stagger: 0.15, y: 50 });
 
   return (
-    <section id="education" className="py-24 relative bg-secondary/20" ref={ref}>
-      <div className="section-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-semibold uppercase tracking-widest mb-4">
-            Academic Background
-          </p>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 tracking-tight">
+    <section id="education" className="py-28 relative">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'hsl(var(--surface) / 0.4)' }}
+      />
+
+      <div className="section-container relative z-10">
+        <div ref={headerRef} className="text-center mb-16">
+          <p className="section-tag mb-4"><GraduationCap size={12} /> Academic Background</p>
+          <h2 className="font-display text-4xl sm:text-5xl font-bold mb-5">
             <span className="gradient-text">Education</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Academic foundation and continuous learning
+          <p className="text-muted-foreground max-w-xl mx-auto text-lg">
+            Academic foundation and continuous learning journey.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="w-full flex flex-col items-center justify-center">
-          <div
-            className="flex flex-col gap-8 md:flex-row md:gap-8 w-full justify-center items-stretch"
-          >
-            {educationData.map((edu, index) => (
-              <motion.div
-                key={edu.degree}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="flex-1 min-w-[260px] max-w-md bg-card/70 rounded-2xl shadow-lg hover:shadow-xl border border-border px-6 py-8 flex flex-col md:min-h-[410px] mx-auto md:mx-0 backdrop-blur-[2px] transition-all duration-300"
-                style={{ boxShadow: '0 8px 32px 0 hsl(var(--card) / 0.25)' }}
+        <div ref={gridRef} className="grid md:grid-cols-3 gap-6">
+          {EDUCATION.map(edu => (
+            <div
+              key={edu.degree}
+              className="flex flex-col p-6 rounded-2xl transition-all duration-400 hover:-translate-y-2 group"
+              style={{ background: 'hsl(var(--surface))', border: '1px solid hsl(var(--border))' }}
+            >
+              {/* Logo badge */}
+              <div
+                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
+                style={{ background: `${edu.accent}18` }}
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <span className="font-display font-bold text-xl gradient-text">{edu.logo}</span>
-                  </div>
-                  <div>
-                    <h3 className="font-display font-bold text-lg md:text-xl mb-1 text-left group-hover:text-primary transition-colors">
-                      {edu.degree}
-                    </h3>
-                    <div className="flex items-center gap-2 text-primary font-semibold">
-                      <GraduationCap size={18} /> <span>{edu.institution}</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-3">
-                  <div className="flex items-center gap-2 bg-secondary/50 px-3 py-1.5 rounded-full">
-                    <Calendar size={14} className="text-primary" />
-                    <span>{edu.period}</span>
-                  </div>
-                  <div className="flex items-center gap-2 bg-secondary/50 px-3 py-1.5 rounded-full">
-                    <MapPin size={14} className="text-primary" />
-                    <span>{edu.location}</span>
-                  </div>
-                </div>
-                <p className="text-muted-foreground mb-4 leading-normal text-balance">
-                  {edu.description}
-                </p>
-                <div className="flex-1 flex flex-col justify-end">
-                  <p className="text-sm font-semibold text-foreground mb-1">Key Learnings:</p>
-                  <ul className="space-y-2 mb-2">
-                    {edu.learnings.map((learning, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className="text-primary mt-1">▹</span>
-                        <span>{learning}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                <span className="font-display font-black text-sm" style={{ color: edu.accent }}>
+                  {edu.logo}
+                </span>
+              </div>
+
+              {/* Degree */}
+              <h3 className="font-display font-bold text-lg mb-1 text-foreground leading-snug">
+                {edu.degree}
+              </h3>
+              <p className="font-semibold text-sm mb-3" style={{ color: edu.accent }}>
+                {edu.institution}
+              </p>
+
+              {/* Meta */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span
+                  className="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full font-medium"
+                  style={{ background: 'hsl(var(--surface-2))', color: 'hsl(var(--muted-foreground))' }}
+                >
+                  <Calendar size={11} /> {edu.period}
+                </span>
+                <span
+                  className="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full font-medium"
+                  style={{ background: 'hsl(var(--surface-2))', color: 'hsl(var(--muted-foreground))' }}
+                >
+                  <MapPin size={11} /> {edu.location}
+                </span>
+              </div>
+
+              <p className="text-muted-foreground text-sm leading-relaxed mb-5">{edu.description}</p>
+
+              {/* Learnings */}
+              <div className="mt-auto">
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/60 mb-3">Key Learnings</p>
+                <ul className="space-y-1.5">
+                  {edu.learnings.map((l, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: edu.accent }} />
+                      {l}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

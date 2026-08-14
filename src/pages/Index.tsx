@@ -1,3 +1,7 @@
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { CustomCursor } from '@/components/CustomCursor';
 import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
 import { VisionBanner } from '@/components/VisionBanner';
@@ -10,38 +14,68 @@ import { Certifications } from '@/components/Certifications';
 import { Blog } from '@/components/Blog';
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Index = () => {
   const [showAllCertifications, setShowAllCertifications] = useState(false);
+  const lenisRef = useRef<{ raf: (t: number) => void; destroy: () => void } | null>(null);
 
   useEffect(() => {
     document.title = 'Research Devkota | Co-Founder, Navya EdTech';
 
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content',
-        'Research Devkota - Co-founder of Navya EdTech and fullstack developer based in Kathmandu, Nepal. Building custom enterprise software, ERP and LMS platforms, and cloud systems with Laravel, React, and Python.'
-      );
+    /* ── Lenis smooth scroll ───────────────────────────────────────── */
+    let lenis: typeof lenisRef.current = null;
+
+    import('lenis').then(({ default: Lenis }) => {
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        touchMultiplier: 2,
+      }) as unknown as typeof lenisRef.current;
+
+      lenisRef.current = lenis;
+
+      /* Sync Lenis with GSAP ticker */
+      gsap.ticker.add((time) => {
+        lenis?.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+
+      /* Sync Lenis with ScrollTrigger */
+      (lenis as unknown as { on: (event: string, cb: () => void) => void })
+        .on('scroll', ScrollTrigger.update);
+    });
+
+    /* ── Scroll to hash on load ───────────────────────────────────── */
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      setTimeout(() => {
+        document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
     }
 
-    // The browser gives up scrolling to the hash target on load — React hasn't
-    // rendered the section yet. Do it once the page is mounted.
-    const target = document.getElementById(window.location.hash.slice(1));
-    if (target) target.scrollIntoView({ behavior: 'instant' });
+    return () => {
+      lenis?.destroy();
+      gsap.ticker.remove(() => {});
+    };
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      {/* Custom cursor — desktop only */}
+      <CustomCursor />
+
       <Navbar />
+
       <main>
         <Hero />
         <VisionBanner />
         <About />
-        <Skills />
         <Experience />
+        <Skills />
         <Projects />
         <Education />
 
@@ -50,17 +84,14 @@ const Index = () => {
         ) : (
           <>
             <Certifications limit={6} />
-            <div className="text-center pb-12">
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+            <div className="text-center pb-16">
+              <button
                 onClick={() => setShowAllCertifications(true)}
-                className="btn-primary"
+                className="btn-secondary"
               >
                 View All Certifications
-                <ChevronRight size={18} />
-              </motion.button>
+                <ChevronRight size={16} />
+              </button>
             </div>
           </>
         )}
@@ -68,6 +99,7 @@ const Index = () => {
         <Blog />
         <Contact />
       </main>
+
       <Footer />
     </div>
   );

@@ -1,84 +1,130 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useStagger, useReveal } from '@/hooks/useGSAP';
 
-const skillCategories = [
+gsap.registerPlugin(ScrollTrigger);
+
+const SKILL_CATS = [
   {
     title: 'Backend Development',
-    skills: ['Laravel', 'PHP', 'Python','Django', 'MySQL', 'PostgreSQL', 'REST APIs', 'MVC Pattern', 'Authentication', 'Authorization'],
+    icon: '⚙️',
+    color: 'hsl(246 90% 68%)',
+    skills: ['Laravel', 'PHP', 'Python', 'Django', 'MySQL', 'PostgreSQL', 'REST APIs', 'MVC Pattern', 'Authentication', 'Authorization'],
   },
   {
     title: 'Frontend Development',
-    skills: ['JavaScript', 'HTML/CSS', 'React', 'Responsive Design', 'DOM Manipulation', 'Tailwind CSS'],
+    icon: '🎨',
+    color: 'hsl(192 100% 52%)',
+    skills: ['JavaScript', 'TypeScript', 'React', 'HTML / CSS', 'Tailwind CSS', 'Responsive Design', 'DOM APIs'],
   },
   {
     title: 'Database & ORM',
-    skills: ['MySQL', 'PostgreSQL', 'Eloquent ORM', 'Database Design', 'Query Optimization', 'Migrations', 'Relationships'],
+    icon: '🗄️',
+    color: 'hsl(35 98% 58%)',
+    skills: ['MySQL', 'PostgreSQL', 'Eloquent ORM', 'Query Optimization', 'Migrations', 'Database Design'],
   },
   {
     title: 'Tools & Platforms',
-    skills: ['Git/GitHub', 'VS Code', 'Docker', 'Composer', 'Npm/Bun', 'Linux', 'POSTMAN', 'MySQL Workbench', 'Cyprus','Sentry'],
+    icon: '🛠️',
+    color: 'hsl(142 71% 55%)',
+    skills: ['Git / GitHub', 'Docker', 'Linux', 'VS Code', 'Postman', 'Composer', 'npm / Bun', 'Sentry'],
   },
   {
     title: 'Programming Fundamentals',
-    skills: ['Object-Oriented Programming', 'Data Structures', 'Algorithms', 'Design Patterns', 'Clean Code', 'Version Control'],
+    icon: '📐',
+    color: 'hsl(300 70% 65%)',
+    skills: ['OOP', 'Data Structures', 'Algorithms', 'Design Patterns', 'Clean Code', 'Version Control'],
   },
   {
     title: 'Other Skills',
-    skills: ['SaaS systems','Leadership','Teaching & Mentoring', 'Problem Solving', 'Project Management', 'Collaboration','RBAC','OAuth','API Development','Quality Assurance','Unit Testing','Debugging','Performance Optimization'],
+    icon: '🚀',
+    color: 'hsl(5 90% 65%)',
+    skills: ['SaaS Systems', 'Leadership', 'Teaching', 'Project Management', 'RBAC', 'OAuth', 'Unit Testing', 'Performance Optimization'],
   },
 ];
 
-export const Skills = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+/* Animated skill badge (GSAP pop-in per card) */
+const SkillCard = ({ cat, index }: { cat: typeof SKILL_CATS[0]; index: number }) => {
+  const cardRef   = useRef<HTMLDivElement>(null);
+  const badgesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const ctx = gsap.context(() => {
+      /* Card reveal */
+      gsap.fromTo(el,
+        { opacity: 0, y: 50, scale: 0.96 },
+        {
+          opacity: 1, y: 0, scale: 1,
+          duration: 0.7, ease: 'power3.out',
+          delay: index * 0.1,
+          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+        },
+      );
+
+      /* Badge stagger */
+      gsap.fromTo(
+        badgesRef.current?.querySelectorAll('.badge') ?? [],
+        { opacity: 0, scale: 0.7 },
+        {
+          opacity: 1, scale: 1,
+          duration: 0.35, stagger: 0.05, ease: 'back.out(1.5)',
+          delay: index * 0.1 + 0.3,
+          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+        },
+      );
+    });
+    return () => ctx.revert();
+  }, [index]);
 
   return (
-    <section id="skills" className="py-24 relative bg-secondary/20" ref={ref}>
-      <div className="section-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-semibold uppercase tracking-widest mb-4">
-            Technical Skills
-          </p>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 tracking-tight">
-            Skills &amp; <span className="gradient-text">Expertise</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Technologies and skills I've developed through practical projects and professional experience
-          </p>
-        </motion.div>
+    <div ref={cardRef} className="glow-card p-6 h-full">
+      <div className="flex items-center gap-3 mb-5">
+        <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
+          style={{ background: `${cat.color}18` }}>
+          {cat.icon}
+        </div>
+        <h3 className="font-display font-semibold text-base text-foreground" style={{ color: cat.color }}>
+          {cat.title}
+        </h3>
+      </div>
+      <div ref={badgesRef} className="flex flex-wrap gap-2">
+        {cat.skills.map(s => (
+          <span key={s} className="badge skill-badge">{s}</span>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((category, categoryIndex) => (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-              className="glass-card p-6"
-            >
-              <h3 className="font-display font-semibold text-lg mb-4 text-primary">
-                {category.title}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.span
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ duration: 0.3, delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
-                    className="skill-badge"
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
+export const Skills = () => {
+  const headerRef = useRef<HTMLDivElement>(null);
+  useReveal(headerRef as React.RefObject<HTMLElement>);
+
+  return (
+    <section id="skills" className="py-28 relative">
+      {/* bg accent */}
+      <div
+        className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[150px] opacity-8 pointer-events-none"
+        style={{ background: 'hsl(var(--accent) / 0.08)' }}
+      />
+
+      <div className="section-container">
+        <div ref={headerRef} className="text-center mb-16">
+          <p className="section-tag mb-4">⚡ Technical Toolkit</p>
+          <h2 className="font-display text-4xl sm:text-5xl font-bold mb-5">
+            Skills & <span className="gradient-text">Expertise</span>
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            Technologies I've mastered through real-world projects, daily coding, and teaching others.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {SKILL_CATS.map((cat, i) => (
+            <SkillCard key={cat.title} cat={cat} index={i} />
           ))}
         </div>
       </div>

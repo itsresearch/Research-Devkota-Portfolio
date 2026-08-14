@@ -1,187 +1,138 @@
-import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Rocket, Brain, Users, ExternalLink, Globe, Layout, Layers, Lightbulb, Server, Database, Smartphone, Cloud, Cog, BarChart3 } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useStagger, useReveal } from '@/hooks/useGSAP';
+import { Code2, Server, Globe, Award, BookOpen, Rocket } from 'lucide-react';
 
-const highlights = [
-  {
-    icon: Rocket,
-    title: 'Company Builder',
-    description: 'Led Navya EdTech from idea to delivering enterprise client projects across Nepal.',
-  },
-  {
-    icon: Layers,
-    title: 'Technical Architect',
-    description: 'Designs complete software systems: ERP, LMS, CRM, cloud infra.',
-  },
-  {
-    icon: Brain,
-    title: 'Laravel Expert',
-    description: 'Deep Laravel expertise for SaaS, multi-tenant, and enterprise backends.',
-  },
-  {
-    icon: Layout,
-    title: 'Product Shipper',
-    description: 'Ships complete, production-grade products end-to-end.',
-  },
-  {
-    icon: Users,
-    title: 'Educator',
-    description: 'Teaching Python at Mero Coding Class; believes in growing Nepal\'s tech talent.',
-  },
-  {
-    icon: Lightbulb,
-    title: 'Visionary',
-    description: 'Focused on building software that drives real business growth in Nepal.',
-  },
+gsap.registerPlugin(ScrollTrigger);
+
+const STATS = [
+  { icon: <Rocket size={18} />, value: '2026', label: 'Company Founded', color: 'hsl(var(--primary))' },
+  { icon: <Code2  size={18} />, value: '3+',   label: 'Years Coding',    color: 'hsl(var(--accent))' },
+  { icon: <Server size={18} />, value: '10+',  label: 'Projects Built',  color: 'hsl(var(--accent-warm))' },
+  { icon: <Globe  size={18} />, value: 'Nepal', label: 'Based In',       color: 'hsl(142 71% 55%)' },
+];
+
+const HIGHLIGHTS = [
+  { icon: <Award size={15} />,    text: 'Co-Founder @ Navya EdTech' },
+  { icon: <BookOpen size={15} />, text: 'Python Instructor @ Mero Coding Class' },
+  { icon: <Code2 size={15} />,    text: 'Laravel + React + Python daily stack' },
 ];
 
 export const About = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const sectionRef  = useRef<HTMLElement>(null);
+  const statsRef    = useRef<HTMLDivElement>(null);
+  const textRef     = useRef<HTMLDivElement>(null);
+  const hlRef       = useRef<HTMLDivElement>(null);
+
+  useReveal(sectionRef as React.RefObject<HTMLElement>);
+  useStagger(statsRef as React.RefObject<HTMLElement>, ':scope > *', { stagger: 0.1, y: 30 });
+  useReveal(textRef as React.RefObject<HTMLElement>, { delay: 0.1, y: 30 });
+  useStagger(hlRef as React.RefObject<HTMLElement>, ':scope > *', { stagger: 0.12, y: 20 });
 
   return (
-    <section id="about" className="py-24 relative" ref={ref}>
-      <div className="section-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-semibold uppercase tracking-widest mb-4">
-            About
-          </p>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 tracking-tight">
-            About <span className="gradient-text">Me</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Co-founder, fullstack developer, and instructor
-          </p>
-        </motion.div>
+    <section
+      id="about"
+      ref={sectionRef}
+      className="py-28 relative"
+      aria-label="About Research Devkota"
+    >
+      {/* subtle gradient blob */}
+      <div
+        className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full pointer-events-none blur-[120px] opacity-10"
+        style={{ background: 'hsl(var(--primary))' }}
+      />
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
-          {/* Bio */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="glass-card p-8 h-full"
-          >
-            <h3 className="font-display text-xl font-semibold mb-4 gradient-text">Background</h3>
+      <div className="section-container">
+
+        {/* Header */}
+        <div className="mb-14 text-center">
+          <p className="section-tag mb-4">👋 About Me</p>
+          <h2 className="font-display text-4xl sm:text-5xl font-bold mb-5">
+            Building for the <span className="gradient-text">future</span>
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+            A fullstack developer and co-founder who writes clean code, ships real products, and builds the EdTech ecosystem of Nepal.
+          </p>
+        </div>
+
+        {/* Stats */}
+        <div ref={statsRef} className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-16">
+          {STATS.map(s => (
+            <div key={s.label}
+              className="glow-card p-5 text-center group cursor-default"
+              style={{ '--card-glow': s.color } as React.CSSProperties}>
+              <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl mb-3 mx-auto"
+                style={{ background: `${s.color}20`, color: s.color }}>
+                {s.icon}
+              </div>
+              <p className="font-display font-bold text-2xl text-foreground mb-0.5">{s.value}</p>
+              <p className="text-xs text-muted-foreground font-medium">{s.label}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Main content */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+
+          {/* Text */}
+          <div ref={textRef}>
+            <h3 className="font-display text-2xl font-bold mb-5 text-foreground">
+              Turning ideas into <span className="gradient-text">scalable software</span>
+            </h3>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                I'm <span className="text-foreground font-medium">Research Devkota</span>, co-founder of <a href="https://navyaedtech.com" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Navya EdTech</a>, a Lalitpur-based software company. We build <span className="text-primary font-medium">custom digital systems for businesses</span>: enterprise web platforms, ERP, CRM and LMS software, mobile apps, and cloud infrastructure for clients across education, healthcare, retail, and hospitality.
+                I'm <strong className="text-foreground font-semibold">Research Devkota</strong>, a fullstack developer and co-founder of Navya EdTech,
+                a software company based in Kathmandu, Nepal. I specialize in building enterprise-grade ERP systems, LMS platforms,
+                and cloud-based business tools that actually solve real problems.
               </p>
               <p>
-                I came to this as an engineer and I still build. My core is <span className="text-primary font-medium">Laravel and React</span>: backend API development, database design, and responsive interfaces. Before Navya, I worked as a fullstack developer at Miraai Solutions, shipping production features in a Laravel codebase. I'm also completing my Bachelor's in Information Management at Nepal Commerce Campus.
+                My daily stack is Laravel (PHP), React, and Python — technologies I've used to build systems from scratch for educational
+                institutions, trading companies, and startups across Nepal. I believe great software should be fast, reliable, and maintainable.
               </p>
               <p>
-                Alongside the company, I teach Python at <span className="text-foreground font-medium">Mero Coding Class</span>, helping beginners build a real foundation in programming. What drives me is <span className="text-foreground font-medium">delivering practical solutions that create impact</span>, and building a team that ships work worth standing behind.
+                When I'm not building products, I teach Python programming at Mero Coding Class, helping the next generation of developers
+                in Nepal learn to code with confidence.
               </p>
             </div>
-          </motion.div>
 
-          {/* Highlights Grid */}
-          <div className="grid sm:grid-cols-2 gap-4 h-full">
-            {highlights.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                className="glass-card p-6 group hover:border-primary/30 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <item.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="font-display font-semibold mb-2">{item.title}</h4>
-                <p className="text-sm text-muted-foreground">{item.description}</p>
-              </motion.div>
-            ))}
+            <div className="flex gap-3 mt-8">
+              <a href="#projects" className="btn-primary text-sm py-2.5">See Projects</a>
+              <a href="https://navyaedtech.com" target="_blank" rel="noopener noreferrer" className="btn-secondary text-sm py-2.5">Navya EdTech</a>
+            </div>
           </div>
-        </div>
 
-        {/* Bottom Cards: The Company & What We Build */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Card 1: The Company */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="relative rounded-2xl overflow-hidden border border-primary/30 bg-primary/5 p-6 glass-card"
-            style={{ boxShadow: '0 0 40px -15px hsl(220 100% 56% / 0.2)' }}
-          >
-            <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-primary/10 blur-2xl pointer-events-none" />
-            <h3 className="font-display text-lg font-semibold mb-6 gradient-text">The Company</h3>
-            <div className="relative flex items-center justify-between gap-4 flex-wrap">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/20 flex items-center justify-center shrink-0">
-                  <img src="/logos/navyaedtech.webp" alt="Navya EdTech" className="w-8 h-8 object-contain" />
+          {/* Highlights */}
+          <div ref={hlRef} className="space-y-4">
+            {HIGHLIGHTS.map((h, i) => (
+              <div key={i}
+                className="flex items-center gap-4 p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1 cursor-default"
+                style={{ background: 'hsl(var(--surface))', border: '1px solid hsl(var(--border))' }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'hsl(var(--primary) / 0.12)', color: 'hsl(var(--primary))' }}>
+                  {h.icon}
                 </div>
-                <div>
-                  <p className="font-display font-bold text-foreground text-lg leading-tight">Navya EdTech</p>
-                  <p className="text-sm text-muted-foreground mt-1">Enterprise IT &amp; Software Development</p>
-                </div>
+                <p className="text-foreground font-medium">{h.text}</p>
               </div>
-              <a
-                href="https://navyaedtech.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-primary text-white hover:bg-primary/90 hover:-translate-y-0.5 transition-all duration-200 shrink-0"
-                style={{ boxShadow: '0 4px 16px hsl(220 100% 56% / 0.35)' }}
-              >
-                Visit Site
-                <ExternalLink size={16} />
-              </a>
-            </div>
-          </motion.div>
+            ))}
 
-          {/* Card 2: What We Build */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.9 }}
-            className="glass-card p-6"
-          >
-            <h3 className="font-display text-lg font-semibold mb-6 gradient-text-gold">What We Build</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                <Server className="w-4 h-4 text-blue-400" /> ERP Systems
+            {/* Code block decoration */}
+            <div className="p-5 rounded-2xl font-mono text-sm"
+              style={{ background: 'hsl(var(--surface-2))', border: '1px solid hsl(var(--border))' }}>
+              <div className="flex gap-2 mb-4">
+                {['#ff5f57','#febc2e','#28c840'].map(c => (
+                  <div key={c} className="w-3 h-3 rounded-full" style={{ background: c }} />
+                ))}
               </div>
-              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                <Layout className="w-4 h-4 text-green-400" /> LMS Platforms
-              </div>
-              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                <Users className="w-4 h-4 text-purple-400" /> CRM Software
-              </div>
-              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                <Cloud className="w-4 h-4 text-sky-400" /> Cloud Infra
-              </div>
-              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                <Smartphone className="w-4 h-4 text-pink-400" /> Mobile Apps
-              </div>
-              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                <BarChart3 className="w-4 h-4 text-orange-400" /> BI Dashboards
+              <div className="space-y-1.5">
+                <p><span style={{ color: 'hsl(var(--accent))' }}>const</span> <span style={{ color: 'hsl(246 90% 78%)' }}>developer</span> = {'{'}</p>
+                <p className="pl-4"><span style={{ color: 'hsl(var(--accent))' }}>name</span>: <span className="text-emerald-400">"Research Devkota"</span>,</p>
+                <p className="pl-4"><span style={{ color: 'hsl(var(--accent))' }}>role</span>: <span className="text-emerald-400">"Co-Founder & Fullstack Dev"</span>,</p>
+                <p className="pl-4"><span style={{ color: 'hsl(var(--accent))' }}>location</span>: <span className="text-emerald-400">"Kathmandu, Nepal 🇳🇵"</span></p>
+                <p>{'}'}</p>
               </div>
             </div>
-          </motion.div>
-        </div>
-
-        {/* Entity summary — readable by AI crawlers, screen readers, and non-JS bots */}
-        <div className="sr-only" aria-label="About Research Devkota — entity summary for accessibility">
-          <p>
-            Research Devkota is the Co-Founder of Navya EdTech (navyaedtech.com),
-            an enterprise software development company in Lalitpur, Nepal.
-            He is a fullstack developer specializing in Laravel, React.js, and Python.
-            Research Devkota builds ERP systems, LMS platforms, CRM software, and cloud infrastructure for businesses.
-            His portfolio is at devkotaresearch.com.np.
-            His email is devkotaresearch@gmail.com.
-            He is on LinkedIn at linkedin.com/in/researchdevkota and GitHub at github.com/itsresearch.
-            He also teaches Python at Mero Coding Class and previously worked at Miraai Solutions as a Fullstack Developer.
-            Navya EdTech was co-founded by Research Devkota.
-            Navya EdTech contact: navyaedtech26@gmail.com.
-            Research Devkota is based in Kirtipur, Kathmandu, Nepal.
-          </p>
+          </div>
         </div>
       </div>
     </section>
