@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CustomCursor } from '@/components/CustomCursor';
@@ -14,7 +14,8 @@ import { Certifications } from '@/components/Certifications';
 import { Blog } from '@/components/Blog';
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
-import { useState } from 'react';
+import { FloatingBackground } from '@/components/FloatingBackground';
+import { WebGLBackground } from '@/components/WebGLBackground';
 import { ChevronRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -25,36 +26,36 @@ const Index = () => {
 
   useEffect(() => {
     document.title = 'Research Devkota | Co-Founder, Navya EdTech';
+    document.querySelector('meta[name="description"]')?.setAttribute(
+      'content',
+      'Research Devkota — Co-Founder of Navya EdTech, Fullstack Developer (Laravel + React + Python), Python Instructor, building enterprise ERP, LMS & cloud systems in Nepal.'
+    );
 
-    /* ── Lenis smooth scroll ───────────────────────────────────────── */
+    /* ── Lenis smooth scroll ─────────────────────────────── */
     let lenis: typeof lenisRef.current = null;
 
     import('lenis').then(({ default: Lenis }) => {
       lenis = new Lenis({
-        duration: 1.2,
+        duration: 1.35,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        touchMultiplier: 2,
+        touchMultiplier: 2.4,
       }) as unknown as typeof lenisRef.current;
 
       lenisRef.current = lenis;
 
-      /* Sync Lenis with GSAP ticker */
-      gsap.ticker.add((time) => {
-        lenis?.raf(time * 1000);
-      });
+      gsap.ticker.add((time) => { lenis?.raf(time * 1000); });
       gsap.ticker.lagSmoothing(0);
 
-      /* Sync Lenis with ScrollTrigger */
       (lenis as unknown as { on: (event: string, cb: () => void) => void })
         .on('scroll', ScrollTrigger.update);
     });
 
-    /* ── Scroll to hash on load ───────────────────────────────────── */
+    /* ── Scroll to hash ──────────────────────────────────── */
     const hash = window.location.hash.slice(1);
     if (hash) {
       setTimeout(() => {
         document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
-      }, 500);
+      }, 600);
     }
 
     return () => {
@@ -65,12 +66,18 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background relative">
-      {/* Custom cursor — desktop only */}
+      {/* Three.js WebGL galaxy background */}
+      <WebGLBackground />
+
+      {/* Floating tech icons background layer */}
+      <FloatingBackground />
+
+      {/* Custom cursor (desktop) */}
       <CustomCursor />
 
       <Navbar />
 
-      <main>
+      <main style={{ position: 'relative', zIndex: 2 }}>
         <Hero />
         <VisionBanner />
         <About />
@@ -84,7 +91,7 @@ const Index = () => {
         ) : (
           <>
             <Certifications limit={6} />
-            <div className="text-center pb-16">
+            <div className="text-center pb-20">
               <button
                 onClick={() => setShowAllCertifications(true)}
                 className="btn-secondary"

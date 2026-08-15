@@ -7,27 +7,37 @@ import { Menu, X } from 'lucide-react';
 gsap.registerPlugin(ScrollTrigger);
 
 const NAV_LINKS = [
-  { href: '#about',        label: 'About' },
-  { href: '#experience',   label: 'Experience' },
-  { href: '#projects',     label: 'Projects' },
-  { href: '#skills',       label: 'Skills' },
-  { href: '#blog',         label: 'Blog' },
-  { href: '#contact',      label: 'Contact' },
+  { href: '#about',      label: 'About' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#projects',   label: 'Projects' },
+  { href: '#skills',     label: 'Skills' },
+  { href: '#blog',       label: 'Blog' },
+  { href: '#contact',    label: 'Contact' },
 ];
 
 export const Navbar = () => {
-  const navRef    = useRef<HTMLElement>(null);
-  const [open, setOpen] = useState(false);
+  const navRef  = useRef<HTMLElement>(null);
+  const [open, setOpen]       = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
 
-    /* Slide nav down on load */
-    gsap.fromTo(nav, { y: -80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, delay: 0.1, ease: 'power3.out' });
+    // Slide-in on load
+    gsap.fromTo(nav,
+      { y: -100, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.9, delay: 0.15, ease: 'power3.out' },
+    );
 
-    /* Progress bar on scroll */
+    // Nav links stagger
+    const links = nav.querySelectorAll('.nav-link');
+    gsap.fromTo(links,
+      { opacity: 0, y: -10 },
+      { opacity: 1, y: 0, duration: 0.4, stagger: 0.06, delay: 0.5, ease: 'power2.out' },
+    );
+
+    // Scroll progress bar
     const progressBar = nav.querySelector<HTMLElement>('.nav-progress');
     ScrollTrigger.create({
       start: 'top top',
@@ -41,7 +51,6 @@ export const Navbar = () => {
     return () => ScrollTrigger.getAll().forEach(t => t.kill());
   }, []);
 
-  /* Close mobile menu on resize */
   useEffect(() => {
     const handle = () => { if (window.innerWidth >= 768) setOpen(false); };
     window.addEventListener('resize', handle);
@@ -54,35 +63,39 @@ export const Navbar = () => {
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{
         background: scrolled
-          ? 'hsl(var(--background) / 0.85)'
+          ? 'hsl(var(--background) / 0.88)'
           : 'transparent',
         borderBottom: scrolled ? '1px solid hsl(var(--border))' : '1px solid transparent',
-        backdropFilter: scrolled ? 'blur(20px) saturate(1.8)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(1.8)' : 'none',
+        backdropFilter: scrolled ? 'blur(24px) saturate(1.8)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(1.8)' : 'none',
       }}
     >
-      {/* Progress bar */}
+      {/* Scroll progress bar */}
       <div
         className="nav-progress navya-progress-bar h-[2px] absolute bottom-0 left-0 right-0 origin-left"
         style={{ transform: 'scaleX(0)' }}
       />
 
-      <nav className="section-container flex items-center justify-between h-16">
+      <nav className="section-container flex items-center justify-between h-[68px]">
+
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2.5 group" aria-label="Research Devkota portfolio home">
+        <a href="/" className="flex items-center gap-3 group" aria-label="Research Devkota portfolio home">
           <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm text-white shadow-lg transition-transform duration-300 group-hover:scale-110"
-            style={{ background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))' }}
+            className="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl"
+            style={{
+              background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))',
+              boxShadow: '0 4px 20px hsl(var(--primary) / 0.4)',
+            }}
           >
             R
           </div>
-          <span className="font-display font-bold text-foreground hidden sm:block">
+          <span className="font-display font-bold text-foreground hidden sm:block tracking-tight">
             Research <span className="gradient-text">Devkota</span>
           </span>
         </a>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-7">
           {NAV_LINKS.map(l => (
             <a key={l.href} href={l.href} className="nav-link">{l.label}</a>
           ))}
@@ -92,29 +105,31 @@ export const Navbar = () => {
         <div className="flex items-center gap-3">
           <a
             href="#contact"
-            className="hidden sm:flex btn-primary py-2 px-4 text-xs"
+            className="hidden sm:flex btn-primary py-2.5 px-5 text-sm"
           >
             Hire Me
           </a>
           <button
             onClick={() => setOpen(v => !v)}
-            className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg transition-colors"
+            className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300"
             style={{ background: 'hsl(var(--surface-2))', border: '1px solid hsl(var(--border))' }}
             aria-label="Toggle menu"
           >
-            {open ? <X size={17} className="text-foreground" /> : <Menu size={17} className="text-foreground" />}
+            <div className={`transition-all duration-300 ${open ? 'rotate-90 scale-90' : ''}`}>
+              {open ? <X size={17} className="text-foreground" /> : <Menu size={17} className="text-foreground" />}
+            </div>
           </button>
         </div>
       </nav>
 
       {/* Mobile menu */}
       <div
-        className="md:hidden overflow-hidden transition-all duration-300"
+        className="md:hidden overflow-hidden transition-all duration-400"
         style={{
-          maxHeight: open ? '400px' : '0',
-          background: 'hsl(var(--background) / 0.97)',
+          maxHeight: open ? '420px' : '0',
+          background: 'hsl(var(--background) / 0.96)',
           borderTop: open ? '1px solid hsl(var(--border))' : 'none',
-          backdropFilter: 'blur(20px)',
+          backdropFilter: 'blur(24px)',
         }}
       >
         <div className="section-container py-5 flex flex-col gap-1">
@@ -123,13 +138,18 @@ export const Navbar = () => {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="py-2.5 px-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all"
+              className="py-3 px-4 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground transition-all duration-200 hover:bg-white/5"
             >
               {l.label}
             </a>
           ))}
-          <div className="pt-3 border-t border-white/5 mt-2">
-            <Link to="/admin" className="text-xs text-muted-foreground/40 hover:text-muted-foreground/60 transition-colors">Admin</Link>
+          <div className="pt-4 border-t mt-2" style={{ borderColor: 'hsl(var(--border))' }}>
+            <a href="#contact" onClick={() => setOpen(false)} className="btn-primary w-full justify-center py-3">
+              Hire Me
+            </a>
+          </div>
+          <div className="pt-3">
+            <Link to="/admin" className="text-xs text-muted-foreground/30 hover:text-muted-foreground/60 transition-colors">Admin</Link>
           </div>
         </div>
       </div>

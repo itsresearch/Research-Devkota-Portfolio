@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useReveal } from '@/hooks/useGSAP';
-import { ExternalLink, Github, ChevronRight, FolderOpen } from 'lucide-react';
+import { ExternalLink, Github, ChevronRight, FolderOpen, ArrowUpRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -92,43 +92,75 @@ const PROJECTS = [
 ];
 
 const ProjectCard = ({ project, index }: { project: typeof PROJECTS[0]; index: number }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef  = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
-  useReveal(cardRef as React.RefObject<HTMLElement>, { delay: (index % 3) * 0.1, y: 50 });
+  useReveal(cardRef as React.RefObject<HTMLElement>, { delay: (index % 3) * 0.1, y: 60 });
 
   return (
-    <div ref={cardRef}
-      className="group flex flex-col rounded-2xl overflow-hidden h-full transition-all duration-500 hover:-translate-y-2"
-      style={{ background: 'hsl(var(--surface))', border: '1px solid hsl(var(--border))' }}
+    <div
+      ref={cardRef}
+      className="group flex flex-col rounded-2xl overflow-hidden h-full transition-all duration-500"
+      style={{
+        background: 'hsl(var(--surface) / 0.7)',
+        border: '1px solid hsl(var(--border))',
+        backdropFilter: 'blur(12px)',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
+      }}
+      onMouseEnter={() => {
+        gsap.to(cardRef.current, { y: -8, duration: 0.4, ease: 'power2.out' });
+        gsap.to(cardRef.current, {
+          boxShadow: `0 20px 60px rgba(0,0,0,0.5), 0 0 40px ${project.accent}25`,
+          borderColor: `${project.accent}50`,
+          duration: 0.4,
+        });
+      }}
+      onMouseLeave={() => {
+        gsap.to(cardRef.current, { y: 0, duration: 0.5, ease: 'power2.inOut' });
+        gsap.to(cardRef.current, {
+          boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
+          borderColor: 'hsl(var(--border))',
+          duration: 0.5,
+        });
+      }}
     >
       {/* Image */}
       <div className="relative aspect-[16/9] overflow-hidden"
         style={{ background: 'hsl(var(--surface-2))' }}>
-        <img src={project.image} alt={project.title} loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100" />
+        <img
+          ref={imageRef}
+          src={project.image}
+          alt={project.title}
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+        />
         {/* Gradient overlay */}
-        <div className="absolute inset-0 transition-opacity duration-300"
-          style={{ background: `linear-gradient(to bottom, transparent 40%, ${project.accent}20 100%)` }} />
+        <div className="absolute inset-0 transition-opacity duration-500"
+          style={{ background: `linear-gradient(to bottom, transparent 30%, ${project.accent}25 100%)` }} />
         {/* Accent bar */}
-        <div className="absolute bottom-0 left-0 right-0 h-[3px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
+        <div className="absolute bottom-0 left-0 right-0 h-[3px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-600 origin-left"
           style={{ background: `linear-gradient(90deg, ${project.accent}, transparent)` }} />
+        {/* Category chip */}
+        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"
+          style={{ background: `${project.accent}20`, color: project.accent, border: `1px solid ${project.accent}40`, backdropFilter: 'blur(8px)' }}>
+          {project.category}
+        </div>
       </div>
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-6">
-        <h3 className="font-display font-bold text-lg mb-2 text-foreground group-hover:transition-colors duration-300"
-          style={{ '--hover-color': project.accent } as React.CSSProperties}>
+        <h3 className="font-display font-bold text-lg mb-2 text-foreground transition-colors duration-300 group-hover:text-white">
           {project.title}
         </h3>
-        <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
+        <p className="text-muted-foreground text-sm leading-relaxed mb-5 flex-1 line-clamp-3">
           {project.description}
         </p>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-5">
+        <div className="flex flex-wrap gap-1.5 mb-5">
           {project.tags.map(t => (
-            <span key={t} className="text-xs px-2.5 py-1 rounded-full font-medium"
-              style={{ background: `${project.accent}15`, color: project.accent, border: `1px solid ${project.accent}30` }}>
+            <span key={t} className="text-[11px] px-2.5 py-1 rounded-full font-semibold"
+              style={{ background: `${project.accent}12`, color: project.accent, border: `1px solid ${project.accent}25` }}>
               {t}
             </span>
           ))}
@@ -139,7 +171,7 @@ const ProjectCard = ({ project, index }: { project: typeof PROJECTS[0]; index: n
           style={{ borderTop: '1px solid hsl(var(--border))' }}>
           {project.github && (
             <a href={project.github} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold transition-all duration-200 hover:gap-2.5"
               style={{ color: 'hsl(var(--muted-foreground))' }}
               onMouseEnter={e => e.currentTarget.style.color = project.accent}
               onMouseLeave={e => e.currentTarget.style.color = 'hsl(var(--muted-foreground))'}>
@@ -148,13 +180,13 @@ const ProjectCard = ({ project, index }: { project: typeof PROJECTS[0]; index: n
           )}
           {project.live && (
             <a href={project.live} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors ml-auto"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold ml-auto transition-all duration-200"
               style={{ color: project.accent }}>
               <ExternalLink size={14} /> Live Demo
             </a>
           )}
           {!project.github && !project.live && (
-            <span className="text-xs text-muted-foreground/50 italic">Coming soon…</span>
+            <span className="text-xs text-muted-foreground/40 italic">Coming soon…</span>
           )}
         </div>
       </div>
@@ -163,48 +195,50 @@ const ProjectCard = ({ project, index }: { project: typeof PROJECTS[0]; index: n
 };
 
 export const Projects = () => {
-  const headerRef = useRef<HTMLDivElement>(null);
+  const headerRef  = useRef<HTMLDivElement>(null);
   const [activeCat, setActiveCat] = useState('All');
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll]     = useState(false);
 
   useReveal(headerRef as React.RefObject<HTMLElement>);
 
   const filtered = PROJECTS.filter(p => activeCat === 'All' || p.category === activeCat);
-  const shown = showAll ? filtered : filtered.slice(0, 6);
+  const shown    = showAll ? filtered : filtered.slice(0, 6);
 
   return (
-    <section id="projects" className="py-28 relative">
-      <div
-        className="absolute right-0 top-0 w-[500px] h-[500px] rounded-full blur-[160px] opacity-8 pointer-events-none"
-        style={{ background: 'hsl(var(--accent) / 0.07)' }}
-      />
+    <section id="projects" className="py-32 relative">
+      <div className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full blur-[180px] opacity-6 pointer-events-none"
+        style={{ background: 'hsl(var(--accent) / 0.08)' }} />
 
       <div className="section-container">
-        <div ref={headerRef} className="text-center mb-14">
-          <p className="section-tag mb-4"><FolderOpen size={12} /> Portfolio</p>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold mb-5">
+        <div ref={headerRef} className="text-center mb-16">
+          <p className="section-tag mb-5"><FolderOpen size={12} /> Portfolio</p>
+          <h2 className="font-display text-5xl sm:text-6xl font-bold mb-6">
             Featured <span className="gradient-text">Projects</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
             A selection of Laravel, Django, and React projects built for real-world use.
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        {/* Category filter */}
+        <div className="flex flex-wrap justify-center gap-3 mb-14">
           {CATEGORIES.map(cat => (
-            <button key={cat} onClick={() => { setActiveCat(cat); setShowAll(false); }}
-              className="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300"
+            <button
+              key={cat}
+              onClick={() => { setActiveCat(cat); setShowAll(false); }}
+              className="px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
               style={activeCat === cat ? {
-                background: 'hsl(var(--primary))',
+                background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(248 80% 58%))',
                 color: 'white',
-                boxShadow: '0 4px 20px hsl(var(--primary) / 0.4)',
+                boxShadow: '0 4px 24px hsl(var(--primary) / 0.45)',
                 transform: 'scale(1.05)',
               } : {
-                background: 'hsl(var(--surface))',
+                background: 'hsl(var(--surface) / 0.7)',
                 border: '1px solid hsl(var(--border))',
                 color: 'hsl(var(--muted-foreground))',
-              }}>
+                backdropFilter: 'blur(8px)',
+              }}
+            >
               {cat}
             </button>
           ))}
@@ -218,7 +252,7 @@ export const Projects = () => {
           <div className="text-center mt-14">
             <button onClick={() => setShowAll(v => !v)} className="btn-secondary">
               {showAll ? 'Show Less' : `View All ${filtered.length} Projects`}
-              <ChevronRight size={16} className={`transition-transform ${showAll ? 'rotate-90' : ''}`} />
+              <ChevronRight size={16} className={`transition-transform duration-300 ${showAll ? 'rotate-90' : ''}`} />
             </button>
           </div>
         )}

@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 interface TypeWriterProps {
   words: string[];
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export const TypeWriter = ({ words, className = '' }: TypeWriterProps) => {
+export const TypeWriter = ({ words, className = '', style }: TypeWriterProps) => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -33,9 +34,9 @@ export const TypeWriter = ({ words, className = '' }: TypeWriterProps) => {
   }, [currentText, isDeleting, currentWordIndex, words]);
 
   return (
-    <span className={className}>
+    <span className={className} style={style}>
       {currentText}
-      <span className="animate-pulse">|</span>
+      <span className="animate-pulse" style={{ opacity: 0.7 }}>|</span>
     </span>
   );
 };
