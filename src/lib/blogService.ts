@@ -1,16 +1,34 @@
 import { supabase } from './supabase';
 import type { BlogPost, BlogPostInsert, BlogPostUpdate } from '../types/blog';
 
+const CACHE_KEY = 'blog_posts_cache';
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
 export const blogService = {
   /** Public — only published posts, newest first */
   async getPublishedPosts(): Promise<BlogPost[]> {
+    // Serve from sessionStorage cache if fresh
+    try {
+      const raw = sessionStorage.getItem(CACHE_KEY);
+      if (raw) {
+        const { data, ts } = JSON.parse(raw) as { data: BlogPost[]; ts: number };
+        if (Date.now() - ts < CACHE_TTL) return data;
+      }
+    } catch { /* ignore parse errors */ }
+
     const { data, error } = await supabase
       .from('blog_posts')
       .select('*')
       .eq('status', 'published')
       .order('published_at', { ascending: false });
     if (error) throw error;
-    return data ?? [];
+    const posts = data ?? [];
+
+    // Cache result
+    try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: posts, ts: Date.now() })); }
+    catch { /* storage full — ignore */ }
+
+    return posts;
   },
 
   /** Public — single published post by slug */

@@ -119,10 +119,23 @@ const Skeleton = () => (
 const BlogPost = () => {
   const { slug }  = useParams<{ slug: string }>();
   const navigate  = useNavigate();
-  const [post, setPost]       = useState<BlogPost | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [post, setPost]         = useState<BlogPost | null>(null);
+  const [loading, setLoading]   = useState(true);
   const [notFound, setNotFound] = useState(false);
-  const [copied, setCopied]   = useState(false);
+  const [copied, setCopied]     = useState(false);
+  const [readPct, setReadPct]   = useState(0);
+
+  // Track reading progress
+  useEffect(() => {
+    const onScroll = () => {
+      const el = document.documentElement;
+      const scrolled = el.scrollTop || document.body.scrollTop;
+      const total = el.scrollHeight - el.clientHeight;
+      setReadPct(total > 0 ? Math.min(100, (scrolled / total) * 100) : 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     if (!slug) { setNotFound(true); setLoading(false); return; }
@@ -196,7 +209,15 @@ const BlogPost = () => {
       <Navbar />
 
       {/* Reading progress bar */}
-      <div className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-primary via-blue-400 to-accent z-50" />
+      <div className="fixed top-0 left-0 right-0 h-[3px] z-50" style={{ background: 'hsl(var(--border))' }}>
+        <div
+          className="h-full transition-all duration-100"
+          style={{
+            width: `${readPct}%`,
+            background: 'linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)))',
+          }}
+        />
+      </div>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-28 pb-20">
 
@@ -220,7 +241,8 @@ const BlogPost = () => {
                 <BookOpen size={11} /> {post.category}
               </span>
               {post.featured && (
-                <span className="text-xs px-3 py-1 rounded-full bg-amber-50 text-amber-600 border border-amber-200 font-semibold">
+                <span className="text-xs px-3 py-1 rounded-full font-semibold"
+                  style={{ background: 'hsl(var(--accent-warm) / 0.15)', color: 'hsl(var(--accent-warm))', border: '1px solid hsl(var(--accent-warm) / 0.3)' }}>
                   ⭐ Featured
                 </span>
               )}
@@ -300,15 +322,21 @@ const BlogPost = () => {
             )}
 
             {/* Author card */}
-            <div className="mt-12 p-6 rounded-2xl bg-gradient-to-br from-primary/5 via-white to-blue-50/40 border border-primary/12 flex items-start gap-5"
+            <div className="mt-12 p-6 rounded-2xl flex items-start gap-5"
+              style={{
+                background: 'hsl(var(--surface) / 0.7)',
+                border: '1px solid hsl(var(--primary) / 0.2)',
+                backdropFilter: 'blur(12px)',
+              }}
               itemProp="author" itemScope itemType="https://schema.org/Person">
-              <div className="w-14 h-14 rounded-full border-2 border-primary/20 bg-primary/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
+              <div className="w-14 h-14 rounded-full border-2 flex items-center justify-center flex-shrink-0 overflow-hidden"
+                style={{ borderColor: 'hsl(var(--primary) / 0.3)', background: 'hsl(var(--primary) / 0.1)' }}>
                 <img src="/logos/navyaedtech.webp" alt="Research Devkota" className="w-full h-full object-cover"
                   onError={e => { e.currentTarget.style.display = 'none'; }} />
               </div>
               <div className="min-w-0">
-                <p className="font-display font-bold text-lg mb-0.5" itemProp="name">Research Devkota</p>
-                <p className="text-xs text-primary font-semibold mb-2" itemProp="jobTitle">Co-Founder @ Navya EdTech · Fullstack Developer</p>
+                <p className="font-display font-bold text-lg mb-0.5 text-foreground" itemProp="name">Research Devkota</p>
+                <p className="text-xs font-semibold mb-2" style={{ color: 'hsl(var(--primary))' }} itemProp="jobTitle">Co-Founder @ Navya EdTech · Fullstack Developer</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Building enterprise software, LMS platforms, and cloud systems with Laravel, React, and Python. Based in Kathmandu, Nepal 🇳🇵
                 </p>

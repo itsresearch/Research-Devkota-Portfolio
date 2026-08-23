@@ -22,15 +22,20 @@ const CAT_ICON: Record<string, React.ReactNode> = {
   General:      <BookOpen   size={13} />,
 };
 
-const CAT_CLS: Record<string, string> = {
-  Backend:      'bg-blue-50   text-blue-700   border-blue-200',
-  Frontend:     'bg-violet-50 text-violet-700 border-violet-200',
-  Architecture: 'bg-amber-50  text-amber-700  border-amber-200',
-  DevOps:       'bg-emerald-50 text-emerald-700 border-emerald-200',
-  'AI & ML':    'bg-pink-50   text-pink-700   border-pink-200',
-  Career:       'bg-orange-50 text-orange-700 border-orange-200',
-  General:      'bg-slate-50  text-slate-600  border-slate-200',
+/* Dark-theme category badge colours — using CSS custom properties */
+const CAT_STYLE: Record<string, { color: string; bg: string; border: string }> = {
+  Backend:      { color: '#818cf8', bg: 'rgba(99,102,241,0.12)',  border: 'rgba(99,102,241,0.25)'  },
+  Frontend:     { color: '#a78bfa', bg: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.25)'  },
+  Architecture: { color: '#fbbf24', bg: 'rgba(251,191,36,0.12)', border: 'rgba(251,191,36,0.25)'  },
+  DevOps:       { color: '#34d399', bg: 'rgba(52,211,153,0.12)', border: 'rgba(52,211,153,0.25)'  },
+  'AI & ML':    { color: '#f472b6', bg: 'rgba(244,114,182,0.12)',border: 'rgba(244,114,182,0.25)' },
+  Career:       { color: '#fb923c', bg: 'rgba(251,146,60,0.12)', border: 'rgba(251,146,60,0.25)'  },
+  General:      { color: '#94a3b8', bg: 'rgba(148,163,184,0.10)',border: 'rgba(148,163,184,0.2)'  },
 };
+
+function getCatStyle(cat: string) {
+  return CAT_STYLE[cat] ?? CAT_STYLE.General;
+}
 
 function fmtDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -39,23 +44,27 @@ function fmtDate(iso: string) {
 /* ─── Skeleton ────────────────────────────────────────────────────── */
 function BlogSkeleton() {
   return (
-    <div className="rounded-2xl border border-border bg-white overflow-hidden">
-      <div className="h-1 w-full bg-secondary" />
+    <div className="rounded-2xl overflow-hidden" style={{
+      background: 'hsl(var(--surface) / 0.7)',
+      border: '1px solid hsl(var(--border))',
+      backdropFilter: 'blur(12px)',
+    }}>
+      <div className="h-1 w-full" style={{ background: 'hsl(var(--border))' }} />
       <div className="p-6 space-y-3">
         <div className="flex gap-2">
-          <div className="h-5 w-20 bg-secondary rounded-full animate-pulse" />
-          <div className="h-5 w-14 bg-secondary rounded-full animate-pulse ml-auto" />
+          <div className="h-5 w-20 rounded-full animate-pulse" style={{ background: 'hsl(var(--secondary))' }} />
+          <div className="h-5 w-14 rounded-full animate-pulse ml-auto" style={{ background: 'hsl(var(--secondary))' }} />
         </div>
-        <div className="h-6 bg-secondary rounded-lg w-3/4 animate-pulse" />
-        <div className="h-4 bg-secondary rounded-lg w-full animate-pulse" />
-        <div className="h-4 bg-secondary rounded-lg w-2/3 animate-pulse" />
+        <div className="h-6 rounded-lg w-3/4 animate-pulse" style={{ background: 'hsl(var(--secondary))' }} />
+        <div className="h-4 rounded-lg w-full animate-pulse" style={{ background: 'hsl(var(--secondary))' }} />
+        <div className="h-4 rounded-lg w-2/3 animate-pulse" style={{ background: 'hsl(var(--secondary))' }} />
         <div className="flex gap-2 pt-2">
-          <div className="h-5 w-14 bg-secondary rounded-full animate-pulse" />
-          <div className="h-5 w-16 bg-secondary rounded-full animate-pulse" />
+          <div className="h-5 w-14 rounded-full animate-pulse" style={{ background: 'hsl(var(--secondary))' }} />
+          <div className="h-5 w-16 rounded-full animate-pulse" style={{ background: 'hsl(var(--secondary))' }} />
         </div>
-        <div className="flex justify-between items-center pt-3 border-t border-border/50">
-          <div className="h-4 w-24 bg-secondary rounded animate-pulse" />
-          <div className="h-4 w-20 bg-secondary rounded animate-pulse" />
+        <div className="flex justify-between items-center pt-3" style={{ borderTop: '1px solid hsl(var(--border))' }}>
+          <div className="h-4 w-24 rounded animate-pulse" style={{ background: 'hsl(var(--secondary))' }} />
+          <div className="h-4 w-20 rounded animate-pulse" style={{ background: 'hsl(var(--secondary))' }} />
         </div>
       </div>
     </div>
@@ -65,45 +74,74 @@ function BlogSkeleton() {
 /* ─── Post Card ───────────────────────────────────────────────────── */
 function PostCard({ post, index, isInView }: { post: BlogPost; index: number; isInView: boolean }) {
   const hasContent = post.content?.trim().length > 0;
-  const cls = "flex flex-col bg-white rounded-2xl border border-border hover:border-primary/30 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group h-full";
+  const cs = getCatStyle(post.category);
+
+  const cardStyle: React.CSSProperties = {
+    background: 'hsl(var(--surface) / 0.7)',
+    border: '1px solid hsl(var(--border))',
+    backdropFilter: 'blur(12px)',
+    transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+  };
 
   const inner = (
-    <>
-      <div className="h-1 w-full bg-gradient-to-r from-primary via-blue-400 to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    <div className="flex flex-col h-full rounded-2xl overflow-hidden group" style={cardStyle}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = 'hsl(var(--primary) / 0.35)';
+        (e.currentTarget as HTMLDivElement).style.boxShadow = '0 20px 60px rgba(0,0,0,0.5), 0 0 40px hsl(var(--primary) / 0.1)';
+        (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)';
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = 'hsl(var(--border))';
+        (e.currentTarget as HTMLDivElement).style.boxShadow = '';
+        (e.currentTarget as HTMLDivElement).style.transform = '';
+      }}
+    >
+      {/* Top accent bar */}
+      <div className="h-[3px] w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: 'linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)))' }} />
+
       <div className="flex flex-col flex-1 p-6">
-        {/* Meta */}
+        {/* Meta row */}
         <div className="flex flex-wrap items-center gap-2 mb-4">
-          <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border ${CAT_CLS[post.category] ?? CAT_CLS.General}`}>
+          <span
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold"
+            style={{ color: cs.color, background: cs.bg, border: `1px solid ${cs.border}` }}
+          >
             {CAT_ICON[post.category]} {post.category}
           </span>
           {post.featured && (
-            <span className="text-xs px-2.5 py-1 rounded-full bg-amber-50 text-amber-600 border border-amber-200 font-semibold">Featured</span>
+            <span className="text-xs px-2.5 py-1 rounded-full font-semibold"
+              style={{ background: 'hsl(var(--accent-warm) / 0.15)', color: 'hsl(var(--accent-warm))', border: '1px solid hsl(var(--accent-warm) / 0.3)' }}>
+              Featured
+            </span>
           )}
           <span className="ml-auto flex items-center gap-1 text-xs text-muted-foreground">
             <Clock size={11} /> {post.reading_time} min
           </span>
         </div>
 
-        <h3 className="font-display font-bold text-lg leading-snug mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
+        <h3 className="font-display font-bold text-lg leading-snug mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
           {post.title}
         </h3>
-        <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3 mb-5">
+        <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3 mb-5 flex-1">
           {post.excerpt}
         </p>
 
         {post.tags?.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mb-5">
             {post.tags.slice(0, 3).map(t => (
-              <span key={t} className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-secondary/60 text-muted-foreground border border-border/50">
+              <span key={t} className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full text-muted-foreground"
+                style={{ background: 'hsl(var(--surface-2) / 0.8)', border: '1px solid hsl(var(--border))' }}>
                 <Tag size={9} />{t}
               </span>
             ))}
           </div>
         )}
 
-        <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50">
+        <div className="flex items-center justify-between mt-auto pt-4"
+          style={{ borderTop: '1px solid hsl(var(--border))' }}>
           <time dateTime={post.published_at} className="text-xs text-muted-foreground">{fmtDate(post.published_at)}</time>
-          <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-all">
+          <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary">
             Read More
             {hasContent || !post.external_url
               ? <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
@@ -111,7 +149,7 @@ function PostCard({ post, index, isInView }: { post: BlogPost; index: number; is
           </span>
         </div>
       </div>
-    </>
+    </div>
   );
 
   return (
@@ -127,11 +165,11 @@ function PostCard({ post, index, isInView }: { post: BlogPost; index: number; is
       <meta itemProp="headline" content={post.title} />
 
       {hasContent ? (
-        <Link to={`/blog/${post.slug}`} className={cls} itemProp="url">{inner}</Link>
+        <Link to={`/blog/${post.slug}`} className="block h-full" itemProp="url">{inner}</Link>
       ) : post.external_url ? (
-        <a href={post.external_url} target="_blank" rel="noopener noreferrer" className={cls} itemProp="url">{inner}</a>
+        <a href={post.external_url} target="_blank" rel="noopener noreferrer" className="block h-full" itemProp="url">{inner}</a>
       ) : (
-        <div className={cls}>{inner}</div>
+        <div className="h-full">{inner}</div>
       )}
     </motion.article>
   );
@@ -139,14 +177,14 @@ function PostCard({ post, index, isInView }: { post: BlogPost; index: number; is
 
 /* ─── Main Component ──────────────────────────────────────────────── */
 export const Blog = () => {
-  const ref     = useRef(null);
+  const ref      = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
-  const [posts, setPosts]     = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError]     = useState<string | null>(null);
+  const [posts, setPosts]         = useState<BlogPost[]>([]);
+  const [loading, setLoading]     = useState(true);
+  const [error, setError]         = useState<string | null>(null);
   const [activeCat, setActiveCat] = useState('All');
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll]     = useState(false);
 
   useEffect(() => {
     blogService.getPublishedPosts()
@@ -166,24 +204,28 @@ export const Blog = () => {
     <section
       id="blog"
       ref={ref}
-      className="py-24 relative bg-gradient-to-b from-white to-slate-50/60"
+      className="py-32 relative"
       aria-label="Blog articles by Research Devkota"
       itemScope itemType="https://schema.org/Blog"
     >
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
+      {/* Subtle background glow */}
+      <div className="absolute left-0 bottom-0 w-[500px] h-[500px] rounded-full blur-[160px] opacity-5 pointer-events-none"
+        style={{ background: 'hsl(var(--primary))' }} />
+
       <div className="section-container relative">
 
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
-          className="mb-14 text-center"
+          className="mb-16 text-center"
         >
-          <p className="section-tag mb-4"><BookOpen size={12} /> Writing &amp; Insights</p>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 tracking-tight">
+          <p className="section-tag mb-5"><BookOpen size={12} /> Writing &amp; Insights</p>
+          <h2 className="font-display text-5xl sm:text-6xl font-bold mb-6">
             Latest <span className="gradient-text">Blog Posts</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Technical deep-dives, architecture decisions, and lessons learned building production-grade software in Nepal and beyond.
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+            Technical deep-dives, architecture decisions, and lessons learned building
+            production-grade software in Nepal and beyond.
           </p>
         </motion.div>
 
@@ -198,47 +240,87 @@ export const Blog = () => {
         {/* Featured post */}
         {!loading && !error && featured && (() => {
           const hasContent = featured.content?.trim().length > 0;
-          const wrapCls = "block rounded-2xl overflow-hidden border border-primary/20 bg-white shadow-lg hover:shadow-xl transition-shadow duration-500 group mb-14";
+          const cs = getCatStyle(featured.category);
           const inner = (
-            <article itemScope itemType="https://schema.org/BlogPosting">
+            <article itemScope itemType="https://schema.org/BlogPosting" className="group">
               <meta itemProp="datePublished" content={featured.published_at} />
               <meta itemProp="author" content="Research Devkota" />
-              <div className="flex flex-col lg:flex-row">
-                <div className="lg:w-1.5 bg-gradient-to-b from-primary to-blue-400 hidden lg:block flex-shrink-0" />
+              <div className="flex flex-col lg:flex-row rounded-2xl overflow-hidden transition-all duration-500"
+                style={{
+                  background: 'hsl(var(--surface) / 0.7)',
+                  border: '1px solid hsl(var(--primary) / 0.25)',
+                  backdropFilter: 'blur(16px)',
+                  boxShadow: '0 8px 40px rgba(0,0,0,0.4), 0 0 60px hsl(var(--primary) / 0.08)',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = 'hsl(var(--primary) / 0.5)';
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 24px 64px rgba(0,0,0,0.6), 0 0 80px hsl(var(--primary) / 0.15)';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = 'hsl(var(--primary) / 0.25)';
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 8px 40px rgba(0,0,0,0.4), 0 0 60px hsl(var(--primary) / 0.08)';
+                }}
+              >
+                {/* Left accent bar */}
+                <div className="lg:w-1.5 flex-shrink-0 hidden lg:block"
+                  style={{ background: 'linear-gradient(180deg, hsl(var(--primary)), hsl(var(--accent)))' }} />
+
                 <div className="flex-1 p-8 lg:p-10">
                   <div className="flex flex-wrap items-center gap-3 mb-5">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary text-white shadow-sm">⭐ Featured</span>
-                    <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold border ${CAT_CLS[featured.category] ?? CAT_CLS.General}`}>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white"
+                      style={{ background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(248 80% 58%))' }}>
+                      ⭐ Featured
+                    </span>
+                    <span
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold"
+                      style={{ color: cs.color, background: cs.bg, border: `1px solid ${cs.border}` }}
+                    >
                       {CAT_ICON[featured.category]} {featured.category}
                     </span>
-                    <span className="flex items-center gap-1 text-xs text-muted-foreground"><Clock size={12} />{featured.reading_time} min read</span>
-                    <time className="text-xs text-muted-foreground" dateTime={featured.published_at}>{fmtDate(featured.published_at)}</time>
+                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Clock size={12} />{featured.reading_time} min read
+                    </span>
+                    <time className="text-xs text-muted-foreground" dateTime={featured.published_at}>
+                      {fmtDate(featured.published_at)}
+                    </time>
                   </div>
-                  <h3 className="font-display font-bold text-2xl lg:text-3xl mb-4 leading-snug group-hover:text-primary transition-colors duration-300" itemProp="headline">
+
+                  <h3 className="font-display font-bold text-2xl lg:text-3xl mb-4 leading-snug text-foreground group-hover:text-primary transition-colors duration-300"
+                    itemProp="headline">
                     {featured.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed mb-6 max-w-3xl" itemProp="description">{featured.excerpt}</p>
+                  <p className="text-muted-foreground leading-relaxed mb-6 max-w-3xl text-base" itemProp="description">
+                    {featured.excerpt}
+                  </p>
+
                   <div className="flex flex-wrap items-center justify-between gap-4">
                     <div className="flex flex-wrap gap-2">
                       {featured.tags?.map(t => (
-                        <span key={t} className="text-xs px-2.5 py-1 rounded-full bg-secondary/60 text-muted-foreground border border-border/60 flex items-center gap-1">
+                        <span key={t} className="text-xs px-2.5 py-1 rounded-full flex items-center gap-1 text-muted-foreground"
+                          style={{ background: 'hsl(var(--surface-2) / 0.8)', border: '1px solid hsl(var(--border))' }}>
                           <Tag size={9} />{t}
                         </span>
                       ))}
                     </div>
-                    <span className="btn-primary text-sm pointer-events-none">Read Article <ChevronRight size={14} /></span>
+                    <span className="btn-primary text-sm pointer-events-none">
+                      Read Article <ChevronRight size={14} />
+                    </span>
                   </div>
                 </div>
               </div>
             </article>
           );
+
           return (
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.1 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.1 }}
+              className="mb-14"
+            >
               {hasContent
-                ? <Link to={`/blog/${featured.slug}`} className={wrapCls}>{inner}</Link>
+                ? <Link to={`/blog/${featured.slug}`}>{inner}</Link>
                 : featured.external_url
-                ? <a href={featured.external_url} target="_blank" rel="noopener noreferrer" className={wrapCls}>{inner}</a>
-                : <div className={wrapCls}>{inner}</div>
+                ? <a href={featured.external_url} target="_blank" rel="noopener noreferrer">{inner}</a>
+                : <div>{inner}</div>
               }
             </motion.div>
           );
@@ -248,16 +330,24 @@ export const Blog = () => {
         {!loading && !error && posts.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 16 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.25 }}
-            className="flex flex-wrap justify-center gap-3 mb-10" role="tablist"
+            className="flex flex-wrap justify-center gap-3 mb-12" role="tablist"
           >
             {displayedCats.map(cat => (
               <button key={cat} role="tab" aria-selected={activeCat === cat}
                 onClick={() => { setActiveCat(cat); setShowAll(false); }}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  activeCat === cat
-                    ? 'bg-primary text-white shadow-lg shadow-primary/25 scale-105'
-                    : 'bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground'
-                }`}>
+                className="flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
+                style={activeCat === cat ? {
+                  background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(248 80% 58%))',
+                  color: 'white',
+                  boxShadow: '0 4px 24px hsl(var(--primary) / 0.45)',
+                  transform: 'scale(1.05)',
+                } : {
+                  background: 'hsl(var(--surface) / 0.7)',
+                  border: '1px solid hsl(var(--border))',
+                  color: 'hsl(var(--muted-foreground))',
+                  backdropFilter: 'blur(8px)',
+                }}
+              >
                 {cat !== 'All' && CAT_ICON[cat]}{cat}
               </button>
             ))}
@@ -274,10 +364,13 @@ export const Blog = () => {
 
         {/* Empty state */}
         {!loading && !error && displayed.length === 0 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-20">
-            <BookOpen size={40} className="mx-auto mb-4 opacity-20 text-muted-foreground" />
-            <p className="font-medium text-muted-foreground">No posts in this category yet.</p>
-            <p className="text-sm text-muted-foreground/70 mt-1">Check back soon!</p>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-24">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
+              style={{ background: 'hsl(var(--surface-2))', border: '1px solid hsl(var(--border))' }}>
+              <BookOpen size={28} className="text-muted-foreground opacity-50" />
+            </div>
+            <p className="font-semibold text-foreground mb-1">No posts in this category yet.</p>
+            <p className="text-sm text-muted-foreground">Check back soon!</p>
           </motion.div>
         )}
 
@@ -285,7 +378,7 @@ export const Blog = () => {
         {!loading && !error && posts.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 16 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-14"
           >
             {filtered.length > 3 && (
               <button onClick={() => setShowAll(v => !v)} className="btn-secondary" aria-expanded={showAll}>

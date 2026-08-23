@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useReveal } from '@/hooks/useGSAP';
@@ -81,6 +81,13 @@ const ExperienceCard = ({ exp, index }: { exp: typeof experiences[0]; index: num
   const [open, setOpen] = useState(index === 0);
   const cardRef = useRef<HTMLDivElement>(null);
   useReveal(cardRef as React.RefObject<HTMLElement>, { delay: index * 0.08, y: 40 });
+
+  // Refresh ScrollTrigger after accordion expands/collapses so it
+  // recalculates page height — prevents Lenis from freezing mid-page.
+  useEffect(() => {
+    const timer = setTimeout(() => ScrollTrigger.refresh(), 520);
+    return () => clearTimeout(timer);
+  }, [open]);
 
   return (
     <div ref={cardRef} className="relative pl-12 pb-10 last:pb-0">

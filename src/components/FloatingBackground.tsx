@@ -60,6 +60,7 @@ export const FloatingBackground = () => {
   const elRefs       = useRef<(HTMLDivElement | null)[]>([]);
   const mouse   = useRef({ x: 0, y: 0 });
   const targetM = useRef({ x: 0, y: 0 });
+  const scrollY = useRef(0); // cache scroll to avoid layout thrash inside RAF
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return;
@@ -73,7 +74,11 @@ export const FloatingBackground = () => {
       targetM.current.x = (e.clientX / window.innerWidth  - 0.5) * 2;
       targetM.current.y = (e.clientY / window.innerHeight - 0.5) * 2;
     };
+    // Cache scroll value from passive listener — safe to read in RAF
+    const onScroll = () => { scrollY.current = window.scrollY; };
+
     window.addEventListener('mousemove', onMouse, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     const LERP = 0.04;
     let startTime = 0;
@@ -85,7 +90,7 @@ export const FloatingBackground = () => {
       mouse.current.x += (targetM.current.x - mouse.current.x) * LERP;
       mouse.current.y += (targetM.current.y - mouse.current.y) * LERP;
 
-      const scrollY = window.scrollY;
+      const sy = scrollY.current; // use cached value — no layout thrash
       const mx = mouse.current.x;
       const my = mouse.current.y;
 
@@ -93,12 +98,11 @@ export const FloatingBackground = () => {
         const item = ITEMS[i];
         const floatY = Math.sin((t / item.floatPeriod) * Math.PI * 2 + phases[i]) * item.floatAmp;
         const spin   = item.rotSpeed ? (t * item.rotSpeed * 0.016) : 0;
-        const sy     = -scrollY * item.speed;
         const px     = mx * item.depth * 12;
         const py     = my * item.depth * 8;
 
         gsap.set(el, {
-          x: px, y: sy + floatY + py,
+          x: px, y: -sy * item.speed + floatY + py,
           rotation: item.rot + spin,
           force3D: true,
         });
@@ -117,6 +121,7 @@ export const FloatingBackground = () => {
     return () => {
       gsap.ticker.remove(tick);
       window.removeEventListener('mousemove', onMouse);
+      window.removeEventListener('scroll', onScroll);
     };
   }, []);
 
