@@ -1,10 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
-import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useReveal } from '@/hooks/useGSAP';
-import { ExternalLink, Github, ChevronRight, FolderOpen, ArrowUpRight } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
+import { ExternalLink, Github, ChevronRight, FolderOpen } from 'lucide-react';
 
 const CATEGORIES = ['All', 'Full-stack', 'Frontend', 'Backend'];
 
@@ -94,35 +91,25 @@ const PROJECTS = [
 const ProjectCard = ({ project, index }: { project: typeof PROJECTS[0]; index: number }) => {
   const cardRef  = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const [hovered, setHovered] = useState(false);
 
   useReveal(cardRef as React.RefObject<HTMLElement>, { delay: (index % 3) * 0.1, y: 60 });
 
   return (
     <div
       ref={cardRef}
-      className="group flex flex-col rounded-2xl overflow-hidden h-full transition-all duration-500"
+      className="group flex flex-col rounded-2xl overflow-hidden h-full"
       style={{
         background: 'hsl(var(--surface) / 0.7)',
-        border: '1px solid hsl(var(--border))',
+        border: `1px solid ${hovered ? project.accent + '50' : 'hsl(var(--border))'}`,
         backdropFilter: 'blur(12px)',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
+        boxShadow: hovered
+          ? `0 20px 60px rgba(0,0,0,0.5), 0 0 40px ${project.accent}25`
+          : '0 4px 24px rgba(0,0,0,0.3)',
+        transition: 'border-color 0.35s ease, box-shadow 0.35s ease',
       }}
-      onMouseEnter={() => {
-        gsap.to(cardRef.current, { y: -8, duration: 0.4, ease: 'power2.out' });
-        gsap.to(cardRef.current, {
-          boxShadow: `0 20px 60px rgba(0,0,0,0.5), 0 0 40px ${project.accent}25`,
-          borderColor: `${project.accent}50`,
-          duration: 0.4,
-        });
-      }}
-      onMouseLeave={() => {
-        gsap.to(cardRef.current, { y: 0, duration: 0.5, ease: 'power2.inOut' });
-        gsap.to(cardRef.current, {
-          boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
-          borderColor: 'hsl(var(--border))',
-          duration: 0.5,
-        });
-      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       {/* Image */}
       <div className="relative aspect-[16/9] overflow-hidden"
@@ -200,6 +187,12 @@ export const Projects = () => {
   const [showAll, setShowAll]     = useState(false);
 
   useReveal(headerRef as React.RefObject<HTMLElement>);
+
+  // Refresh ScrollTrigger after grid changes — prevents Lenis freeze
+  useEffect(() => {
+    const t = setTimeout(() => ScrollTrigger.refresh(), 300);
+    return () => clearTimeout(t);
+  }, [activeCat, showAll]);
 
   const filtered = PROJECTS.filter(p => activeCat === 'All' || p.category === activeCat);
   const shown    = showAll ? filtered : filtered.slice(0, 6);

@@ -21,39 +21,33 @@ export const CustomCursor = () => {
     gsap.ticker.add(tick);
 
     const onMove = (e: MouseEvent) => { mx = e.clientX; my = e.clientY; };
+    window.addEventListener('mousemove', onMove, { passive: true });
 
-    const onEnter = () => {
-      dot.classList.add('is-hovering');
-      ring.classList.add('is-hovering');
+    // Use event delegation instead of attaching to every element.
+    // One listener on document — zero cost when new elements are added.
+    const SELECTOR = 'a, button, [data-cursor]';
+    const onDocEnter = (e: MouseEvent) => {
+      if ((e.target as Element)?.closest(SELECTOR)) {
+        dot.classList.add('is-hovering');
+        ring.classList.add('is-hovering');
+      }
     };
-    const onLeave = () => {
-      dot.classList.remove('is-hovering');
-      ring.classList.remove('is-hovering');
+    const onDocLeave = (e: MouseEvent) => {
+      if ((e.target as Element)?.closest(SELECTOR)) {
+        dot.classList.remove('is-hovering');
+        ring.classList.remove('is-hovering');
+      }
     };
 
-    window.addEventListener('mousemove', onMove);
-
-    const targets = 'a, button, [data-cursor]';
-    document.querySelectorAll<HTMLElement>(targets).forEach(el => {
-      el.addEventListener('mouseenter', onEnter);
-      el.addEventListener('mouseleave', onLeave);
-    });
-
-    /* MutationObserver to catch dynamically added elements */
-    const observer = new MutationObserver(() => {
-      document.querySelectorAll<HTMLElement>(targets).forEach(el => {
-        el.removeEventListener('mouseenter', onEnter);
-        el.removeEventListener('mouseleave', onLeave);
-        el.addEventListener('mouseenter', onEnter);
-        el.addEventListener('mouseleave', onLeave);
-      });
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
+    // mouseover/mouseout bubble, so delegation works perfectly
+    document.addEventListener('mouseover',  onDocEnter);
+    document.addEventListener('mouseout',   onDocLeave);
 
     return () => {
       gsap.ticker.remove(tick);
       window.removeEventListener('mousemove', onMove);
-      observer.disconnect();
+      document.removeEventListener('mouseover',  onDocEnter);
+      document.removeEventListener('mouseout',   onDocLeave);
     };
   }, []);
 
