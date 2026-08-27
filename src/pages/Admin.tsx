@@ -692,9 +692,251 @@ const Dashboard = ({ posts, loading, onEdit, onNew, onRefresh }: {
 };
 
 /* ═══════════════════════════════════════════════════════════════════
+   ANALYTICS PANEL
+═══════════════════════════════════════════════════════════════════ */
+import type { PostViewStats } from '@/lib/blogService';
+
+const AnalyticsPanel = () => {
+  const [stats, setStats]     = useState<PostViewStats[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError]     = useState<string | null>(null);
+  const [selectedPost, setSelectedPost] = useState<PostViewStats | null>(null);
+
+  useEffect(() => {
+    blogService.getViewStats()
+      .then(data => {
+        const sorted = [...data].sort((a, b) => b.total_views - a.total_views);
+        setStats(sorted);
+        if (sorted.length > 0) setSelectedPost(sorted[0]);
+      })
+      .catch(() => setError('Could not load analytics. Make sure the blog_views table exists in Supabase.'))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const totalViews = stats.reduce((sum, s) => sum + s.total_views, 0);
+  const totalViews7d = stats.reduce((sum, s) => sum + s.views_7d, 0);
+
+  if (loading) return (
+    <div className="flex-1 flex items-center justify-center text-slate-400 gap-3">
+      <RefreshCw size={18} className="animate-spin" /> Loading analytics…
+    </div>
+  );
+
+  if (error) return (
+    <div className="flex-1 flex flex-col items-center justify-center text-slate-500 gap-4 px-6 text-center">
+      <XCircle size={36} className="text-red-400" />
+      <p className="font-semibold text-slate-700">Analytics not set up yet</p>
+      <p className="text-sm max-w-md">{error}</p>
+      <p className="text-xs text-slate-400 max-w-md bg-slate-100 rounded-lg px-4 py-3 font-mono text-left">
+        Run the SQL in <strong>supabase/blog_views.sql</strong> in your Supabase SQL Editor to enable tracking.
+      </p>
+    </div>
+  );
+
+  // Aggregate referrer and device data for selected post
+  const views = selectedPost?.views ?? [];
+  const referrerCounts: Record<string, number> = {};
+  const deviceCounts:   Record<string, number> = {};
+  const browserCounts:  Record<string, number> = {};
+  views.forEach(v => {
+    const r = v.referrer || 'Direct';
+    const d = v.device   || 'Unknown';
+    const b = v.browser  || 'Unknown';
+    referrerCounts[r] = (referrerCounts[r] ?? 0) + 1;
+    deviceCounts[d]   = (deviceCounts[d]   ?? 0) + 1;
+    browserCounts[b]  = (browserCounts[b]  ?? 0) + 1;
+  });
+
+  const topReferrers = Object.entries(referrerCounts).sort((a, b) => b[1] - a[1]).slice(0, 6);
+  const topDevices   = Object.entries(deviceCounts).sort((a, b) => b[1] - a[1]);
+  const topBrowsers  = Object.entries(browserCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+  const pct = (n: number, total: number) => total === 0 ? 0 : Math.round((n / total) * 100);
+
+  return (
+    <div className="flex-1 overflow-auto">
+      {/* Header */}
+      <div className="px-6 py-4 bg-white border-b border-slate-200 flex items-center justify-between flex-shrink-0">
+        <div>
+          <h1 className="font-bold text-lg text-slate-800" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Analytics</h1>
+          <p className="text-xs text-slate-500 mt-0.5">Blog view tracking — who read your posts and where they came from</p>
+        </div>
+      </div>
+
+      <div className="p-6 space-y-6">
+
+        {/* Summary cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {[
+            { label: 'Total Views',    value: totalViews,              color: 'text-indigo-600', bg: 'bg-indigo-50' },
+            { label: 'Last 7 Days',    value: totalViews7d,            color: 'text-emerald-600', bg: 'bg-emerald-50' },
+            { label: 'Posts Tracked',  value: stats.filter(s => s.total_views > 0).length, color: 'text-blue-600', bg: 'bg-blue-50' },
+            { label: 'Total Posts',    value: stats.length,            color: 'text-slate-600', bg: 'bg-slate-100' },
+          ].map(card => (
+            <div key={card.label} className={`${card.bg} rounded-xl p-4`}>
+              <p className="text-xs text-slate-500 font-medium">{card.label}</p>
+              <p className={`text-3xl font-bold mt-1 ${card.color}`}>{card.value}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          {/* Post list */}
+          <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+            <div className="px-4 py-3 border-b border-slate-100">
+              <p className="text-sm font-semibold text-slate-700">Posts by Views</p>
+            </div>
+            <div className="divide-y divide-slate-100">
+              {stats.length === 0 ? (
+                <p className="px-4 py-6 text-xs text-slate-400 text-center">No views recorded yet. Views will appear here once readers open your blog posts.</p>
+              ) : stats.map(s => (
+                <button key={s.post_id} onClick={() => setSelectedPost(s)}
+                  className={`w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors ${selectedPost?.post_id === s.post_id ? 'bg-indigo-50 border-l-2 border-indigo-500' : ''}`}>
+                  <p className="text-sm font-medium text-slate-800 line-clamp-1">{s.post_title}</p>
+                  <div className="flex items-center gap-3 mt-1">
+                    <span className="text-xs text-slate-500">{s.total_views} total</span>
+                    <span className="text-xs text-emerald-600">+{s.views_7d} this week</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Detail panel */}
+          <div className="lg:col-span-2 space-y-4">
+            {selectedPost ? (
+              <>
+                <div className="bg-white rounded-xl border border-slate-200 p-4">
+                  <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mb-1">Selected Post</p>
+                  <p className="font-semibold text-slate-800">{selectedPost.post_title}</p>
+                  <div className="flex gap-6 mt-3">
+                    {[
+                      { label: 'All Time', value: selectedPost.total_views },
+                      { label: 'Last 7d',  value: selectedPost.views_7d },
+                      { label: 'Last 30d', value: selectedPost.views_30d },
+                    ].map(m => (
+                      <div key={m.label}>
+                        <p className="text-xs text-slate-400">{m.label}</p>
+                        <p className="text-2xl font-bold text-indigo-600">{m.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {/* Referrers */}
+                  <div className="bg-white rounded-xl border border-slate-200 p-4">
+                    <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-3">Traffic Sources</p>
+                    {topReferrers.length === 0
+                      ? <p className="text-xs text-slate-400">No data yet</p>
+                      : topReferrers.map(([source, count]) => (
+                        <div key={source} className="mb-2">
+                          <div className="flex justify-between text-xs mb-0.5">
+                            <span className="text-slate-600 font-medium">{source}</span>
+                            <span className="text-slate-400">{count} ({pct(count, views.length)}%)</span>
+                          </div>
+                          <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                            <div className="h-full bg-indigo-400 rounded-full" style={{ width: `${pct(count, views.length)}%` }} />
+                          </div>
+                        </div>
+                      ))
+                    }
+                  </div>
+
+                  {/* Devices */}
+                  <div className="bg-white rounded-xl border border-slate-200 p-4">
+                    <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-3">Devices</p>
+                    {topDevices.length === 0
+                      ? <p className="text-xs text-slate-400">No data yet</p>
+                      : topDevices.map(([device, count]) => (
+                        <div key={device} className="mb-2">
+                          <div className="flex justify-between text-xs mb-0.5">
+                            <span className="text-slate-600 font-medium capitalize">{device}</span>
+                            <span className="text-slate-400">{pct(count, views.length)}%</span>
+                          </div>
+                          <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                            <div className="h-full bg-emerald-400 rounded-full" style={{ width: `${pct(count, views.length)}%` }} />
+                          </div>
+                        </div>
+                      ))
+                    }
+                  </div>
+
+                  {/* Browsers */}
+                  <div className="bg-white rounded-xl border border-slate-200 p-4">
+                    <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-3">Browsers</p>
+                    {topBrowsers.length === 0
+                      ? <p className="text-xs text-slate-400">No data yet</p>
+                      : topBrowsers.map(([browser, count]) => (
+                        <div key={browser} className="mb-2">
+                          <div className="flex justify-between text-xs mb-0.5">
+                            <span className="text-slate-600 font-medium">{browser}</span>
+                            <span className="text-slate-400">{pct(count, views.length)}%</span>
+                          </div>
+                          <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                            <div className="h-full bg-amber-400 rounded-full" style={{ width: `${pct(count, views.length)}%` }} />
+                          </div>
+                        </div>
+                      ))
+                    }
+                  </div>
+                </div>
+
+                {/* Recent views log */}
+                <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                  <div className="px-4 py-3 border-b border-slate-100">
+                    <p className="text-sm font-semibold text-slate-700">Recent Views</p>
+                  </div>
+                  <div className="overflow-x-auto">
+                    {views.length === 0 ? (
+                      <p className="px-4 py-6 text-xs text-slate-400 text-center">No views recorded for this post yet.</p>
+                    ) : (
+                      <table className="w-full text-xs">
+                        <thead className="bg-slate-50 border-b border-slate-200">
+                          <tr>
+                            {['Date & Time', 'Source', 'Device', 'Browser', 'OS'].map(h => (
+                              <th key={h} className="px-3 py-2 text-left font-semibold text-slate-500">{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          {views.slice(0, 50).map(v => (
+                            <tr key={v.id} className="hover:bg-slate-50">
+                              <td className="px-3 py-2 text-slate-600 whitespace-nowrap">
+                                {new Date(v.viewed_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                              </td>
+                              <td className="px-3 py-2">
+                                <span className="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600 font-medium">{v.referrer || 'Direct'}</span>
+                              </td>
+                              <td className="px-3 py-2 text-slate-600 capitalize">{v.device || '—'}</td>
+                              <td className="px-3 py-2 text-slate-600">{v.browser || '—'}</td>
+                              <td className="px-3 py-2 text-slate-600">{v.os || '—'}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    )}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="bg-white rounded-xl border border-slate-200 p-8 text-center text-slate-400">
+                <BarChart2 size={32} className="mx-auto mb-3 opacity-30" />
+                <p className="text-sm">Select a post from the left to see its analytics</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ═══════════════════════════════════════════════════════════════════
    ADMIN SHELL
 ═══════════════════════════════════════════════════════════════════ */
-type AdminView = 'dashboard' | 'editor';
+type AdminView = 'dashboard' | 'editor' | 'analytics';
 
 const AdminShell = ({ user }: { user: User }) => {
   const [view, setView]         = useState<AdminView>('dashboard');
@@ -751,8 +993,9 @@ const AdminShell = ({ user }: { user: User }) => {
         {/* Nav */}
         <nav className="flex-1 px-3 py-4 space-y-1">
           {[
-            { id: 'dashboard' as AdminView, icon: <LayoutDashboard size={13} />, label: 'All Posts', active: view === 'dashboard', action: () => setView('dashboard') },
-            { id: 'editor'   as AdminView, icon: <Plus size={13} />,            label: 'New Post',  active: view === 'editor' && !editingPost, action: () => openEditor(null) },
+            { id: 'dashboard' as AdminView, icon: <LayoutDashboard size={13} />, label: 'All Posts',  active: view === 'dashboard',  action: () => setView('dashboard') },
+            { id: 'analytics' as AdminView, icon: <BarChart2 size={13} />,       label: 'Analytics', active: view === 'analytics',   action: () => setView('analytics') },
+            { id: 'editor'    as AdminView, icon: <Plus size={13} />,             label: 'New Post',  active: view === 'editor' && !editingPost, action: () => openEditor(null) },
           ].map(n => (
             <button key={n.id} onClick={n.action}
               className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${n.active ? 'bg-primary text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-slate-100'}`}>
@@ -787,6 +1030,7 @@ const AdminShell = ({ user }: { user: User }) => {
             <Dashboard posts={posts} loading={loadingPosts} onEdit={openEditor} onNew={() => openEditor(null)} onRefresh={fetchPosts} />
           </>
         )}
+        {view === 'analytics' && <AnalyticsPanel />}
         {view === 'editor' && (
           <PostEditor initialPost={editingPost} onSaved={handleSaved} onBack={() => setView('dashboard')} />
         )}

@@ -144,6 +144,9 @@ const BlogPost = () => {
       if (!data) { setNotFound(true); return; }
       setPost(data);
 
+      // Track this view — 2s delay filters bots that bounce immediately
+      setTimeout(() => blogService.trackView(data.id), 2000);
+
       const title = data.meta_title || data.title;
       const desc  = data.meta_description || data.excerpt;
       const image = data.og_image_url || data.cover_image_url || '';
