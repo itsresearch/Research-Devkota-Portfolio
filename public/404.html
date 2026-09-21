@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <script>
       // GitHub Pages SPA routing fix.
-      // When GitHub Pages hits a 404 for a React Router path like /blog/slug or /admin,
-      // it serves this 404.html instead. We encode the real URL into a query string
-      // and redirect to index.html so React Router can take over.
+      // When GitHub Pages serves a 404 for any React Router path (/blog, /blog/slug, /admin),
+      // it serves this file instead. We encode the real URL and redirect to index.html
+      // so React Router can take over and render the correct page.
       var l = window.location;
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +

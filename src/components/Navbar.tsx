@@ -1,24 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Menu, X } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const NAV_LINKS = [
+/* Hash links for portfolio sections (only relevant on homepage) */
+const HASH_LINKS = [
   { href: '#about',      label: 'About' },
   { href: '#experience', label: 'Experience' },
   { href: '#projects',   label: 'Projects' },
   { href: '#skills',     label: 'Skills' },
-  { href: '#blog',       label: 'Blog' },
   { href: '#contact',    label: 'Contact' },
 ];
 
 export const Navbar = () => {
   const navRef  = useRef<HTMLElement>(null);
-  const [open, setOpen]       = useState(false);
+  const location = useLocation();
+  const [open, setOpen]         = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const isHome = location.pathname === '/';
+  const isBlog = location.pathname === '/blog' || location.pathname.startsWith('/blog/');
 
   useEffect(() => {
     const nav = navRef.current;
@@ -51,6 +55,11 @@ export const Navbar = () => {
     return () => ScrollTrigger.getAll().forEach(t => t.kill());
   }, []);
 
+  // Always show scrolled style on non-home pages (light bg pages)
+  useEffect(() => {
+    if (!isHome) setScrolled(true);
+  }, [isHome]);
+
   useEffect(() => {
     const handle = () => { if (window.innerWidth >= 768) setOpen(false); };
     window.addEventListener('resize', handle);
@@ -63,9 +72,11 @@ export const Navbar = () => {
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{
         background: scrolled
-          ? 'hsl(var(--background) / 0.88)'
+          ? (isBlog ? 'rgba(255,255,255,0.95)' : 'hsl(var(--background) / 0.88)')
           : 'transparent',
-        borderBottom: scrolled ? '1px solid hsl(var(--border))' : '1px solid transparent',
+        borderBottom: scrolled
+          ? (isBlog ? '1px solid #e2e8f0' : '1px solid hsl(var(--border))')
+          : '1px solid transparent',
         backdropFilter: scrolled ? 'blur(24px) saturate(1.8)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(1.8)' : 'none',
       }}
@@ -79,7 +90,7 @@ export const Navbar = () => {
       <nav className="section-container flex items-center justify-between h-[68px]">
 
         {/* Logo */}
-        <a href="/" className="flex items-center gap-3 group" aria-label="Research Devkota portfolio home">
+        <Link to="/" className="flex items-center gap-3 group" aria-label="Research Devkota portfolio home">
           <div
             className="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl"
             style={{
@@ -89,22 +100,47 @@ export const Navbar = () => {
           >
             R
           </div>
-          <span className="font-display font-bold text-foreground hidden sm:block tracking-tight">
+          <span
+            className="font-display font-bold hidden sm:block tracking-tight"
+            style={{ color: isBlog ? '#0f172a' : 'hsl(var(--foreground))' }}
+          >
             Research <span className="gradient-text">Devkota</span>
           </span>
-        </a>
+        </Link>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-7">
-          {NAV_LINKS.map(l => (
-            <a key={l.href} href={l.href} className="nav-link">{l.label}</a>
-          ))}
+        <div className="hidden md:flex items-center gap-6">
+          {isHome
+            ? HASH_LINKS.map(l => (
+                <a key={l.href} href={l.href} className="nav-link">{l.label}</a>
+              ))
+            : (
+              /* On blog / other pages: link back to homepage sections */
+              <>
+                <a href="/#about"      className="nav-link" style={isBlog ? { color: '#475569' } : {}}>About</a>
+                <a href="/#projects"   className="nav-link" style={isBlog ? { color: '#475569' } : {}}>Projects</a>
+                <a href="/#skills"     className="nav-link" style={isBlog ? { color: '#475569' } : {}}>Skills</a>
+                <a href="/#contact"    className="nav-link" style={isBlog ? { color: '#475569' } : {}}>Contact</a>
+              </>
+            )
+          }
+          {/* Blog link — always visible */}
+          <Link
+            to="/blog"
+            className="nav-link"
+            style={isBlog
+              ? { color: '#4f46e5', fontWeight: 700 }
+              : {}
+            }
+          >
+            Blog
+          </Link>
         </div>
 
         {/* CTA + hamburger */}
         <div className="flex items-center gap-3">
           <a
-            href="#contact"
+            href={isHome ? '#contact' : '/#contact'}
             className="hidden sm:flex btn-primary py-2.5 px-5 text-sm"
           >
             Hire Me
@@ -112,11 +148,17 @@ export const Navbar = () => {
           <button
             onClick={() => setOpen(v => !v)}
             className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300"
-            style={{ background: 'hsl(var(--surface-2))', border: '1px solid hsl(var(--border))' }}
+            style={{
+              background: isBlog ? '#f1f5f9' : 'hsl(var(--surface-2))',
+              border: isBlog ? '1px solid #e2e8f0' : '1px solid hsl(var(--border))',
+            }}
             aria-label="Toggle menu"
           >
             <div className={`transition-all duration-300 ${open ? 'rotate-90 scale-90' : ''}`}>
-              {open ? <X size={17} className="text-foreground" /> : <Menu size={17} className="text-foreground" />}
+              {open
+                ? <X size={17} style={{ color: isBlog ? '#0f172a' : 'hsl(var(--foreground))' }} />
+                : <Menu size={17} style={{ color: isBlog ? '#0f172a' : 'hsl(var(--foreground))' }} />
+              }
             </div>
           </button>
         </div>
@@ -124,27 +166,50 @@ export const Navbar = () => {
 
       {/* Mobile menu */}
       <div
-        className="md:hidden overflow-hidden transition-all duration-400"
+        className="md:hidden overflow-hidden transition-all duration-300"
         style={{
-          maxHeight: open ? '420px' : '0',
-          background: 'hsl(var(--background) / 0.96)',
-          borderTop: open ? '1px solid hsl(var(--border))' : 'none',
+          maxHeight: open ? '500px' : '0',
+          background: isBlog ? 'rgba(255,255,255,0.97)' : 'hsl(var(--background) / 0.96)',
+          borderTop: open ? (isBlog ? '1px solid #e2e8f0' : '1px solid hsl(var(--border))') : 'none',
           backdropFilter: 'blur(24px)',
         }}
       >
         <div className="section-container py-5 flex flex-col gap-1">
-          {NAV_LINKS.map(l => (
+          {(isHome ? HASH_LINKS : [
+            { href: '/#about',    label: 'About' },
+            { href: '/#projects', label: 'Projects' },
+            { href: '/#skills',   label: 'Skills' },
+            { href: '/#contact',  label: 'Contact' },
+          ]).map(l => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="py-3 px-4 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground transition-all duration-200 hover:bg-white/5"
+              className="py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200 hover:bg-slate-100"
+              style={{ color: isBlog ? '#475569' : 'hsl(var(--muted-foreground))' }}
             >
               {l.label}
             </a>
           ))}
-          <div className="pt-4 border-t mt-2" style={{ borderColor: 'hsl(var(--border))' }}>
-            <a href="#contact" onClick={() => setOpen(false)} className="btn-primary w-full justify-center py-3">
+          {/* Blog link in mobile */}
+          <Link
+            to="/blog"
+            onClick={() => setOpen(false)}
+            className="py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-200"
+            style={{
+              color: isBlog ? '#4f46e5' : 'hsl(var(--primary))',
+              background: isBlog ? '#eef2ff' : 'hsl(var(--primary) / 0.08)',
+            }}
+          >
+            Blog
+          </Link>
+
+          <div className="pt-4 border-t mt-2" style={{ borderColor: isBlog ? '#e2e8f0' : 'hsl(var(--border))' }}>
+            <a
+              href={isHome ? '#contact' : '/#contact'}
+              onClick={() => setOpen(false)}
+              className="btn-primary w-full justify-center py-3"
+            >
               Hire Me
             </a>
           </div>

@@ -198,7 +198,7 @@ const BlogPost = () => {
           <AlertCircle size={48} className="text-muted-foreground mx-auto mb-4 opacity-40" />
           <h1 className="font-display text-3xl font-bold mb-2">Post Not Found</h1>
           <p className="text-muted-foreground mb-6">This article doesn't exist or has been unpublished.</p>
-          <Link to="/#blog" className="btn-primary">
+          <Link to="/blog" className="btn-primary">
             <ArrowLeft size={15} /> Back to Blog
           </Link>
         </div>
@@ -358,7 +358,7 @@ const BlogPost = () => {
 
             {/* Navigation */}
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <Link to="/#blog" className="btn-secondary text-sm">
+              <Link to="/blog" className="btn-secondary text-sm">
                 <ArrowLeft size={14} /> All Posts
               </Link>
               <a href="https://medium.com/@devkotaresearch" target="_blank" rel="noopener noreferrer"
