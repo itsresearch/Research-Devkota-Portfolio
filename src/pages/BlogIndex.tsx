@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
   Clock, Tag, Search, BookOpen, ChevronRight,
   ArrowRight, TrendingUp, Code2, Lightbulb, Rocket,
@@ -211,12 +211,14 @@ function PostCard({ post }: { post: BlogPost }) {
         {post.tags?.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mb-4">
             {post.tags.slice(0, 3).map(t => (
-              <span
+              <Link
                 key={t}
-                className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200"
+                to={`/blog?tag=${encodeURIComponent(t)}`}
+                onClick={e => e.stopPropagation()}
+                className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-colors"
               >
                 <Tag size={9} />{t}
-              </span>
+              </Link>
             ))}
           </div>
         )}
@@ -248,12 +250,21 @@ function PostCard({ post }: { post: BlogPost }) {
 
 /* ─── Main Page ───────────────────────────────────────────────────── */
 const BlogIndex = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [posts, setPosts]     = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState<string | null>(null);
   const [search, setSearch]   = useState('');
   const [activeCat, setActiveCat] = useState('All');
+  const [activeTag, setActiveTag] = useState<string | null>(null);
   const [page, setPage]       = useState(1);
+
+  // Read tag from URL on mount (e.g. /blog?tag=Django)
+  useEffect(() => {
+    const urlTag = searchParams.get('tag');
+    if (urlTag) setActiveTag(urlTag);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* SEO */
   useEffect(() => {
@@ -300,10 +311,11 @@ const BlogIndex = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  /* Filter + search */
+  /* Filter + search + tag */
   const filtered = useMemo(() => {
     let list = posts;
     if (activeCat !== 'All') list = list.filter(p => p.category === activeCat);
+    if (activeTag) list = list.filter(p => p.tags?.some(t => t === activeTag));
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter(p =>
@@ -314,10 +326,10 @@ const BlogIndex = () => {
       );
     }
     return list;
-  }, [posts, activeCat, search]);
+  }, [posts, activeCat, activeTag, search]);
 
   const featured   = posts.find(p => p.featured);
-  const nonFeatured = filtered.filter(p => !p.featured || activeCat !== 'All' || search.trim());
+  const nonFeatured = filtered.filter(p => !p.featured || activeCat !== 'All' || search.trim() || activeTag);
   const totalPages  = Math.ceil(nonFeatured.length / PER_PAGE);
   const paginated   = nonFeatured.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
@@ -326,8 +338,26 @@ const BlogIndex = () => {
     return ALL_CATS.filter(c => c === 'All' || cats.has(c));
   }, [posts]);
 
+  // All unique tags across all posts, sorted alphabetically
+  const availableTags = useMemo(() => {
+    const tags = new Set<string>();
+    posts.forEach(p => p.tags?.forEach(t => tags.add(t)));
+    return Array.from(tags).sort();
+  }, [posts]);
+
   const handleCat = (cat: string) => { setActiveCat(cat); setPage(1); };
   const handleSearch = (q: string) => { setSearch(q); setPage(1); };
+  const handleTag = (tag: string | null) => {
+    setActiveTag(tag);
+    setPage(1);
+    // Sync to URL
+    if (tag) {
+      setSearchParams({ tag });
+    } else {
+      setSearchParams({});
+    }
+  };
+  const clearAll = () => { handleSearch(''); handleCat('All'); handleTag(null); };
 
   return (
     <div className="min-h-screen" style={{ background: '#f8fafc' }}>
@@ -384,6 +414,28 @@ const BlogIndex = () => {
               ))}
             </div>
           )}
+
+          {/* Tag filter pills — shown when tags exist */}
+          {!loading && !error && availableTags.length > 0 && (
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1 mr-1">
+                <Tag size={10} /> Tags:
+              </span>
+              {availableTags.map(tag => (
+                <button
+                  key={tag}
+                  onClick={() => handleTag(activeTag === tag ? null : tag)}
+                  className={`inline-flex items-center gap-1 text-xs px-3 py-1 rounded-full font-medium transition-all duration-200 border
+                    ${activeTag === tag
+                      ? 'bg-indigo-600 text-white border-indigo-600'
+                      : 'bg-white text-slate-500 border-slate-200 hover:border-indigo-300 hover:text-indigo-600'
+                    }`}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -422,23 +474,29 @@ const BlogIndex = () => {
             {posts.length > 0 && (
               <div className="flex items-center justify-between mb-8 text-sm text-slate-500">
                 <span>
-                  {search || activeCat !== 'All'
+                  {search || activeCat !== 'All' || activeTag
                     ? `${filtered.length} article${filtered.length !== 1 ? 's' : ''} found`
                     : `${posts.length} article${posts.length !== 1 ? 's' : ''} published`}
+                  {activeTag && (
+                    <span className="ml-2 inline-flex items-center gap-1 text-xs px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 font-semibold border border-indigo-200">
+                      <Tag size={9} /> {activeTag}
+                      <button onClick={() => handleTag(null)} className="ml-0.5 hover:text-indigo-900 font-bold" aria-label="Remove tag filter">×</button>
+                    </span>
+                  )}
                 </span>
-                {(search || activeCat !== 'All') && (
+                {(search || activeCat !== 'All' || activeTag) && (
                   <button
-                    onClick={() => { handleSearch(''); handleCat('All'); }}
+                    onClick={clearAll}
                     className="text-indigo-600 hover:underline text-xs font-medium"
                   >
-                    Clear filters
+                    Clear all filters
                   </button>
                 )}
               </div>
             )}
 
-            {/* Featured post — only show when no filter/search */}
-            {featured && !search.trim() && activeCat === 'All' && (
+            {/* Featured post — only show when no filter/search/tag */}
+            {featured && !search.trim() && activeCat === 'All' && !activeTag && (
               <div className="mb-10" itemScope itemType="https://schema.org/Blog">
                 <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
                   Featured Article

@@ -304,9 +304,13 @@ const BlogPost = () => {
                   <Tag size={13} /> Tags:
                 </span>
                 {post.tags.map(t => (
-                  <span key={t} className="text-xs px-3 py-1 rounded-full bg-secondary text-muted-foreground border border-border hover:bg-primary/10 hover:text-primary transition-colors cursor-default">
+                  <Link
+                    key={t}
+                    to={`/blog?tag=${encodeURIComponent(t)}`}
+                    className="text-xs px-3 py-1 rounded-full bg-secondary text-muted-foreground border border-border hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-colors"
+                  >
                     {t}
-                  </span>
+                  </Link>
                 ))}
               </div>
             )}
