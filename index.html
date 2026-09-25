@@ -3,42 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- GitHub Pages SPA routing: restore path encoded by 404.html -->
-    <script>
-      (function () {
-        var params = new URLSearchParams(window.location.search);
-        var p = params.get('p');
-        if (p) {
-          var h = params.get('h') || '';
-          params.delete('p');
-          params.delete('h');
-          var qs = params.toString();
-          window.history.replaceState(
-            null, null,
-            p + (qs ? '?' + qs : '') + h
-          );
-        }
-      })();
-    </script>
+    <script>(function(){var p=new URLSearchParams(window.location.search).get('p');if(p){var h=new URLSearchParams(window.location.search).get('h')||'';var q=new URLSearchParams(window.location.search);q.delete('p');q.delete('h');var s=q.toString();window.history.replaceState(null,null,p+(s?'?'+s:'')+h);}})();</script>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         PRIMARY SEO
-         Target queries:
-           "Research Devkota"          → personal brand
-           "Who is Research Devkota"   → AI/chatbot answer engine
-           "navyaedtech"               → company co-founder shows alongside
-           "navya edtech co-founder"   → direct attribution
-           "entrepreneur Nepal"        → startup/tech founder
-           "Python Django developer Nepal" → core technical stack
-           "DevOps Nepal"              → infrastructure expertise
-    ════════════════════════════════════════════════════════════════ -->
-    <title>Research Devkota — Entrepreneur & Co-Founder, Navya EdTech | Python · Django · DevOps · Nepal</title>
-
-    <meta name="description" content="Research Devkota is an entrepreneur and Co-Founder of Navya EdTech — a software company in Lalitpur, Nepal. Specialist in Python, Django, DevOps, and React. Builds enterprise ERP, LMS, and cloud systems. Portfolio at devkotaresearch.com.np." />
-
-    <!-- ════════════════════════════════════════════════════════════════
-         EXTENDED META
-    ════════════════════════════════════════════════════════════════ -->
+    <title>Research Devkota — Entrepreneur &amp; Co-Founder, Navya EdTech | Python · Django · DevOps · Nepal</title>
+    <meta name="description" content="Research Devkota is an entrepreneur and Co-Founder of Navya EdTech — a software company in Lalitpur, Nepal. Specialist in Python, Django, DevOps, and React. Builds enterprise ERP, LMS, and cloud systems." />
     <meta name="author" content="Research Devkota" />
     <meta name="copyright" content="Research Devkota" />
     <meta name="language" content="English" />
@@ -46,32 +14,13 @@
     <meta name="rating" content="general" />
     <meta name="category" content="Software Development, Technology, Entrepreneurship" />
     <meta name="classification" content="Portfolio, Technology, Software Development" />
-    <meta name="subject" content="Research Devkota — Entrepreneur, Co-Founder of Navya EdTech, Python & Django Developer, Nepal" />
-    <meta name="abstract" content="Portfolio and professional profile of Research Devkota, entrepreneur and co-founder of Navya EdTech — a software company in Nepal specializing in Python, Django, DevOps, ERP, LMS, and cloud systems." />
-    <meta name="topic" content="Entrepreneurship, Python, Django, DevOps, Navya EdTech, Nepal Tech, Fullstack Developer" />
+    <meta name="subject" content="Research Devkota — Entrepreneur, Co-Founder of Navya EdTech, Python &amp; Django Developer, Nepal" />
+    <meta name="topic" content="Entrepreneurship, Python, Django, DevOps, Navya EdTech, Nepal Tech" />
+    <meta name="keywords" content="Research Devkota, Devkota Research, research devkota portfolio, research devkota entrepreneur, research devkota python, research devkota django, research devkota devops, navyaedtech.com, Navya EdTech, founder of navyaedtech, co-founder of navyaedtech, navyaedtech nepal, entrepreneur Nepal, tech entrepreneur Nepal, startup founder Nepal, Python developer Nepal, Django developer Nepal, DevOps engineer Nepal, cloud engineer Nepal, React developer Nepal, fullstack developer Nepal, software developer Kathmandu, enterprise software Nepal, ERP developer Nepal, LMS developer Nepal, SaaS developer Nepal" />
 
-    <!-- ── Keywords: clustered by query intent ──────────────────────
-         Cluster 1: Personal name searches
-         Cluster 2: navyaedtech / Navya EdTech searches
-         Cluster 3: Professional role — Entrepreneur, Python, Django, DevOps
-         Cluster 4: Location-based searches
-    ─────────────────────────────────────────────────────────────── -->
-    <meta name="keywords" content="
-      Research Devkota, Devkota Research, research devkota portfolio, research devkota developer, Research Devkota Nepal, devkotaresearch.com.np, devkotaresearch, researchdevkota, research devkota co-founder, research devkota entrepreneur, research devkota python, research devkota django, research devkota devops,
-      navyaedtech.com, navyaedtech.com.np, Navya EdTech Pvt. Ltd., NavyaEdTech, Navya EdTech, founder of navyaedtech, co-founder of navyaedtech, navyaedtech founder, navyaedtech co-founder, navyaedtech developer, navyaedtech nepal, navya edtech nepal, who founded navya edtech, navyaedtech.com, navya edtech software company,
-      entrepreneur Nepal, tech entrepreneur Nepal, startup founder Nepal, software startup Nepal, tech co-founder Nepal,
-      Python developer Nepal, Django developer Nepal, DevOps engineer Nepal, cloud engineer Nepal, backend developer Nepal,
-      React developer Nepal, fullstack developer Nepal, web developer Nepal, software developer Kathmandu, software developer Lalitpur,
-      enterprise software Nepal, ERP developer Nepal, LMS developer Nepal, SaaS developer Nepal, Laravel developer Nepal, PHP developer Nepal
-    " />
-
-    <!-- ════════════════════════════════════════════════════════════════
-         CRAWLER DIRECTIVES — All major search engines + ALL AI crawlers
-    ════════════════════════════════════════════════════════════════ -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1" />
-    <!-- AI Crawlers — LLM training and Answer Engine bots -->
     <meta name="GPTBot" content="index, follow" />
     <meta name="ChatGPT-User" content="index, follow" />
     <meta name="OAI-SearchBot" content="index, follow" />
@@ -84,35 +33,26 @@
     <meta name="cohere-ai" content="index, follow" />
     <meta name="YouBot" content="index, follow" />
     <meta name="DuckDuckBot" content="index, follow" />
-    <!-- Brave Search — independent crawler, NOT Bing-based -->
     <meta name="Brave-Search" content="index, follow" />
     <meta name="BraveBot" content="index, follow" />
-    <!-- Meta AI / Llama -->
     <meta name="Meta-ExternalAgent" content="index, follow" />
     <meta name="Meta-ExternalFetcher" content="index, follow" />
-    <!-- Mistral / Gemini / other LLMs -->
     <meta name="Gemini" content="index, follow" />
     <meta name="MistralBot" content="index, follow" />
     <meta name="Applebot" content="index, follow" />
     <meta name="Applebot-Extended" content="index, follow" />
 
-    <!-- ════════════════════════════════════════════════════════════════
-         CANONICAL & HREFLANG
-    ════════════════════════════════════════════════════════════════ -->
     <link rel="canonical" href="https://devkotaresearch.com.np/" />
     <link rel="alternate" hreflang="en" href="https://devkotaresearch.com.np/" />
     <link rel="alternate" hreflang="x-default" href="https://devkotaresearch.com.np/" />
 
-    <!-- ════════════════════════════════════════════════════════════════
-         OPEN GRAPH — Written for BOTH personal & company brand queries
-    ════════════════════════════════════════════════════════════════ -->
     <meta property="og:type" content="profile" />
-    <meta property="og:title" content="Research Devkota — Entrepreneur & Co-Founder, Navya EdTech | Python · Django · DevOps" />
-    <meta property="og:description" content="Research Devkota is an entrepreneur and Co-Founder of Navya EdTech (navyaedtech.com). Python & Django developer, DevOps engineer based in Lalitpur, Nepal. Builds enterprise ERP, LMS & cloud systems." />
+    <meta property="og:title" content="Research Devkota — Entrepreneur &amp; Co-Founder, Navya EdTech | Python · Django · DevOps" />
+    <meta property="og:description" content="Research Devkota is an entrepreneur and Co-Founder of Navya EdTech (navyaedtech.com). Python &amp; Django developer, DevOps engineer based in Lalitpur, Nepal. Builds enterprise ERP, LMS &amp; cloud systems." />
     <meta property="og:url" content="https://devkotaresearch.com.np/" />
     <meta property="og:site_name" content="Research Devkota" />
     <meta property="og:image" content="https://avatars.githubusercontent.com/u/134274596?v=4" />
-    <meta property="og:image:alt" content="Research Devkota — Entrepreneur, Co-Founder of Navya EdTech, Python & DevOps Developer Nepal" />
+    <meta property="og:image:alt" content="Research Devkota — Entrepreneur &amp; Co-Founder of Navya EdTech" />
     <meta property="og:image:width" content="400" />
     <meta property="og:image:height" content="400" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -121,491 +61,34 @@
     <meta property="profile:last_name" content="Devkota" />
     <meta property="profile:username" content="researchdevkota" />
 
-    <!-- ════════════════════════════════════════════════════════════════
-         TWITTER / X CARD
-    ════════════════════════════════════════════════════════════════ -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@research_devkota" />
     <meta name="twitter:creator" content="@research_devkota" />
-    <meta name="twitter:title" content="Research Devkota — Entrepreneur & Co-Founder, Navya EdTech | Python · Django · DevOps" />
-    <meta name="twitter:description" content="Entrepreneur & Co-Founder of Navya EdTech. Python, Django, DevOps, React developer from Nepal. Builds enterprise ERP, LMS & cloud systems. Portfolio: devkotaresearch.com.np" />
+    <meta name="twitter:title" content="Research Devkota — Entrepreneur &amp; Co-Founder, Navya EdTech | Python · Django · DevOps" />
+    <meta name="twitter:description" content="Entrepreneur &amp; Co-Founder of Navya EdTech. Python, Django, DevOps, React developer from Nepal. Builds enterprise ERP, LMS &amp; cloud systems. Portfolio: devkotaresearch.com.np" />
     <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/134274596?v=4" />
-    <meta name="twitter:image:alt" content="Research Devkota — Entrepreneur & Co-Founder of Navya EdTech" />
+    <meta name="twitter:image:alt" content="Research Devkota — Entrepreneur &amp; Co-Founder of Navya EdTech" />
 
-    <!-- ════════════════════════════════════════════════════════════════
-         ┌─────────────────────────────────────────────────────────┐
-         │  JSON-LD STRUCTURED DATA  (Full SEO + AEO stack)        │
-         │  Read by: Google · Bing · Brave · ChatGPT (GPTBot)      │
-         │           Gemini (Google-Extended) · Perplexity          │
-         │           Claude (Anthropic) · Common Crawl (CCBot)      │
-         └─────────────────────────────────────────────────────────┘
-
-         Schema 1 — Person: "Who is Research Devkota?"
-         (Primary entity. @id is used as reference target by all other schemas)
-    ════════════════════════════════════════════════════════════════ -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "@id": "https://devkotaresearch.com.np/#person",
-      "name": "Research Devkota",
-      "givenName": "Research",
-      "familyName": "Devkota",
-      "alternateName": [
-        "Devkota Research",
-        "research devkota",
-        "devkota research",
-        "Research Devkota Nepal",
-        "Navya EdTech Co-Founder",
-        "Research Devkota developer"
-      ],
-      "jobTitle": "Entrepreneur & Co-Founder",
-      "description": "Research Devkota is an entrepreneur and the Co-Founder of Navya EdTech, an enterprise software development company based in Lalitpur, Nepal. He specializes in Python, Django, DevOps, and React.js — building enterprise ERP systems, CRM platforms, LMS solutions, and cloud infrastructure for businesses across Nepal. He holds a Bachelor of Information Management (BIM) from Nepal Commerce Campus, Tribhuvan University, and teaches Python programming at Mero Coding Class.",
-      "url": "https://devkotaresearch.com.np/",
-      "mainEntityOfPage": {
-        "@type": "ProfilePage",
-        "@id": "https://devkotaresearch.com.np/#webpage"
-      },
-      "image": {
-        "@type": "ImageObject",
-        "url": "https://avatars.githubusercontent.com/u/134274596?v=4",
-        "caption": "Research Devkota — Entrepreneur, Co-Founder of Navya EdTech, Python & DevOps Developer, Nepal"
-      },
-      "nationality": "Nepali",
-      "birthPlace": { "@type": "Place", "name": "Nepal" },
-      "worksFor": {
-        "@type": "Organization",
-        "@id": "https://navyaedtech.com/#organization",
-        "name": "Navya EdTech",
-        "url": "https://navyaedtech.com"
-      },
-      "founder": [
-        {
-          "@type": "Organization",
-          "@id": "https://navyaedtech.com/#organization",
-          "name": "Navya EdTech",
-          "url": "https://navyaedtech.com",
-          "description": "Enterprise IT services and software development company in Nepal"
-        }
-      ],
-      "alumniOf": {
-        "@type": "EducationalOrganization",
-        "name": "Nepal Commerce Campus, Tribhuvan University",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Kathmandu",
-          "addressCountry": "NP"
-        }
-      },
-      "hasOccupation": [
-        {
-          "@type": "Occupation",
-          "name": "Entrepreneur & Co-Founder",
-          "description": "Co-founded Navya EdTech and leads all aspects of product strategy, business development, and technical execution — delivering enterprise software solutions across Nepal.",
-          "occupationLocation": { "@type": "Country", "name": "Nepal" },
-          "skills": "Python, Django, DevOps, React.js, Docker, AWS, Linux, PostgreSQL, MySQL, REST APIs, CI/CD, SaaS, ERP, LMS, CRM, System Architecture, Laravel"
-        },
-        {
-          "@type": "Occupation",
-          "name": "Python Instructor",
-          "description": "Teaches Python programming to students at Mero Coding Class.",
-          "occupationLocation": { "@type": "Country", "name": "Nepal" }
-        }
-      ],
-      "knowsAbout": [
-        "Entrepreneurship",
-        "Python Programming",
-        "Django Framework",
-        "DevOps Engineering",
-        "Cloud Infrastructure (AWS)",
-        "Docker & Containerization",
-        "CI/CD Pipelines",
-        "React.js",
-        "Fullstack Web Development",
-        "Enterprise Resource Planning (ERP)",
-        "Learning Management Systems (LMS)",
-        "Customer Relationship Management (CRM)",
-        "REST API Development",
-        "PostgreSQL", "MySQL",
-        "SaaS Development",
-        "Software Architecture",
-        "Multi-tenant Applications",
-        "Tech Entrepreneurship Nepal",
-        "Navya EdTech",
-        "Laravel Framework"
-      ],
-      "knowsLanguage": ["English", "Nepali"],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Kirtipur, Kathmandu",
-        "addressRegion": "Bagmati Province",
-        "addressCountry": "NP"
-      },
-      "sameAs": [
-        "https://www.linkedin.com/in/researchdevkota",
-        "https://github.com/itsresearch",
-        "https://navyaedtech.com",
-        "https://medium.com/@devkotaresearch",
-        "https://codeforces.com/profile/research_dev",
-        "https://www.researchgate.net/profile/Research-Devkota",
-        "https://independent.academia.edu/ResearchDevkota",
-        "https://devkotaresearch.com.np"
-      ],
-      "award": [
-        "Co-Founder of Navya EdTech — Enterprise Software Company, Nepal (2026)",
-        "Python Instructor at Mero Coding Class",
-        "3+ years of production software development experience"
-      ],
-      "hasCredential": [
-        {
-          "@type": "EducationalOccupationalCredential",
-          "name": "Bachelor of Information Management (BIM)",
-          "credentialCategory": "degree",
-          "recognizedBy": {
-            "@type": "Organization",
-            "name": "Nepal Commerce Campus, Tribhuvan University"
-          }
-        }
-      ],
-      "identifier": [
-        {
-          "@type": "PropertyValue",
-          "propertyID": "GitHub",
-          "value": "itsresearch",
-          "url": "https://github.com/itsresearch"
-        },
-        {
-          "@type": "PropertyValue",
-          "propertyID": "LinkedIn",
-          "value": "researchdevkota",
-          "url": "https://www.linkedin.com/in/researchdevkota"
-        }
-      ]
-    }
-    </script>
-
-    <!-- Schema 2 — Organization: "What is Navya EdTech?"
-         Bidirectional link: Org → founder → Person.
-         When someone searches "navyaedtech", crawlers see Research Devkota
-         as the named founder, causing his profile to surface. -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "@id": "https://navyaedtech.com/#organization",
-      "name": "Navya EdTech",
-      "alternateName": ["navyaedtech", "Navya EdTech Pvt. Ltd.", "NavyaEdTech"],
-      "url": "https://navyaedtech.com",
-      "sameAs": [
-        "https://navyaedtech.com",
-        "https://www.linkedin.com/company/navya-edtech/",
-        "https://www.facebook.com/navyaedtech26",
-        "https://www.instagram.com/navyaedtech/",
-        "https://www.tiktok.com/@navyaedtech"
-      ],
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://navyaedtech.com/logo.jpg"
-      },
-      "description": "Navya EdTech is an enterprise IT services and software development company in Nepal. Co-founded by Research Devkota, the company builds custom software, ERP, CRM, LMS platforms, and cloud infrastructure for businesses across education, healthcare, retail, and hospitality.",
-      "slogan": "Digital transformation that drives growth.",
-      "foundingDate": "2026",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Gwarko",
-        "addressLocality": "Lalitpur",
-        "addressCountry": "NP"
-      },
-      "email": "navyaedtech26@gmail.com",
-      "areaServed": { "@type": "Country", "name": "Nepal" },
-      "knowsAbout": [
-        "Enterprise Software Development",
-        "ERP Systems",
-        "LMS Platforms",
-        "CRM Software",
-        "Custom Web Development",
-        "Cloud Infrastructure",
-        "Mobile App Development",
-        "Business Intelligence"
-      ],
-      "founder": {
-        "@type": "Person",
-        "@id": "https://devkotaresearch.com.np/#person",
-        "name": "Research Devkota",
-        "url": "https://devkotaresearch.com.np/"
-      },
-      "employee": {
-        "@type": "Person",
-        "@id": "https://devkotaresearch.com.np/#person",
-        "name": "Research Devkota",
-        "jobTitle": "Co-Founder & Fullstack Developer"
-      }
-    }
-    </script>
-
-    <!-- Schema 3 — WebSite (Sitelinks search box) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "@id": "https://devkotaresearch.com.np/#website",
-      "url": "https://devkotaresearch.com.np/",
-      "name": "Research Devkota — Co-Founder of Navya EdTech | Portfolio",
-      "description": "Official portfolio of Research Devkota, Co-Founder of Navya EdTech and fullstack developer based in Nepal. Specializes in Laravel, React, Python, ERP, LMS, and cloud systems.",
-      "inLanguage": "en",
-      "publisher": { "@id": "https://devkotaresearch.com.np/#person" },
-      "about": { "@id": "https://devkotaresearch.com.np/#person" },
-      "mentions": { "@id": "https://navyaedtech.com/#organization" }
-    }
-    </script>
-
-    <!-- Schema 4 — ProfilePage (tells crawlers exactly what this page is) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfilePage",
-      "@id": "https://devkotaresearch.com.np/#webpage",
-      "url": "https://devkotaresearch.com.np/",
-      "name": "Research Devkota — Co-Founder, Navya EdTech | Fullstack Developer Nepal",
-      "description": "Research Devkota is the Co-Founder of Navya EdTech and a fullstack developer from Nepal. This is his official portfolio showcasing professional experience, projects, skills, and contact information.",
-      "inLanguage": "en",
-      "isPartOf": { "@id": "https://devkotaresearch.com.np/#website" },
-      "about": { "@id": "https://devkotaresearch.com.np/#person" },
-      "mentions": { "@id": "https://navyaedtech.com/#organization" },
-      "primaryImageOfPage": {
-        "@type": "ImageObject",
-        "url": "https://avatars.githubusercontent.com/u/134274596?v=4",
-        "caption": "Research Devkota — Co-Founder of Navya EdTech"
-      },
-      "dateModified": "2026-08-07",
-      "datePublished": "2026-01-01",
-      "breadcrumb": {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Research Devkota Portfolio", "item": "https://devkotaresearch.com.np/" }
-        ]
-      }
-    }
-    </script>
-
-    <!-- Schema 5 — FAQPage (AEO: directly feeds AI chatbot answers)
-         Written to answer "Research Devkota" and "navyaedtech" queries.
-         ChatGPT, Gemini, Perplexity, Claude read these Q&As verbatim. -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Who is Research Devkota?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Research Devkota is a Nepali entrepreneur, software developer, and educator. He is the Co-Founder of Navya EdTech (navyaedtech.com), an enterprise software company based in Lalitpur, Nepal. He specializes in Python, Django, DevOps, and React.js — building enterprise ERP systems, LMS platforms, CRM software, and cloud infrastructure. He holds a BIM degree from Nepal Commerce Campus, Tribhuvan University, and also teaches Python at Mero Coding Class. Portfolio: https://devkotaresearch.com.np"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Who is the co-founder of Navya EdTech?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Research Devkota is the Co-Founder of Navya EdTech. He co-founded the company and leads its product strategy and technical execution — delivering enterprise ERP systems, LMS platforms, CRM software, and cloud infrastructure across Nepal. Portfolio: https://devkotaresearch.com.np"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is Navya EdTech?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Navya EdTech (navyaedtech.com) is an enterprise IT services and software development company based in Lalitpur, Nepal. Co-founded by Research Devkota, Navya EdTech builds custom software, ERP systems, CRM platforms, LMS solutions, billing and inventory systems, and cloud infrastructure for businesses across education, healthcare, retail, and hospitality sectors in Nepal."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Who founded navyaedtech.com?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Navya EdTech (navyaedtech.com) was co-founded by Research Devkota, an entrepreneur and software developer from Nepal. Research Devkota's personal portfolio: https://devkotaresearch.com.np"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What technologies does Research Devkota specialize in?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Research Devkota specializes in Python, Django, DevOps, and React.js. He also works with Docker, AWS, Linux, PostgreSQL, MySQL, CI/CD pipelines, and REST APIs. At Navya EdTech, he builds multi-tenant SaaS platforms, ERP systems, LMS platforms, and custom enterprise web applications. He also has experience with Laravel and Next.js."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Where is Navya EdTech located and who are its founders?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Navya EdTech is located in Gwarko, Lalitpur, Nepal. It was co-founded by Research Devkota, who serves as Co-Founder and lead developer. Company: https://navyaedtech.com | Portfolio: https://devkotaresearch.com.np"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What projects has Research Devkota built?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Research Devkota has built a multi-tenant SaaS chatbot platform, an internal banking management system, a restaurant management system, GharSewa (a Django-based home services marketplace), a student management system, and an online news portal. Through Navya EdTech, he has delivered enterprise platforms including ERP systems, LMS platforms, and CRM systems for businesses in Nepal."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How can I contact Research Devkota or Navya EdTech?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "You can reach Research Devkota on LinkedIn at https://www.linkedin.com/in/researchdevkota. For Navya EdTech inquiries, visit https://navyaedtech.com. GitHub: https://github.com/itsresearch | Portfolio: https://devkotaresearch.com.np"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What services does Navya EdTech offer?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Navya EdTech, co-founded by Research Devkota, offers: custom enterprise web development, ERP (Enterprise Resource Planning) systems, LMS (Learning Management Systems), CRM (Customer Relationship Management) software, billing and inventory systems, mobile app development, cloud infrastructure and DevOps setup, and business intelligence dashboards. They serve clients across education, healthcare, retail, and hospitality sectors in Nepal."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is Research Devkota's educational background?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Research Devkota holds a Bachelor of Information Management (BIM) from Nepal Commerce Campus, Tribhuvan University, Kathmandu, Nepal."
-          }
-        }
-      ]
-    }
-    </script>
-
-    <!-- Schema 6 — ItemList: Surfaces all key profiles in search knowledge panels -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "name": "Research Devkota — Official Online Presence",
-      "description": "All official profiles of Research Devkota, Co-Founder of Navya EdTech",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Research Devkota — Official Portfolio", "url": "https://devkotaresearch.com.np/" },
-        { "@type": "ListItem", "position": 2, "name": "Navya EdTech — Company Website (Co-Founded by Research Devkota)", "url": "https://navyaedtech.com/" },
-        { "@type": "ListItem", "position": 3, "name": "Research Devkota on LinkedIn", "url": "https://www.linkedin.com/in/researchdevkota" },
-        { "@type": "ListItem", "position": 4, "name": "Research Devkota on GitHub (itsresearch)", "url": "https://github.com/itsresearch" },
-        { "@type": "ListItem", "position": 5, "name": "Navya EdTech on LinkedIn", "url": "https://www.linkedin.com/company/navya-edtech/" },
-        { "@type": "ListItem", "position": 6, "name": "Research Devkota on Medium", "url": "https://medium.com/@devkotaresearch" }
-      ]
-    }
-    </script>
-
-    <!-- Schema 7 — SpeakableSpecification (AEO for voice search & AI assistants)
-         Tells Google Assistant, Siri, Alexa, and AI chatbots which text to read aloud -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "speakable": {
-        "@type": "SpeakableSpecification",
-        "cssSelector": ["h1", "h2", ".speakable-bio"]
-      },
-      "url": "https://devkotaresearch.com.np/",
-      "name": "Research Devkota — Entrepreneur & Co-Founder of Navya EdTech",
-      "description": "Research Devkota is an entrepreneur and Co-Founder of Navya EdTech, an enterprise software company in Nepal. He specializes in Python, Django, DevOps, and React.js."
-    }
-    </script>
-
-    <!-- ════════════════════════════════════════════════════════════════
-         FONTS — Navya EdTech brand stack
-    ════════════════════════════════════════════════════════════════ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
 
-    <!-- ════════════════════════════════════════════════════════════════
-         PWA & DEVICE META
-    ════════════════════════════════════════════════════════════════ -->
     <meta name="theme-color" content="#0A1628" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Research Devkota" />
     <meta name="application-name" content="Research Devkota — Navya EdTech Co-Founder" />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <!-- AI context files — discoverable by LLM crawlers -->
     <link rel="llms-txt" href="https://devkotaresearch.com.np/llms.txt" />
     <link rel="llms-full-txt" href="https://devkotaresearch.com.np/llms-full.txt" />
     <link rel="author" href="https://devkotaresearch.com.np/humans.txt" />
-    <!-- Machine-readable identity for AI crawlers -->
     <link rel="alternate" type="application/ld+json" href="https://devkotaresearch.com.np/.well-known/identity.json" />
+    <script src="/seo-schema.js" defer></script>
   </head>
 
   <body>
-    <!-- NOSCRIPT FALLBACK — Plain-HTML content for crawlers that
-         don't execute JavaScript (e.g., AI training scrapers, Bing, Common Crawl). -->
-    <noscript>
-      <main style="font-family:Georgia,serif;max-width:860px;margin:48px auto;padding:24px;color:#1a202c;line-height:1.7">
-
-        <h1 style="font-size:2rem;font-weight:700;margin-bottom:0.5rem">
-          Research Devkota — Entrepreneur & Co-Founder, Navya EdTech | Python · Django · DevOps · Nepal
-        </h1>
-
-        <p style="color:#4a5568;font-size:1.05rem;margin-bottom:1.5rem">
-          Portfolio: <a href="https://devkotaresearch.com.np" style="color:#1E6BFF">devkotaresearch.com.np</a>
-          &nbsp;|&nbsp; Company: <a href="https://navyaedtech.com" style="color:#1E6BFF">navyaedtech.com</a>
-        </p>
-
-        <section class="speakable-bio">
-          <h2 style="font-size:1.4rem;font-weight:600;margin-top:2rem">About Research Devkota</h2>
-          <p>
-            <strong>Research Devkota</strong> is an entrepreneur and the
-            <strong>Co-Founder of Navya EdTech</strong>
-            (<a href="https://navyaedtech.com" style="color:#1E6BFF">navyaedtech.com</a>),
-            an enterprise IT services and software development company based in
-            <strong>Lalitpur, Nepal</strong>. He specializes in
-            <strong>Python, Django, DevOps, and React.js</strong>.
-          </p>
-          <p>
-            At Navya EdTech, Research Devkota builds custom enterprise software including
-            <strong>ERP systems, LMS platforms, CRM software, cloud infrastructure, and DevOps pipelines</strong>
-            for businesses across education, healthcare, retail, and hospitality sectors in Nepal.
-          </p>
-          <p>
-            He teaches Python programming at <strong>Mero Coding Class</strong> and holds a
-            <strong>Bachelor of Information Management (BIM)</strong> from Nepal Commerce Campus, Tribhuvan University.
-          </p>
-        </section>
-
-        <section>
-          <h2 style="font-size:1.4rem;font-weight:600;margin-top:2rem">About Navya EdTech</h2>
-          <p>
-            <strong>Navya EdTech</strong> (<a href="https://navyaedtech.com" style="color:#1E6BFF">navyaedtech.com</a>)
-            is a software development company in Nepal. Co-founded by <strong>Research Devkota</strong>,
-            the company delivers enterprise digital solutions including custom web platforms, ERP, CRM, LMS,
-            mobile apps, and cloud infrastructure.
-          </p>
-          <p>Navya EdTech is located at Gwarko, Lalitpur, Nepal.</p>
-        </section>
-
-        <section>
-          <h2 style="font-size:1.4rem;font-weight:600;margin-top:2rem">Technical Skills</h2>
-          <p>Python · Django · DevOps · Docker · AWS · Linux · CI/CD · React.js · Next.js · PostgreSQL · MySQL · REST APIs · SaaS · ERP · LMS · CRM · System Architecture · Laravel · Node.js · Git</p>
-        </section>
-
-        <section>
-          <h2 style="font-size:1.4rem;font-weight:600;margin-top:2rem">Profiles & Links</h2>
-          <ul style="list-style:none;padding:0">
-            <li>🔗 LinkedIn: <a href="https://www.linkedin.com/in/researchdevkota" style="color:#1E6BFF">linkedin.com/in/researchdevkota</a></li>
-            <li>💻 GitHub: <a href="https://github.com/itsresearch" style="color:#1E6BFF">github.com/itsresearch</a></li>
-            <li>🏢 Company: <a href="https://navyaedtech.com" style="color:#1E6BFF">navyaedtech.com</a></li>
-            <li>🌐 Portfolio: <a href="https://devkotaresearch.com.np" style="color:#1E6BFF">devkotaresearch.com.np</a></li>
-            <li>✍️ Medium: <a href="https://medium.com/@devkotaresearch" style="color:#1E6BFF">medium.com/@devkotaresearch</a></li>
-          </ul>
-        </section>
-
-      </main>
-    </noscript>
-
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
