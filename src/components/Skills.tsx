@@ -10,7 +10,13 @@ const SKILL_CATS = [
     title: 'Backend Development',
     icon: '⚙️',
     color: 'hsl(248 90% 68%)',
-    skills: ['Laravel', 'PHP', 'Python', 'Django', 'MySQL', 'PostgreSQL', 'REST APIs', 'MVC Pattern', 'Authentication', 'Authorization'],
+    skills: ['Python', 'Django', 'Laravel', 'PHP', 'MySQL', 'PostgreSQL', 'REST APIs', 'MVC Pattern', 'Authentication', 'Authorization'],
+  },
+  {
+    title: 'DevOps & Cloud',
+    icon: '☁️',
+    color: 'hsl(142 71% 55%)',
+    skills: ['Docker', 'Linux', 'Nginx', 'AWS', 'CI/CD', 'GitHub Actions', 'SSH', 'VPS Management'],
   },
   {
     title: 'Frontend Development',
@@ -22,13 +28,7 @@ const SKILL_CATS = [
     title: 'Database & ORM',
     icon: '🗄️',
     color: 'hsl(35 98% 58%)',
-    skills: ['MySQL', 'PostgreSQL', 'Eloquent ORM', 'Query Optimization', 'Migrations', 'Database Design'],
-  },
-  {
-    title: 'Tools & Platforms',
-    icon: '🛠️',
-    color: 'hsl(142 71% 55%)',
-    skills: ['Git / GitHub', 'Docker', 'Linux', 'VS Code', 'Postman', 'Composer', 'npm / Bun', 'Sentry'],
+    skills: ['MySQL', 'PostgreSQL', 'Eloquent ORM', 'Django ORM', 'Query Optimization', 'Migrations', 'Database Design'],
   },
   {
     title: 'Programming Fundamentals',
@@ -37,10 +37,10 @@ const SKILL_CATS = [
     skills: ['OOP', 'Data Structures', 'Algorithms', 'Design Patterns', 'Clean Code', 'Version Control'],
   },
   {
-    title: 'Other Skills',
+    title: 'Tools & Other Skills',
     icon: '🚀',
     color: 'hsl(5 90% 65%)',
-    skills: ['SaaS Systems', 'Leadership', 'Teaching', 'Project Management', 'RBAC', 'OAuth', 'Unit Testing', 'Performance Optimization'],
+    skills: ['Git / GitHub', 'VS Code', 'Postman', 'npm / Bun', 'SaaS Systems', 'Leadership', 'Teaching', 'Project Management', 'RBAC', 'OAuth', 'Unit Testing'],
   },
 ];
 

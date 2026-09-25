@@ -196,7 +196,7 @@ export const Hero = () => {
             style={{ color: 'hsl(var(--muted-foreground))' }}
           >
             <TypeWriter
-              words={['Co-Founder, Navya EdTech', 'Fullstack Developer', 'Laravel Specialist', 'Python Instructor', 'Backend Engineer', 'Problem Solver']}
+              words={['Co-Founder, Navya EdTech', 'Python Developer', 'Django Developer', 'DevOps Engineer', 'Backend Engineer', 'Problem Solver']}
               className="font-semibold"
               style={{ color: 'hsl(var(--accent))' }}
             />
@@ -211,7 +211,8 @@ export const Hero = () => {
               Navya EdTech
             </a>
             , building custom ERP, LMS, and cloud systems for businesses across Nepal.
-            I code daily in Laravel and React, and teach Python at Mero Coding Class.
+            I build with Python, Django, and DevOps tools — delivering enterprise ERP, LMS,
+            and cloud systems across Nepal. I also teach Python at Mero Coding Class.
           </p>
 
           {/* Location */}
@@ -338,7 +339,7 @@ export const Hero = () => {
           <div className="flex gap-3">
             {[
               { label: 'Founded', value: '2026' },
-              { label: 'Stack', value: 'Laravel + React' },
+              { label: 'Stack', value: 'Python · Django' },
               { label: 'Domain', value: 'EdTech + ERP' },
             ].map(s => (
               <div key={s.label}

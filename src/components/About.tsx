@@ -16,7 +16,7 @@ const STATS = [
 const HIGHLIGHTS = [
   { icon: <Award size={15} />,    text: 'Co-Founder @ Navya EdTech', sub: 'Building enterprise software for Nepal' },
   { icon: <BookOpen size={15} />, text: 'Python Instructor @ Mero Coding Class', sub: 'Teaching the next generation to code' },
-  { icon: <Code2 size={15} />,    text: 'Laravel + React + Python daily stack', sub: 'Full-stack engineering every day' },
+  { icon: <Code2 size={15} />,    text: 'Python · Django · DevOps daily stack', sub: 'Backend engineering with modern tooling' },
 ];
 
 export const About = () => {
@@ -89,9 +89,10 @@ export const About = () => {
                 and cloud-based business tools that actually solve real problems.
               </p>
               <p>
-                My daily stack is Laravel (PHP), React, and Python — technologies I've used to build
-                systems from scratch for educational institutions, trading companies, and startups
-                across Nepal. I believe great software should be fast, reliable, and maintainable.
+                My daily stack is Python, Django, and DevOps tools — technologies I've used to build
+                enterprise ERP systems, LMS platforms, and cloud-based solutions for educational
+                institutions, trading companies, and startups across Nepal. I also work with Laravel
+                for legacy and rapid-prototyping projects.
               </p>
               <p>
                 When I'm not building products, I teach Python programming at Mero Coding Class,
@@ -139,7 +140,7 @@ export const About = () => {
                 <p><span style={{ color: 'hsl(var(--accent))' }}>const</span> <span style={{ color: 'hsl(248 90% 80%)' }}>developer</span> = {'{'}</p>
                 <p className="pl-5"><span style={{ color: 'hsl(var(--accent))' }}>name</span>: <span className="text-emerald-400">"Research Devkota"</span>,</p>
                 <p className="pl-5"><span style={{ color: 'hsl(var(--accent))' }}>role</span>: <span className="text-emerald-400">"Co-Founder & Fullstack Dev"</span>,</p>
-                <p className="pl-5"><span style={{ color: 'hsl(var(--accent))' }}>stack</span>: <span className="text-amber-400">["Laravel", "React", "Python"]</span>,</p>
+                <p className="pl-5"><span style={{ color: 'hsl(var(--accent))' }}>stack</span>: <span className="text-amber-400">["Python", "Django", "React"]</span>,</p>
                 <p className="pl-5"><span style={{ color: 'hsl(var(--accent))' }}>location</span>: <span className="text-emerald-400">"Kathmandu, Nepal 🇳🇵"</span></p>
                 <p>{'}'}</p>
               </div>
