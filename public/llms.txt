@@ -32,6 +32,7 @@ He holds a **Bachelor of Information Management (BIM)** from Nepal Commerce Camp
 - **ResearchGate**: https://www.researchgate.net/profile/Research-Devkota
 - **Academia.edu**: https://tribhuvan.academia.edu/ResearchDevkota
 - **Wikidata**: https://www.wikidata.org/wiki/Q141554827
+- **Dev.to**: https://dev.to/research_devkota
 
 ## Technical Expertise
 
