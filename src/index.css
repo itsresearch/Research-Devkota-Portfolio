@@ -112,6 +112,21 @@
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.8); }
+
+  /* ── Touch / mobile resets ───────────────────────────────────────── */
+  /* Remove tap flash on iOS */
+  * { -webkit-tap-highlight-color: transparent; }
+
+  /* Improve touch scrolling */
+  html { -webkit-overflow-scrolling: touch; }
+
+  /* Focus-visible outlines for keyboard / screen reader users */
+  :focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  :focus:not(:focus-visible) { outline: none; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -665,4 +680,59 @@
   }
   .ring-spin { animation: ring-spin 20s linear infinite; }
   .ring-spin-reverse { animation: ring-spin 15s linear infinite reverse; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   MOBILE / TOUCH OVERRIDES
+   Using @media (hover: none) to target touch-only devices —
+   prevents hover styles from getting "stuck" after a tap on iOS/Android.
+═══════════════════════════════════════════════════════════════════════ */
+@media (hover: none) {
+  /* Disable translateY hover lifts — they stick on touch */
+  .glow-card:hover,
+  .glass-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .glow-card:hover::before { opacity: 0; }
+
+  .btn-primary:hover  { transform: none; }
+  .btn-secondary:hover { transform: none; }
+  .social-icon:hover  { transform: none; }
+
+  /* Use :active for tactile feedback instead */
+  .btn-primary:active  { transform: scale(0.97); opacity: 0.9; }
+  .btn-secondary:active { transform: scale(0.97); opacity: 0.9; }
+  .social-icon:active  { transform: scale(0.94); }
+  .glow-card:active    { transform: scale(0.99); }
+}
+
+/* ── Minimum tap targets (WCAG 2.5.5) ─────────────────────────────── */
+@media (pointer: coarse) {
+  /* Ensure all interactive elements are at least 44×44px on touch */
+  .social-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    min-height: 48px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  /* Nav hamburger button already 40×40 — bump to 48 */
+  nav button[aria-label="Toggle menu"] {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Tighten section vertical padding on small screens */
+  section { padding-top: 5rem; padding-bottom: 5rem; }
+
+  /* Hide floating hero badges on very small screens to prevent overlap */
+  @media (max-width: 400px) {
+    .absolute.z-20 { display: none; }
+  }
 }

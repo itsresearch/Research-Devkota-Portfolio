@@ -44,7 +44,7 @@ const Index = () => {
     document.title = 'Research Devkota | Co-Founder, Navya EdTech';
     document.querySelector('meta[name="description"]')?.setAttribute(
       'content',
-      'Research Devkota — Co-Founder of Navya EdTech, Fullstack Developer (Laravel + React + Python), Python Instructor, building enterprise ERP, LMS & cloud systems in Nepal.'
+      'Research Devkota — Co-Founder of Navya EdTech, Python & Django Developer, DevOps Engineer. Building enterprise ERP, LMS & cloud systems in Nepal. Python Instructor at Mero Coding Class.'
     );
 
     /* ── Lenis smooth scroll ─────────────────────────────── */
